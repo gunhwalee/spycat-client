@@ -1,11 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import { COLORS } from "../assets/constants";
 import { ReactComponent as Id } from "../assets/img/id.svg";
 import { ReactComponent as Password } from "../assets/img/password.svg";
-import { ReactComponent as Github } from "../assets/img/github.svg";
+import { ReactComponent as PasswordCheck } from "../assets/img/password-check.svg";
 import logo from "../assets/img/logo.jpg";
 
 const EntryWrapper = styled.div`
@@ -25,14 +24,9 @@ const EntryWrapper = styled.div`
     }
   }
 
-  .move-signup {
-    color: ${COLORS.GRAY};
-  }
-
   #login-form {
     display: flex;
     flex-direction: column;
-    margin-bottom: 20px;
 
     .box {
       display: flex;
@@ -80,7 +74,7 @@ const EntryWrapper = styled.div`
   }
 `;
 
-function Login() {
+function Signup() {
   return (
     <EntryWrapper>
       <header>
@@ -89,6 +83,10 @@ function Login() {
       </header>
       <form id="login-form">
         <div className="inner-pannel">
+          <div className="box name">
+            <Id width="20px" height="20px" />
+            <input type="text" id="name" placeholder="이름" maxLength="10" />
+          </div>
           <div className="box id">
             <Id width="20px" height="20px" />
             <input
@@ -107,18 +105,20 @@ function Login() {
               maxLength="16"
             />
           </div>
+          <div className="box pw">
+            <PasswordCheck width="20px" height="20px" />
+            <input
+              type="password"
+              id="pw"
+              placeholder="비밀번호 확인"
+              maxLength="16"
+            />
+          </div>
         </div>
-        <input type="submit" value="로그인" />
-        <div className="btn-github">
-          <Github width="20px" height="20px" />
-          <button type="button">Github 로그인</button>
-        </div>
+        <input type="submit" value="회원가입" />
       </form>
-      <Link to="/signup">
-        <span className="move-signup">회원가입</span>
-      </Link>
     </EntryWrapper>
   );
 }
 
-export default Login;
+export default Signup;

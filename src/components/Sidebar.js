@@ -5,7 +5,7 @@ import { COLORS, SIZE } from "../assets/constants";
 import Serverlist from "./Serverlist";
 import { ReactComponent as Logout } from "../assets/img/logout.svg";
 
-const Nav = styled.nav`
+const Aside = styled.aside`
   width: 200px;
   height: 100%;
   padding: ${SIZE.PADDING}px;
@@ -33,19 +33,19 @@ const Nav = styled.nav`
 
 function Sidebar() {
   return (
-    <Nav>
+    <Aside>
       <div className="list-wrapper">
         <h1>Spy Cat</h1>
         <h1 className="name">홍길동 님</h1>
-        <Serverlist name="Test1" />
-        <Serverlist name="Test2" />
+        <Serverlist name="Reactree" />
+        <Serverlist name="Spy Cat" />
         <button type="button">+ 서버 추가</button>
       </div>
       <div className="logout">
         <Logout width="15px" height="15px" />
         <button type="button">로그 아웃</button>
       </div>
-    </Nav>
+    </Aside>
   );
 }
 
