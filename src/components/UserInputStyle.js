@@ -31,6 +31,12 @@ export const EntryWrapper = styled.div`
       display: flex;
       padding: 10px 0px;
       margin-bottom: 25px;
+
+      > button {
+        cursor: pointer;
+        border: none;
+        background-color: transparent;
+      }
     }
 
     & input {

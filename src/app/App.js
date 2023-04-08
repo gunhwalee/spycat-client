@@ -5,6 +5,7 @@ import Sidebar from "../components/Sidebar";
 import Main from "../components/Main";
 import Login from "../components/Login";
 import Signup from "../components/Signup";
+import Lobby from "../components/Lobby";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/:id" element={<Lobby />} />
         <Route path="/" element={<Main />} />
       </Routes>
     </>

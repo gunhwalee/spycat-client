@@ -3,10 +3,12 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 
-import * as S from "./UserInfoStyle";
+import * as S from "./UserInputStyle";
 import { ReactComponent as Id } from "../assets/img/id.svg";
 import { ReactComponent as Password } from "../assets/img/password.svg";
 import { ReactComponent as Github } from "../assets/img/github.svg";
+import { ReactComponent as Eye } from "../assets/img/eye.svg";
+import { ReactComponent as EyeSlash } from "../assets/img/eye-slash.svg";
 import logo from "../assets/img/logo.jpg";
 import { setUser } from "../features/userSlice";
 
@@ -16,6 +18,7 @@ function Login() {
     pw: null,
   });
   const [errorMessage, setErrorMessage] = useState("");
+  const [showPw, setShowPw] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -27,16 +30,17 @@ function Login() {
       const response = await axios.post(
         `${process.env.REACT_APP_SPYCAT_SERVER}/users/login`,
         info,
+        { withCredentials: true },
       );
 
       if (response.data.result === "error") {
         return setErrorMessage(response.data.message);
       }
 
-      console.log(response);
-      dispatch(setUser({ name: response.data.name }));
+      const { name, id } = response.data;
+      dispatch(setUser({ name, id }));
 
-      navigate("/");
+      navigate(`/${id}`);
     } catch (err) {
       console.error(err);
     }
@@ -60,6 +64,10 @@ function Login() {
     }
   };
 
+  const pwHandler = () => {
+    setShowPw(!showPw);
+  };
+
   return (
     <S.EntryWrapper>
       <header>
@@ -81,13 +89,20 @@ function Login() {
           <div className="box pw">
             <Password width="20px" height="20px" />
             <input
-              type="password"
+              type={showPw ? "text" : "password"}
               id="pw"
               placeholder="비밀번호"
               minLength="8"
               maxLength="16"
               onChange={inputHandler}
             />
+            <button type="button" onClick={pwHandler}>
+              {showPw ? (
+                <Eye width="20px" height="20px" />
+              ) : (
+                <EyeSlash width="20px" height="20px" />
+              )}
+            </button>
           </div>
         </div>
         <input type="submit" value="로그인" />

@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { COLORS, SIZE } from "../assets/constants";
+import axios from "axios";
 
 import Serverlist from "./Serverlist";
+import { COLORS, SIZE } from "../assets/constants";
 import { ReactComponent as Logout } from "../assets/img/logout.svg";
 
 const Aside = styled.aside`
@@ -34,18 +36,54 @@ const Aside = styled.aside`
 `;
 
 function Sidebar() {
+  const { name, id } = useSelector(state => state.user);
+  const [serverArray, setServerArray] = useState(null);
+  let serverList;
+
+  useEffect(() => {
+    const loadServerList = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_SPYCAT_SERVER}/users/${id}/serverlists`,
+          { withCredentials: true },
+        );
+
+        setServerArray(response.data.serverList);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    if (name) {
+      loadServerList();
+    }
+  }, [name]);
+
+  if (serverArray && serverArray.length) {
+    serverList = serverArray.map(element => {
+      return <Serverlist name={element} key={element} />;
+    });
+  }
+
   return (
     <Aside>
       <div className="list-wrapper">
         <h1>Spy Cat</h1>
-        <h1 className="name">홍길동 님</h1>
-        <Serverlist name="Reactree" />
-        <Serverlist name="Spy Cat" />
-        <button type="button">+ 서버 추가</button>
+        {name && (
+          <>
+            <h1 className="name">{name}님</h1>
+            {serverList}
+            <button type="button">+ 서버 추가</button>
+          </>
+        )}
       </div>
       <div className="logout">
-        <Logout width="15px" height="15px" />
-        <button type="button">로그 아웃</button>
+        {name && (
+          <>
+            <Logout width="15px" height="15px" />
+            <button type="button">로그 아웃</button>
+          </>
+        )}
       </div>
     </Aside>
   );
