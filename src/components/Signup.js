@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-import * as S from "./UserInfoStyle";
+import * as S from "./UserInputStyle";
 import { ReactComponent as Id } from "../assets/img/id.svg";
 import { ReactComponent as Password } from "../assets/img/password.svg";
 import { ReactComponent as PasswordCheck } from "../assets/img/password-check.svg";
+import { ReactComponent as Eye } from "../assets/img/eye.svg";
+import { ReactComponent as EyeSlash } from "../assets/img/eye-slash.svg";
 import logo from "../assets/img/logo.jpg";
 
 function Signup() {
@@ -16,10 +18,12 @@ function Signup() {
     pwCheck: null,
   });
   const [errorMessage, setErrorMessage] = useState("");
+  const [showPw, setShowPw] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async event => {
     event.preventDefault();
+    setErrorMessage("");
 
     try {
       const response = await axios.post(
@@ -65,6 +69,10 @@ function Signup() {
     }
   };
 
+  const pwHandler = () => {
+    setShowPw(!showPw);
+  };
+
   return (
     <S.EntryWrapper>
       <header>
@@ -96,24 +104,38 @@ function Signup() {
           <div className="box pw">
             <Password width="20px" height="20px" />
             <input
-              type="password"
+              type={showPw ? "text" : "password"}
               id="pw"
               placeholder="비밀번호"
               minLength="8"
               maxLength="16"
               onChange={inputHandler}
             />
+            <button type="button" onClick={pwHandler}>
+              {showPw ? (
+                <Eye width="20px" height="20px" />
+              ) : (
+                <EyeSlash width="20px" height="20px" />
+              )}
+            </button>
           </div>
-          <div className="box pw">
+          <div className="box pwCheck">
             <PasswordCheck width="20px" height="20px" />
             <input
-              type="password"
+              type={showPw ? "text" : "password"}
               id="pwCheck"
               placeholder="비밀번호 확인"
               minLength="8"
               maxLength="16"
               onChange={inputHandler}
             />
+            <button type="button" onClick={pwHandler}>
+              {showPw ? (
+                <Eye width="20px" height="20px" />
+              ) : (
+                <EyeSlash width="20px" height="20px" />
+              )}
+            </button>
           </div>
         </div>
         <input type="submit" value="회원가입" />

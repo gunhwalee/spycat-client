@@ -1,8 +1,9 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { COLORS, SIZE } from "../assets/constants";
 
 import Serverlist from "./Serverlist";
+import { COLORS, SIZE } from "../assets/constants";
 import { ReactComponent as Logout } from "../assets/img/logout.svg";
 
 const Aside = styled.aside`
@@ -34,18 +35,28 @@ const Aside = styled.aside`
 `;
 
 function Sidebar() {
+  const name = useSelector(state => state.user.name);
+
   return (
     <Aside>
       <div className="list-wrapper">
         <h1>Spy Cat</h1>
-        <h1 className="name">홍길동 님</h1>
-        <Serverlist name="Reactree" />
-        <Serverlist name="Spy Cat" />
-        <button type="button">+ 서버 추가</button>
+        {name && (
+          <>
+            <h1 className="name">홍길동 님</h1>
+            <Serverlist name="Reactree" />
+            <Serverlist name="Spy Cat" />
+            <button type="button">+ 서버 추가</button>
+          </>
+        )}
       </div>
       <div className="logout">
-        <Logout width="15px" height="15px" />
-        <button type="button">로그 아웃</button>
+        {name && (
+          <>
+            <Logout width="15px" height="15px" />
+            <button type="button">로그 아웃</button>
+          </>
+        )}
       </div>
     </Aside>
   );
