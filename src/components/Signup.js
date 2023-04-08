@@ -20,9 +20,10 @@ function Signup() {
 
   const handleSubmit = async event => {
     event.preventDefault();
+
     try {
       const response = await axios.post(
-        "http://localhost:4000/api/users",
+        `${process.env.REACT_APP_SPYCAT_SERVER}/users`,
         info,
       );
 
