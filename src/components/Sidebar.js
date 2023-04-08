@@ -16,6 +16,7 @@ const Aside = styled.aside`
   justify-content: space-between;
 
   & button {
+    font-size: 16px;
     color: ${COLORS.FONT};
     border: 0;
     background-color: transparent;
@@ -23,6 +24,7 @@ const Aside = styled.aside`
   }
 
   & h1 {
+    font-size: 18px;
     padding-bottom: ${SIZE.PADDING}px;
   }
 
