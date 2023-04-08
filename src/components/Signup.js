@@ -1,99 +1,95 @@
-import React from "react";
-import styled from "styled-components";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
-import { COLORS } from "../assets/constants";
+import * as S from "./UserInfoStyle";
 import { ReactComponent as Id } from "../assets/img/id.svg";
 import { ReactComponent as Password } from "../assets/img/password.svg";
 import { ReactComponent as PasswordCheck } from "../assets/img/password-check.svg";
 import logo from "../assets/img/logo.jpg";
 
-const EntryWrapper = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  > header {
-    display: flex;
-    margin-top: 150px;
-    padding-bottom: 100px;
-    font-size: 60px;
-
-    > h1 {
-      margin-left: 10px;
-    }
-  }
-
-  #login-form {
-    display: flex;
-    flex-direction: column;
-
-    .box {
-      display: flex;
-      padding: 10px 0px;
-      margin-bottom: 25px;
-    }
-
-    & input {
-      border: none;
-      font-size: 18px;
-    }
-
-    & input:focus {
-      outline: none;
-    }
-
-    & input:not([type="submit"]) {
-      margin-left: 5px;
-      border-bottom: 1px solid ${COLORS.GRAY};
-    }
-
-    & input[type="submit"] {
-      background-color: ${COLORS.LOGIN};
-      cursor: pointer;
-      padding: 15px 0px;
-      border-radius: 5px;
-      margin-bottom: 25px;
-    }
-
-    .btn-github {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: ${COLORS.LOGIN};
-      cursor: pointer;
-      padding: 15px 0px;
-      border-radius: 5px;
-
-      > button {
-        border: none;
-        background-color: transparent;
-        cursor: pointer;
-      }
-    }
-  }
-`;
-
 function Signup() {
+  const [info, setInfo] = useState({
+    name: null,
+    id: null,
+    pw: null,
+    pwCheck: null,
+  });
+  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
+
+  const handleSubmit = async event => {
+    event.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:4000/api/users",
+        info,
+      );
+
+      if (response.data.result === "error") {
+        return setErrorMessage(response.data.message);
+      }
+
+      navigate("/login");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const inputHandler = event => {
+    const newInfo = { ...info };
+    switch (event.target.id) {
+      case "name":
+        newInfo.name = event.target.value;
+        setInfo(newInfo);
+        break;
+
+      case "id":
+        newInfo.id = event.target.value;
+        setInfo(newInfo);
+        break;
+
+      case "pw":
+        newInfo.pw = event.target.value;
+        setInfo(newInfo);
+        break;
+
+      case "pwCheck":
+        newInfo.pwCheck = event.target.value;
+        setInfo(newInfo);
+        break;
+
+      default:
+        break;
+    }
+  };
+
   return (
-    <EntryWrapper>
+    <S.EntryWrapper>
       <header>
         <img alt="logo" src={logo} width="60px" height="60px" />
         <h1>Spy Cat</h1>
       </header>
-      <form id="login-form">
+      <form id="login-form" onSubmit={handleSubmit}>
         <div className="inner-pannel">
           <div className="box name">
             <Id width="20px" height="20px" />
-            <input type="text" id="name" placeholder="이름" maxLength="10" />
+            <input
+              type="text"
+              id="name"
+              placeholder="이름"
+              maxLength="10"
+              onChange={inputHandler}
+            />
           </div>
           <div className="box id">
             <Id width="20px" height="20px" />
             <input
-              type="text"
+              type="email"
               id="id"
               placeholder="아이디(이메일)"
               maxLength="20"
+              onChange={inputHandler}
             />
           </div>
           <div className="box pw">
@@ -102,22 +98,32 @@ function Signup() {
               type="password"
               id="pw"
               placeholder="비밀번호"
+              minLength="8"
               maxLength="16"
+              onChange={inputHandler}
             />
           </div>
           <div className="box pw">
             <PasswordCheck width="20px" height="20px" />
             <input
               type="password"
-              id="pw"
+              id="pwCheck"
               placeholder="비밀번호 확인"
+              minLength="8"
               maxLength="16"
+              onChange={inputHandler}
             />
           </div>
         </div>
         <input type="submit" value="회원가입" />
       </form>
-    </EntryWrapper>
+      <S.Footer>
+        <li>이름은 최대 10자입니다.</li>
+        <li>아이디는 이메일을 사용하세요.</li>
+        <li>비밀번호는 8~16자 영문 대 소문자, 숫자를 사용하세요.</li>
+        {errorMessage && <li className="error">{errorMessage}</li>}
+      </S.Footer>
+    </S.EntryWrapper>
   );
 }
 
