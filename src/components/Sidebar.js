@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
+import axios from "axios";
 
 import Serverlist from "./Serverlist";
 import { COLORS, SIZE } from "../assets/constants";
@@ -35,7 +36,34 @@ const Aside = styled.aside`
 `;
 
 function Sidebar() {
-  const name = useSelector(state => state.user.name);
+  const { name, id } = useSelector(state => state.user);
+  const [serverArray, setServerArray] = useState(null);
+  let serverList;
+
+  useEffect(() => {
+    const loadServerList = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_SPYCAT_SERVER}/users/${id}/serverlists`,
+          { withCredentials: true },
+        );
+
+        setServerArray(response.data.serverList);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    if (name) {
+      loadServerList();
+    }
+  }, [name]);
+
+  if (serverArray && serverArray.length) {
+    serverList = serverArray.map(element => {
+      return <Serverlist name={element} key={element} />;
+    });
+  }
 
   return (
     <Aside>
@@ -43,9 +71,8 @@ function Sidebar() {
         <h1>Spy Cat</h1>
         {name && (
           <>
-            <h1 className="name">홍길동 님</h1>
-            <Serverlist name="Reactree" />
-            <Serverlist name="Spy Cat" />
+            <h1 className="name">{name}님</h1>
+            {serverList}
             <button type="button">+ 서버 추가</button>
           </>
         )}

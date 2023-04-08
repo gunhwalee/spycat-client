@@ -30,16 +30,17 @@ function Login() {
       const response = await axios.post(
         `${process.env.REACT_APP_SPYCAT_SERVER}/users/login`,
         info,
+        { withCredentials: true },
       );
 
       if (response.data.result === "error") {
         return setErrorMessage(response.data.message);
       }
 
-      console.log(response);
-      dispatch(setUser({ name: response.data.name }));
+      const { name, id } = response.data;
+      dispatch(setUser({ name, id }));
 
-      navigate("/");
+      navigate(`/${id}`);
     } catch (err) {
       console.error(err);
     }
