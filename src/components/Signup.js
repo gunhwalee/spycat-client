@@ -25,6 +25,9 @@ function Signup() {
     event.preventDefault();
     setErrorMessage("");
 
+    if (info.pw !== info.pwCheck)
+      return setErrorMessage("비밀번호가 동일하지 않습니다.");
+
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_SPYCAT_SERVER}/users`,

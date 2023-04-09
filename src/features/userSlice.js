@@ -13,8 +13,12 @@ const userSlice = createSlice({
       state.name = action.payload.name;
       state.id = action.payload.id;
     },
+    deleteUser(state) {
+      state.name = false;
+      state.id = false;
+    },
   },
 });
 
-export const { setUser } = userSlice.actions;
+export const { setUser, deleteUser } = userSlice.actions;
 export default userSlice.reducer;
