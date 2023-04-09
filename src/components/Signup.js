@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -17,8 +18,12 @@ function Signup() {
     pw: null,
     pwCheck: null,
   });
+  const [nameFocus, setNameFocus] = useState(false);
+  const [idFocus, setIdFocus] = useState(false);
+  const [pwFocus, setPwFocus] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [showPw, setShowPw] = useState(false);
+  const [disabled, setDisabled] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async event => {
@@ -29,14 +34,17 @@ function Signup() {
       return setErrorMessage("비밀번호가 동일하지 않습니다.");
 
     try {
+      setDisabled(true);
       const response = await axios.post(
         `${process.env.REACT_APP_SPYCAT_SERVER}/users`,
         info,
       );
 
       if (response.data.result === "error") {
+        setDisabled(false);
         return setErrorMessage(response.data.message);
       }
+      setDisabled(false);
 
       navigate("/login");
     } catch (error) {
@@ -92,7 +100,15 @@ function Signup() {
               placeholder="이름"
               maxLength="10"
               onChange={inputHandler}
+              onFocus={() => setNameFocus(true)}
+              onBlur={() => setNameFocus(false)}
             />
+          </div>
+          <div
+            className="rule"
+            style={{ visibility: nameFocus ? "visible" : "hidden" }}
+          >
+            이름은 최대 10자입니다.
           </div>
           <div className="box id">
             <Id width="20px" height="20px" />
@@ -102,7 +118,15 @@ function Signup() {
               placeholder="아이디(이메일)"
               maxLength="20"
               onChange={inputHandler}
+              onFocus={() => setIdFocus(true)}
+              onBlur={() => setIdFocus(false)}
             />
+          </div>
+          <div
+            className="rule"
+            style={{ visibility: idFocus ? "visible" : "hidden" }}
+          >
+            아이디는 이메일을 사용하세요.
           </div>
           <div className="box pw">
             <Password width="20px" height="20px" />
@@ -113,6 +137,8 @@ function Signup() {
               minLength="8"
               maxLength="16"
               onChange={inputHandler}
+              onFocus={() => setPwFocus(true)}
+              onBlur={() => setPwFocus(false)}
             />
             <button type="button" onClick={pwHandler}>
               {showPw ? (
@@ -121,6 +147,12 @@ function Signup() {
                 <EyeSlash width="20px" height="20px" />
               )}
             </button>
+          </div>
+          <div
+            className="rule"
+            style={{ visibility: pwFocus ? "visible" : "hidden" }}
+          >
+            8~16자 영문 대 소문자, 숫자를 사용하세요.
           </div>
           <div className="box pwCheck">
             <PasswordCheck width="20px" height="20px" />
@@ -131,6 +163,8 @@ function Signup() {
               minLength="8"
               maxLength="16"
               onChange={inputHandler}
+              onFocus={() => setPwFocus(true)}
+              onBlur={() => setPwFocus(false)}
             />
             <button type="button" onClick={pwHandler}>
               {showPw ? (
@@ -140,13 +174,19 @@ function Signup() {
               )}
             </button>
           </div>
+          <div
+            className="rule"
+            style={{ visibility: pwFocus ? "visible" : "hidden" }}
+          >
+            8~16자 영문 대 소문자, 숫자를 사용하세요.
+          </div>
         </div>
-        <input type="submit" value="회원가입" />
+        <button type="submit" disabled={disabled} className="btn-login local">
+          {!disabled && "회원가입"}
+          {disabled && <div className="spinner" />}
+        </button>
       </form>
       <S.Footer>
-        <li>이름은 최대 10자입니다.</li>
-        <li>아이디는 이메일을 사용하세요.</li>
-        <li>비밀번호는 8~16자 영문 대 소문자, 숫자를 사용하세요.</li>
         {errorMessage && <li className="error">{errorMessage}</li>}
       </S.Footer>
     </S.EntryWrapper>
