@@ -61,11 +61,17 @@ function Sidebar() {
     if (name) {
       loadServerList();
     }
-  }, [name]);
+  }, [name, serverArray]);
 
   if (serverArray && serverArray.length) {
     serverList = serverArray.map(element => {
-      return <Serverlist name={element.serverName} key={element.url} />;
+      return (
+        <Serverlist
+          name={element.serverName}
+          key={element.url}
+          id={element._id}
+        />
+      );
     });
   }
 
@@ -94,7 +100,9 @@ function Sidebar() {
           <>
             <h1 className="name">{name}님</h1>
             {serverList}
-            <button type="button">+ 서버 추가</button>
+            <button type="button" onClick={() => navigate("/createserver")}>
+              + 서버 추가
+            </button>
           </>
         )}
       </div>
