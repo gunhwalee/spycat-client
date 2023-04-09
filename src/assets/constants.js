@@ -8,9 +8,4 @@ const COLORS = {
   LOGIN: "#FFD0A1	",
 };
 
-const SIZE = {
-  PADDING: 15,
-};
-
 exports.COLORS = COLORS;
-exports.SIZE = SIZE;
