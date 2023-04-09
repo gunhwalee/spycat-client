@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import * as S from "./UserInputStyle";
 import { ReactComponent as Id } from "../assets/img/id.svg";
@@ -19,13 +19,8 @@ function Login() {
   });
   const [errorMessage, setErrorMessage] = useState("");
   const [showPw, setShowPw] = useState(false);
-  const { id: userId } = useSelector(state => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (userId) return navigate("/");
-  }, [userId]);
 
   const handleSubmit = async event => {
     event.preventDefault();
@@ -79,7 +74,7 @@ function Login() {
         <img alt="logo" src={logo} width="60px" height="60px" />
         <h1>Spy Cat</h1>
       </header>
-      <form id="login-form" onSubmit={handleSubmit}>
+      <form id="submit-form" onSubmit={handleSubmit}>
         <div className="inner-pannel">
           <div className="box id">
             <Id width="20px" height="20px" />
