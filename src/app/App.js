@@ -12,10 +12,10 @@ function App() {
     <>
       <Sidebar />
       <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/:id" element={<Lobby />} />
-        <Route path="/" element={<Main />} />
+        <Route path="/login" element={<Login />} exact />
+        <Route path="/signup" element={<Signup />} exact />
+        <Route path="/:id" element={<Lobby />} exact />
+        <Route path="/" element={<Main />} exact />
       </Routes>
     </>
   );

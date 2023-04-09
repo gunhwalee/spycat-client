@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import * as S from "./UserInputStyle";
 import { ReactComponent as Id } from "../assets/img/id.svg";
@@ -19,8 +19,13 @@ function Login() {
   });
   const [errorMessage, setErrorMessage] = useState("");
   const [showPw, setShowPw] = useState(false);
+  const { id: userId } = useSelector(state => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (userId) return navigate("/");
+  }, [userId]);
 
   const handleSubmit = async event => {
     event.preventDefault();
@@ -111,9 +116,14 @@ function Login() {
           <button type="button">Github 로그인</button>
         </div>
       </form>
-      <Link to="/signup">
-        <span className="move-signup">회원가입</span>
-      </Link>
+      <nav>
+        <Link to="/">
+          <span className="move main">메인 페이지</span>
+        </Link>
+        <Link to="/signup">
+          <span className="move signup">회원가입</span>
+        </Link>
+      </nav>
       <S.Footer>
         {errorMessage && <li className="error">{errorMessage}</li>}
       </S.Footer>

@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import logo from "../assets/img/logo.jpg";
 
@@ -29,6 +31,13 @@ const EntryWrapper = styled.div`
 `;
 
 function Lobby() {
+  const { id } = useSelector(state => state.user);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!id) return navigate("/login");
+  }, [id]);
+
   return (
     <EntryWrapper>
       <header>

@@ -44,6 +44,8 @@ function Sidebar() {
   const dispatch = useDispatch();
   let serverList;
 
+  console.log(id);
+
   useEffect(() => {
     const loadServerList = async () => {
       try {
