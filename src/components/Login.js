@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -19,6 +20,7 @@ function Login() {
   });
   const [errorMessage, setErrorMessage] = useState("");
   const [showPw, setShowPw] = useState(false);
+  const [disabled, setDisabled] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -27,6 +29,7 @@ function Login() {
     setErrorMessage("");
 
     try {
+      setDisabled(true);
       const response = await axios.post(
         `${process.env.REACT_APP_SPYCAT_SERVER}/users/login`,
         info,
@@ -34,11 +37,13 @@ function Login() {
       );
 
       if (response.data.result === "error") {
+        setDisabled(false);
         return setErrorMessage(response.data.message);
       }
 
       const { name, id } = response.data;
       dispatch(setUser({ name, id }));
+      setDisabled(false);
 
       navigate(`/${id}`);
     } catch (err) {
@@ -76,7 +81,7 @@ function Login() {
       </header>
       <form id="submit-form" onSubmit={handleSubmit}>
         <div className="inner-pannel">
-          <div className="box id">
+          <div className="box id login">
             <Id width="20px" height="20px" />
             <input
               type="email"
@@ -86,7 +91,7 @@ function Login() {
               onChange={inputHandler}
             />
           </div>
-          <div className="box pw">
+          <div className="box pw login">
             <Password width="20px" height="20px" />
             <input
               type={showPw ? "text" : "password"}
@@ -105,10 +110,15 @@ function Login() {
             </button>
           </div>
         </div>
-        <input type="submit" value="로그인" />
-        <div className="btn-github">
+        <button type="submit" disabled={disabled} className="btn-login local">
+          {!disabled && "로그인"}
+          {disabled && <div className="spinner" />}
+        </button>
+        <div className="btn-login">
           <Github width="20px" height="20px" />
-          <button type="button">Github 로그인</button>
+          <button type="button" disabled={disabled}>
+            Github 로그인
+          </button>
         </div>
       </form>
       <nav>

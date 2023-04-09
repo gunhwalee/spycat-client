@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -46,6 +47,7 @@ const EntryWrapper = styled.div`
 `;
 
 function Main() {
+  const { id } = useSelector(state => state.user);
   return (
     <EntryWrapper>
       <header>
@@ -53,14 +55,18 @@ function Main() {
         <h1>Spy Cat</h1>
       </header>
       <main className="chart-example">차트그림</main>
-      <Link to="/login">
-        <button type="button" className="move-login">
-          로그인
-        </button>
-      </Link>
-      <Link to="/signup">
-        <span className="move-signup">회원가입</span>
-      </Link>
+      {!id && (
+        <>
+          <Link to="/login">
+            <button type="button" className="move-login">
+              로그인
+            </button>
+          </Link>
+          <Link to="/signup">
+            <span className="move-signup">회원가입</span>
+          </Link>
+        </>
+      )}
     </EntryWrapper>
   );
 }

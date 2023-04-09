@@ -34,13 +34,16 @@ export const EntryWrapper = styled.div`
     .box {
       display: flex;
       padding: 10px 0px;
-      margin-bottom: 25px;
 
       > button {
         cursor: pointer;
         border: none;
         background-color: transparent;
       }
+    }
+
+    .login {
+      margin-bottom: 35px;
     }
 
     & input {
@@ -57,15 +60,7 @@ export const EntryWrapper = styled.div`
       border-bottom: 1px solid ${COLORS.GRAY};
     }
 
-    & input[type="submit"] {
-      background-color: ${COLORS.LOGIN};
-      cursor: pointer;
-      padding: 15px 0px;
-      border-radius: 5px;
-      margin-bottom: 25px;
-    }
-
-    .btn-github {
+    .btn-login {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -73,12 +68,38 @@ export const EntryWrapper = styled.div`
       cursor: pointer;
       padding: 15px 0px;
       border-radius: 5px;
+      border: none;
 
       > button {
         border: none;
         background-color: transparent;
         cursor: pointer;
       }
+    }
+
+    .local {
+      margin-bottom: 25px;
+
+      .spinner {
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        border: 5px solid #ccc;
+        border-top-color: #333;
+        animation: spin 1s infinite ease-in-out;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    }
+
+    .rule {
+      font-size: 14px;
+      margin: 10px 0px;
+      color: ${COLORS.BLUE};
     }
   }
 `;
