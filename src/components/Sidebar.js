@@ -44,8 +44,6 @@ function Sidebar() {
   const dispatch = useDispatch();
   let serverList;
 
-  console.log(id);
-
   useEffect(() => {
     const loadServerList = async () => {
       try {
@@ -67,7 +65,7 @@ function Sidebar() {
 
   if (serverArray && serverArray.length) {
     serverList = serverArray.map(element => {
-      return <Serverlist name={element} key={element} />;
+      return <Serverlist name={element.serverName} key={element.url} />;
     });
   }
 

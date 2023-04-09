@@ -26,7 +26,7 @@ export const EntryWrapper = styled.div`
     margin-right: 20px;
   }
 
-  #login-form {
+  #submit-form {
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
