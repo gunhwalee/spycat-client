@@ -18,8 +18,12 @@ export const EntryWrapper = styled.div`
     }
   }
 
-  .move-signup {
+  .move {
     color: ${COLORS.GRAY};
+  }
+
+  .main {
+    margin-right: 20px;
   }
 
   #login-form {
