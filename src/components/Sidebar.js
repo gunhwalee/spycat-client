@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 
 import Serverlist from "./Serverlist";
-import { COLORS, SIZE } from "../assets/constants";
+import { COLORS } from "../assets/constants";
 import { ReactComponent as Logout } from "../assets/img/logout.svg";
 import { deleteUser } from "../features/userSlice";
 
 const Aside = styled.aside`
   width: 200px;
   height: 100%;
-  padding: ${SIZE.PADDING}px;
+  padding: 15px;
   background-color: ${COLORS.BACKGROUND};
   color: ${COLORS.FONT};
   display: flex;
@@ -29,7 +29,7 @@ const Aside = styled.aside`
 
   & h1 {
     font-size: 18px;
-    padding-bottom: ${SIZE.PADDING}px;
+    padding-bottom: 15px;
   }
 
   > .logout {
@@ -68,8 +68,8 @@ function Sidebar() {
       return (
         <Serverlist
           name={element.serverName}
-          key={element.url}
           id={element._id}
+          key={element.url}
         />
       );
     });
@@ -95,15 +95,19 @@ function Sidebar() {
   return (
     <Aside>
       <div className="list-wrapper">
-        <h1>Spy Cat</h1>
+        <Link to="/">
+          <h1>Spy Cat</h1>
+        </Link>
         {name && (
-          <>
-            <h1 className="name">{name}님</h1>
+          <ol>
+            <Link to={`/${id}`}>
+              <h1>{name}님</h1>
+            </Link>
             {serverList}
             <button type="button" onClick={() => navigate("/createserver")}>
               + 서버 추가
             </button>
-          </>
+          </ol>
         )}
       </div>
       <div className="logout">
