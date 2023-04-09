@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 
 import Serverlist from "./Serverlist";
 import { COLORS, SIZE } from "../assets/constants";
 import { ReactComponent as Logout } from "../assets/img/logout.svg";
+import { deleteUser } from "../features/userSlice";
 
 const Aside = styled.aside`
   width: 200px;
@@ -38,6 +40,8 @@ const Aside = styled.aside`
 function Sidebar() {
   const { name, id } = useSelector(state => state.user);
   const [serverArray, setServerArray] = useState(null);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   let serverList;
 
   useEffect(() => {
@@ -65,6 +69,23 @@ function Sidebar() {
     });
   }
 
+  const handleLogout = async () => {
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_SPYCAT_SERVER}/users/${id}/logout`,
+        null,
+        { withCredentials: true },
+      );
+
+      if (response.data.result === "ok") {
+        dispatch(deleteUser());
+        navigate("/");
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <Aside>
       <div className="list-wrapper">
@@ -81,7 +102,9 @@ function Sidebar() {
         {name && (
           <>
             <Logout width="15px" height="15px" />
-            <button type="button">로그 아웃</button>
+            <button type="button" onClick={handleLogout}>
+              로그 아웃
+            </button>
           </>
         )}
       </div>
