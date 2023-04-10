@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   name: false,
   apikey: false,
+  usingHook: false,
 };
 
 const userSlice = createSlice({
@@ -17,8 +18,11 @@ const userSlice = createSlice({
       state.name = false;
       state.apikey = false;
     },
+    changeUsingHook(state) {
+      state.usingHook = !state.usingHook;
+    },
   },
 });
 
-export const { setUser, deleteUser } = userSlice.actions;
+export const { setUser, deleteUser, changeUsingHook } = userSlice.actions;
 export default userSlice.reducer;

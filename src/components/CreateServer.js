@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -7,6 +7,7 @@ import * as S from "../styles/UserInputStyle";
 import { ReactComponent as Server } from "../assets/img/server.svg";
 import { ReactComponent as Globe } from "../assets/img/globe.svg";
 import logo from "../assets/img/logo.jpg";
+import { changeUsingHook } from "../features/userSlice";
 
 function CreateServer() {
   const [info, setInfo] = useState({
@@ -17,6 +18,7 @@ function CreateServer() {
   const [disabled, setDisabled] = useState(false);
   const { apikey } = useSelector(state => state.user);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSubmit = async event => {
     event.preventDefault();
@@ -35,6 +37,7 @@ function CreateServer() {
         return setErrorMessage(response.data.message);
       }
 
+      dispatch(changeUsingHook());
       navigate("/");
     } catch (err) {
       console.error(err);
@@ -67,7 +70,7 @@ function CreateServer() {
       </header>
       <form id="submit-form" onSubmit={handleSubmit}>
         <div className="inner-pannel">
-          <div className="box id">
+          <div className="box userinput">
             <Server width="20px" height="20px" />
             <input
               type="text"
@@ -77,7 +80,7 @@ function CreateServer() {
               onChange={inputHandler}
             />
           </div>
-          <div className="box pw">
+          <div className="box userinput">
             <Globe width="20px" height="20px" />
             <input
               type="text"

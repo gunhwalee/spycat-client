@@ -42,7 +42,7 @@ export const EntryWrapper = styled.div`
       }
     }
 
-    .login {
+    .userinput {
       margin-bottom: 35px;
     }
 

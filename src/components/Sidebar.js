@@ -38,7 +38,7 @@ const Aside = styled.aside`
 `;
 
 function Sidebar() {
-  const { name, apikey } = useSelector(state => state.user);
+  const { name, apikey, usingHook } = useSelector(state => state.user);
   const [serverArray, setServerArray] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -61,7 +61,7 @@ function Sidebar() {
     if (name) {
       loadServerList();
     }
-  }, [name, serverArray]);
+  }, [name, usingHook]);
 
   if (serverArray && serverArray.length) {
     serverList = serverArray.map(element => {
@@ -84,6 +84,7 @@ function Sidebar() {
       );
 
       if (response.data.result === "ok") {
+        setServerArray(null);
         dispatch(deleteUser());
         navigate("/");
       }

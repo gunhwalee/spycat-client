@@ -79,7 +79,7 @@ function Login() {
       </header>
       <form id="submit-form" onSubmit={handleSubmit}>
         <div className="inner-pannel">
-          <div className="box id login">
+          <div className="box id userinput">
             <Id width="20px" height="20px" />
             <input
               type="email"
@@ -89,7 +89,7 @@ function Login() {
               onChange={inputHandler}
             />
           </div>
-          <div className="box pw login">
+          <div className="box pw userinput">
             <Password width="20px" height="20px" />
             <input
               type={showPw ? "text" : "password"}
