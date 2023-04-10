@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-import * as S from "./UserInputStyle";
+import * as S from "../styles/UserInputStyle";
 import { ReactComponent as Server } from "../assets/img/server.svg";
 import { ReactComponent as Globe } from "../assets/img/globe.svg";
 import logo from "../assets/img/logo.jpg";
@@ -14,7 +14,8 @@ function CreateServer() {
     url: null,
   });
   const [errorMessage, setErrorMessage] = useState("");
-  const { id } = useSelector(state => state.user);
+  const [disabled, setDisabled] = useState(false);
+  const { apikey } = useSelector(state => state.user);
   const navigate = useNavigate();
 
   const handleSubmit = async event => {
@@ -22,17 +23,19 @@ function CreateServer() {
     setErrorMessage("");
 
     try {
+      setDisabled(true);
       const response = await axios.post(
-        `${process.env.REACT_APP_SPYCAT_SERVER}/users/${id}/serverlists`,
+        `${process.env.REACT_APP_SPYCAT_SERVER}/users/${apikey}/serverlists`,
         info,
         { withCredentials: true },
       );
 
+      setDisabled(false);
       if (response.data.result === "error") {
         return setErrorMessage(response.data.message);
       }
 
-      navigate(`/${id}`);
+      navigate("/");
     } catch (err) {
       console.error(err);
     }
@@ -84,7 +87,10 @@ function CreateServer() {
             />
           </div>
         </div>
-        <input type="submit" value="만들기" />
+        <button type="submit" disabled={disabled} className="btn-login local">
+          {!disabled && "만들기"}
+          {disabled && <div className="spinner" />}
+        </button>
       </form>
       <nav>
         <Link to="/">

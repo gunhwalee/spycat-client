@@ -38,7 +38,7 @@ const Aside = styled.aside`
 `;
 
 function Sidebar() {
-  const { name, id } = useSelector(state => state.user);
+  const { name, apikey } = useSelector(state => state.user);
   const [serverArray, setServerArray] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -48,7 +48,7 @@ function Sidebar() {
     const loadServerList = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_SPYCAT_SERVER}/users/${id}/serverlists`,
+          `${process.env.REACT_APP_SPYCAT_SERVER}/users/${apikey}/serverlists`,
           { withCredentials: true },
         );
 
@@ -78,7 +78,7 @@ function Sidebar() {
   const handleLogout = async () => {
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_SPYCAT_SERVER}/users/${id}/logout`,
+        `${process.env.REACT_APP_SPYCAT_SERVER}/users/${apikey}/logout`,
         null,
         { withCredentials: true },
       );
@@ -100,7 +100,7 @@ function Sidebar() {
         </Link>
         {name && (
           <ol>
-            <Link to={`/${id}`}>
+            <Link to={`/${apikey}`}>
               <h1>{name}님</h1>
             </Link>
             {serverList}

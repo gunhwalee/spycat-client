@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   name: false,
-  id: false,
+  apikey: false,
 };
 
 const userSlice = createSlice({
@@ -11,11 +11,11 @@ const userSlice = createSlice({
   reducers: {
     setUser(state, action) {
       state.name = action.payload.name;
-      state.id = action.payload.id;
+      state.apikey = action.payload.apikey;
     },
     deleteUser(state) {
       state.name = false;
-      state.id = false;
+      state.apikey = false;
     },
   },
 });
