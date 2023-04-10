@@ -31,12 +31,12 @@ const EntryWrapper = styled.div`
 `;
 
 function Lobby() {
-  const { id } = useSelector(state => state.user);
+  const { name } = useSelector(state => state.user);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!id) return navigate("/login");
-  }, [id]);
+    if (!name) return navigate("/login");
+  }, [name]);
 
   return (
     <EntryWrapper>

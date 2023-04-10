@@ -47,7 +47,7 @@ const EntryWrapper = styled.div`
 `;
 
 function Main() {
-  const { id } = useSelector(state => state.user);
+  const { name } = useSelector(state => state.user);
   return (
     <EntryWrapper>
       <header>
@@ -55,7 +55,7 @@ function Main() {
         <h1>Spy Cat</h1>
       </header>
       <main className="chart-example">차트그림</main>
-      {!id && (
+      {!name && (
         <>
           <Link to="/login">
             <button type="button" className="move-login">

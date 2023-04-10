@@ -1,10 +1,9 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 
-import * as S from "./UserInputStyle";
+import * as S from "../styles/UserInputStyle";
 import { ReactComponent as Id } from "../assets/img/id.svg";
 import { ReactComponent as Password } from "../assets/img/password.svg";
 import { ReactComponent as Github } from "../assets/img/github.svg";
@@ -36,16 +35,15 @@ function Login() {
         { withCredentials: true },
       );
 
+      setDisabled(false);
       if (response.data.result === "error") {
-        setDisabled(false);
         return setErrorMessage(response.data.message);
       }
 
-      const { name, id } = response.data;
-      dispatch(setUser({ name, id }));
-      setDisabled(false);
+      const { name, apikey } = response.data;
+      dispatch(setUser({ name, apikey }));
 
-      navigate(`/${id}`);
+      navigate("/");
     } catch (err) {
       console.error(err);
     }
@@ -81,7 +79,7 @@ function Login() {
       </header>
       <form id="submit-form" onSubmit={handleSubmit}>
         <div className="inner-pannel">
-          <div className="box id login">
+          <div className="box id userinput">
             <Id width="20px" height="20px" />
             <input
               type="email"
@@ -91,7 +89,7 @@ function Login() {
               onChange={inputHandler}
             />
           </div>
-          <div className="box pw login">
+          <div className="box pw userinput">
             <Password width="20px" height="20px" />
             <input
               type={showPw ? "text" : "password"}

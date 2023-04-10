@@ -1,9 +1,8 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-import * as S from "./UserInputStyle";
+import * as S from "../styles/UserInputStyle";
 import { ReactComponent as Id } from "../assets/img/id.svg";
 import { ReactComponent as Password } from "../assets/img/password.svg";
 import { ReactComponent as PasswordCheck } from "../assets/img/password-check.svg";
@@ -40,11 +39,10 @@ function Signup() {
         info,
       );
 
+      setDisabled(false);
       if (response.data.result === "error") {
-        setDisabled(false);
         return setErrorMessage(response.data.message);
       }
-      setDisabled(false);
 
       navigate("/login");
     } catch (error) {
