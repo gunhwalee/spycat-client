@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./horizontalChart.css";
 import { v4 as uuid } from "uuid";
 
-export default function BarHorizontalChart({ data }) {
+export default function BarHorizontalChart({ name, data }) {
   const [ratio, setRatio] = useState(8);
   const maxObjArr = data.reduce((prev, next) => {
     return prev.value >= next.value ? prev : next;
@@ -29,7 +29,7 @@ export default function BarHorizontalChart({ data }) {
     <svg width={width} height="500">
       <g className="container">
         <text className="title" x="10" y="30">
-          Horizontal Chart
+          {name}
         </text>
         <g className="chart" transform="translate(100, 60)">
           {barGroups}

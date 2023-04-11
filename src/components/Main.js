@@ -14,17 +14,6 @@ const EntryWrapper = styled.div`
   flex-direction: column;
   align-items: center;
 
-  > header {
-    display: flex;
-    margin-top: 150px;
-    margin-bottom: 50px;
-    font-size: 60px;
-
-    > h1 {
-      margin-left: 10px;
-    }
-  }
-
   .chart-example {
     width: 1000px;
     height: 500px;
@@ -51,12 +40,12 @@ function Main() {
   const { name } = useSelector(state => state.user);
   return (
     <EntryWrapper>
-      <header>
+      <header className="logo-header">
         <img alt="logo" src={logo} width="60px" height="60px" />
         <h1>Spy Cat</h1>
       </header>
       <main className="chart-example">
-        <BarVerticalChart data={mockData.verticalMock} />
+        <BarVerticalChart name="Example Chart" data={mockData.verticalMock} />
       </main>
       {!name && (
         <>

@@ -23,6 +23,17 @@ const GlobalStyles = createGlobalStyle`
   #root {
     display: flex;
   }
+
+  .logo-header {
+    display: flex;
+    margin-top: 100px;
+    margin-bottom: 50px;
+    font-size: 60px;
+
+    > h1 {
+      margin-left: 10px;
+    }
+  }
 `;
 
 export default GlobalStyles;

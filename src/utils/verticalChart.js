@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./verticalChart.css";
 import { v4 as uuid } from "uuid";
 
-export default function BarVerticalChart({ data }) {
+export default function BarVerticalChart({ name, data }) {
   const [ratio, setRatio] = useState(8);
   const maxObjArr = data.reduce((prev, next) => {
     return prev.value >= next.value ? prev : next;
@@ -34,7 +34,7 @@ export default function BarVerticalChart({ data }) {
     <svg width="1000" height={height}>
       <g className="verticalcontainer">
         <text className="vertical-title" x="10" y="30">
-          Vertical Chart
+          {name}
         </text>
         <g className="verticalchart" transform="translate(80, 60)">
           {barGroups}
