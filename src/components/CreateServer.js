@@ -41,6 +41,10 @@ function CreateServer() {
       navigate("/");
     } catch (err) {
       console.error(err);
+      setDisabled(false);
+      return setErrorMessage(
+        "서버 접속이 원활하지 않습니다. 잠시 후 시도해주세요.",
+      );
     }
   };
 
