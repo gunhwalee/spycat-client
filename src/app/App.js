@@ -5,7 +5,7 @@ import Sidebar from "../components/Sidebar";
 import Main from "../components/Main";
 import Login from "../components/Login";
 import Signup from "../components/Signup";
-import Lobby from "../components/Lobby";
+import MyPage from "../components/MyPage";
 import CreateServer from "../components/CreateServer";
 
 function App() {
@@ -15,7 +15,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} exact />
         <Route path="/signup" element={<Signup />} exact />
-        <Route path="/:id" element={<Lobby />} exact />
+        <Route path="/:id" element={<MyPage />} exact />
         <Route path="/createserver" element={<CreateServer />} exact />
         <Route path="/" element={<Main />} exact />
       </Routes>

@@ -30,7 +30,7 @@ const EntryWrapper = styled.div`
   }
 `;
 
-function Lobby() {
+function MyPage() {
   const { name } = useSelector(state => state.user);
   const navigate = useNavigate();
 
@@ -49,4 +49,4 @@ function Lobby() {
   );
 }
 
-export default Lobby;
+export default MyPage;

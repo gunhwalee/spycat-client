@@ -5,6 +5,35 @@ import styled from "styled-components";
 
 import logo from "../assets/img/logo.jpg";
 import { COLORS } from "../assets/constants";
+import mockData from "../utils/mockData.json";
+import BarVerticalChart from "../utils/verticalChart";
+
+// const mockData = [
+//   {
+//     name: 1,
+//     value: 20,
+//   },
+//   {
+//     name: 2,
+//     value: 40,
+//   },
+//   {
+//     name: 3,
+//     value: 35,
+//   },
+//   {
+//     name: 4,
+//     value: 50,
+//   },
+//   {
+//     name: 5,
+//     value: 62,
+//   },
+//   {
+//     name: 6,
+//     value: 40,
+//   },
+// ];
 
 const EntryWrapper = styled.div`
   width: 100%;
@@ -24,7 +53,6 @@ const EntryWrapper = styled.div`
   }
 
   .chart-example {
-    background-color: skyblue;
     width: 500px;
     height: 500px;
     margin-bottom: 25px;
@@ -54,7 +82,13 @@ function Main() {
         <img alt="logo" src={logo} width="60px" height="60px" />
         <h1>Spy Cat</h1>
       </header>
-      <main className="chart-example">차트그림</main>
+      <main className="chart-example">
+        <BarVerticalChart
+          data={mockData.verticalMock}
+          width={500}
+          height={300}
+        />
+      </main>
       {!name && (
         <>
           <Link to="/login">

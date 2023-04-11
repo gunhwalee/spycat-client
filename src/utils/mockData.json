@@ -1,0 +1,54 @@
+{
+  "verticalMock":[{
+    "name": 1,
+    "value": 20
+  },
+  {
+    "name": 2,
+    "value": 40
+  },
+  {
+    "name": 3,
+    "value": 35
+  },
+  {
+    "name": 4,
+    "value": 50
+  },
+  {
+    "name": 5,
+    "value": 62
+  },
+  {
+    "name": 6,
+    "value": 40
+  }],
+  "horizontalMock": [
+    {
+      "name": "kentcdodds",
+      "value": 20
+    },
+    {
+      "name": "sindresorhus",
+      "value": 40
+    },
+    {
+      "name": "developit",
+      "value": 35
+    },
+    {
+      "name": "getify",
+      "value": 50
+    },
+    {
+      "name": "btholt",
+      "value": 62
+    },
+    {
+      "name": "kyleshevlin",
+      "value": 40
+    }
+  ]
+}
+
+
