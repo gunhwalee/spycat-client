@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./horizontalChart.css";
 import { v4 as uuid } from "uuid";
 
-export default function BarHorizontalChart({ name, data }) {
+export default function HorizontalChart({ name, data }) {
   const [ratio, setRatio] = useState(8);
   const maxObjArr = data.reduce((prev, next) => {
     return prev.value >= next.value ? prev : next;
@@ -20,18 +20,18 @@ export default function BarHorizontalChart({ name, data }) {
   const barGroups = data.map((d, i) => {
     return (
       <g transform={`translate(0, ${i * barHeight})`} key={uuid()}>
-        <BarHorizontalGroup data={d} barHeight={barHeight} ratio={ratio} />
+        <HorizontalGroup data={d} barHeight={barHeight} ratio={ratio} />
       </g>
     );
   });
 
   return (
-    <svg width={width} height="500">
-      <g className="container">
-        <text className="title" x="10" y="30">
+    <svg width={width} height="400">
+      <g className="horizontal-container">
+        <text className="horizontal-title" x="10" y="30">
           {name}
         </text>
-        <g className="chart" transform="translate(100, 60)">
+        <g className="horizontal-chart" transform="translate(100, 60)">
           {barGroups}
         </g>
       </g>
@@ -39,7 +39,7 @@ export default function BarHorizontalChart({ name, data }) {
   );
 }
 
-function BarHorizontalGroup({ ratio, data, barHeight }) {
+function HorizontalGroup({ ratio, data, barHeight }) {
   const barPadding = 5;
   const barColor = "#7289da";
   const widthScale = d => d * ratio;
@@ -47,7 +47,7 @@ function BarHorizontalGroup({ ratio, data, barHeight }) {
   const barWidth = widthScale(data.value);
 
   return (
-    <g className="bar-group">
+    <g className="horizontalbar-group">
       <text className="name-label" x="-6" y={yMid} alignmentBaseline="middle">
         {data.name}
       </text>

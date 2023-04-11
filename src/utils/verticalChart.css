@@ -22,22 +22,22 @@ body {
   font-size: 0.7em;
 }
 
-.verticalcontainer .verticalbar-group {
+.vertical-container .verticalbar-group {
   transition: opacity 0.3s;
 }
 
-.verticalcontainer:hover .verticalbar-group {
+.vertical-container:hover .verticalbar-group {
   opacity: 0.3;
 }
 
-.verticalcontainer .verticalbar-group:hover {
+.vertical-container .verticalbar-group:hover {
   opacity: 1;
 }
 
-.verticalcontainer .verticalbar-group:hover .name-label {
+.vertical-container .verticalbar-group:hover .name-label {
   font-weight: 400;
 }
 
-.verticalcontainer .verticalbar-group:hover .value-label {
-  font-size: 0.8em;
+.vertical-container .verticalbar-group:hover .value-label {
+  font-size: 1em;
 }

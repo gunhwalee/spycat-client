@@ -7,6 +7,7 @@ import Login from "../components/Login";
 import Signup from "../components/Signup";
 import MyPage from "../components/MyPage";
 import CreateServer from "../components/CreateServer";
+import Chart from "../components/Chart";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/signup" element={<Signup />} exact />
         <Route path="/:id" element={<MyPage />} exact />
         <Route path="/createserver" element={<CreateServer />} exact />
+        <Route path="/:id/traffics" element={<Chart />} exact />
         <Route path="/" element={<Main />} exact />
       </Routes>
     </>

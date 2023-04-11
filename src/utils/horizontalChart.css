@@ -3,41 +3,41 @@ body {
   font-size: 16px;
 }
 
-.title {
+.horizontal-title {
   font-size: 1.4em;
   font-weight: 300;
 }
 
-.bar-group .name-label {
+.horizontalbar-group .name-label {
   text-anchor: end;
   fill: #36393e;
   font-weight: 300;
   font-size: 1em;
 }
 
-.bar-group .value-label {
+.horizontalbar-group .value-label {
   text-anchor: start;
   fill: #36393e;
   font-weight: 900;
   font-size: 0.7em;
 }
 
-.container .bar-group {
+.horizontal-container .horizontalbar-group {
   transition: opacity 0.3s;
 }
 
-.container:hover .bar-group {
+.horizontal-container:hover .horizontalbar-group {
   opacity: 0.3;
 }
 
-.container .bar-group:hover {
+.horizontal-container .horizontalbar-group:hover {
   opacity: 1;
 }
 
-.container .bar-group:hover .name-label {
+.horizontal-container .horizontalbar-group:hover .name-label {
   font-weight: 400;
 }
 
-.container .bar-group:hover .value-label {
-  font-size: 0.8em;
+.horizontal-container .horizontalbar-group:hover .value-label {
+  font-size: 1em;
 }

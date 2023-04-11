@@ -6,7 +6,7 @@ import styled from "styled-components";
 import logo from "../assets/img/logo.jpg";
 import { COLORS } from "../assets/constants";
 import mockData from "../utils/mockData.json";
-import BarVerticalChart from "../utils/verticalChart";
+import VerticalChart from "../utils/verticalChart";
 
 const EntryWrapper = styled.div`
   width: 100%;
@@ -45,7 +45,7 @@ function Main() {
         <h1>Spy Cat</h1>
       </header>
       <main className="chart-example">
-        <BarVerticalChart name="Example Chart" data={mockData.verticalMock} />
+        <VerticalChart name="Example Chart" data={mockData.verticalMock} />
       </main>
       {!name && (
         <>
