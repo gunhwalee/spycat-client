@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./verticalChart.css";
 import { v4 as uuid } from "uuid";
 
-export default function BarVerticalChart({ name, data }) {
+export default function VerticalChart({ name, data }) {
   const [ratio, setRatio] = useState(8);
   const maxObjArr = data.reduce((prev, next) => {
     return prev.value >= next.value ? prev : next;
@@ -20,7 +20,7 @@ export default function BarVerticalChart({ name, data }) {
   const barGroups = data.map((d, i) => {
     return (
       <g transform={`translate(${i * barWidth}, 0)`} key={uuid()}>
-        <BarVerticalGroup
+        <VerticalGroup
           data={d}
           barWidth={barWidth}
           ratio={ratio}
@@ -44,7 +44,7 @@ export default function BarVerticalChart({ name, data }) {
   );
 }
 
-function BarVerticalGroup({ ratio, data, barWidth, height }) {
+function VerticalGroup({ ratio, data, barWidth, height }) {
   const barPadding = 5;
   const barColor = "#348AA7";
   const heightScale = d => d * ratio;
