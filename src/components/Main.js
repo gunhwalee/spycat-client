@@ -8,33 +8,6 @@ import { COLORS } from "../assets/constants";
 import mockData from "../utils/mockData.json";
 import BarVerticalChart from "../utils/verticalChart";
 
-// const mockData = [
-//   {
-//     name: 1,
-//     value: 20,
-//   },
-//   {
-//     name: 2,
-//     value: 40,
-//   },
-//   {
-//     name: 3,
-//     value: 35,
-//   },
-//   {
-//     name: 4,
-//     value: 50,
-//   },
-//   {
-//     name: 5,
-//     value: 62,
-//   },
-//   {
-//     name: 6,
-//     value: 40,
-//   },
-// ];
-
 const EntryWrapper = styled.div`
   width: 100%;
   display: flex;
@@ -44,7 +17,7 @@ const EntryWrapper = styled.div`
   > header {
     display: flex;
     margin-top: 150px;
-    padding-bottom: 50px;
+    margin-bottom: 50px;
     font-size: 60px;
 
     > h1 {
@@ -53,7 +26,7 @@ const EntryWrapper = styled.div`
   }
 
   .chart-example {
-    width: 500px;
+    width: 1000px;
     height: 500px;
     margin-bottom: 25px;
   }
@@ -83,11 +56,7 @@ function Main() {
         <h1>Spy Cat</h1>
       </header>
       <main className="chart-example">
-        <BarVerticalChart
-          data={mockData.verticalMock}
-          width={500}
-          height={300}
-        />
+        <BarVerticalChart data={mockData.verticalMock} />
       </main>
       {!name && (
         <>

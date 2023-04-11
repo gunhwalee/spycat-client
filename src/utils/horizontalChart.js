@@ -1,21 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import "./horizontalChart.css";
 import { v4 as uuid } from "uuid";
 
-export default function BarHorizontalChart({ data, width, height }) {
+export default function BarHorizontalChart({ data }) {
+  const [ratio, setRatio] = useState(8);
   const maxObjArr = data.reduce((prev, next) => {
     return prev.value >= next.value ? prev : next;
   });
+  const width = 500;
 
   const maxValue = maxObjArr.value;
-  let ratio = 10;
-  if (maxValue * ratio > width - 200) {
-    const number = (width - 200) / (maxValue * ratio);
-
-    console.log(number);
-    ratio = 10 * number;
+  if (maxValue * ratio > width * 0.8) {
+    setRatio(Math.floor(ratio * 0.75));
+  } else if (maxValue * ratio < width / 2) {
+    setRatio(Math.floor(ratio * 1.5));
   }
   const barHeight = 30;
+
   const barGroups = data.map((d, i) => {
     return (
       <g transform={`translate(0, ${i * barHeight})`} key={uuid()}>
@@ -25,7 +26,7 @@ export default function BarHorizontalChart({ data, width, height }) {
   });
 
   return (
-    <svg width={width} height={height}>
+    <svg width={width} height="500">
       <g className="container">
         <text className="title" x="10" y="30">
           Horizontal Chart
@@ -39,11 +40,11 @@ export default function BarHorizontalChart({ data, width, height }) {
 }
 
 function BarHorizontalGroup({ ratio, data, barHeight }) {
-  const barPadding = 8;
+  const barPadding = 5;
   const barColor = "#7289da";
   const widthScale = d => d * ratio;
-  const width = widthScale(data.value);
   const yMid = barHeight * 0.5;
+  const barWidth = widthScale(data.value);
 
   return (
     <g className="bar-group">
@@ -52,13 +53,13 @@ function BarHorizontalGroup({ ratio, data, barHeight }) {
       </text>
       <rect
         y={barPadding * 0.5}
-        width={width}
+        width={barWidth}
         height={barHeight - barPadding}
         fill={barColor}
       />
       <text
         className="value-label"
-        x={width + 5}
+        x={barWidth + 5}
         y={yMid}
         alignmentBaseline="middle"
       >
