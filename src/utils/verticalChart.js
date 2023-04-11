@@ -32,11 +32,11 @@ export default function VerticalChart({ name, data }) {
 
   return (
     <svg width="1000" height={height}>
-      <g className="verticalcontainer">
+      <g className="vertical-container">
         <text className="vertical-title" x="10" y="30">
           {name}
         </text>
-        <g className="verticalchart" transform="translate(80, 60)">
+        <g className="vertical-chart" transform="translate(80, 60)">
           {barGroups}
         </g>
       </g>

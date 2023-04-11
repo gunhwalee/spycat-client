@@ -27,11 +27,11 @@ export default function HorizontalChart({ name, data }) {
 
   return (
     <svg width={width} height="400">
-      <g className="container">
-        <text className="title" x="10" y="30">
+      <g className="horizontal-container">
+        <text className="horizontal-title" x="10" y="30">
           {name}
         </text>
-        <g className="chart" transform="translate(100, 60)">
+        <g className="horizontal-chart" transform="translate(100, 60)">
           {barGroups}
         </g>
       </g>
@@ -47,7 +47,7 @@ function HorizontalGroup({ ratio, data, barHeight }) {
   const barWidth = widthScale(data.value);
 
   return (
-    <g className="bar-group">
+    <g className="horizontalbar-group">
       <text className="name-label" x="-6" y={yMid} alignmentBaseline="middle">
         {data.name}
       </text>

@@ -51,7 +51,7 @@ export default function LineChart({
 
     return (
       <g className="node-group" key={uuid()}>
-        <text x={x} y={y - 15} className="values">
+        <text x={x} y={y - 15} className="values-label">
           {element.y}
         </text>
         <circle cx={x} cy={y} r="20" fill="transparent" stroke="none">
@@ -66,11 +66,11 @@ export default function LineChart({
 
   return (
     <svg width={width} height={height}>
-      <g className="linecontainer">
+      <g className="line-container">
         <text className="line-title" x="10" y="30">
           Vertical Chart
         </text>
-        <g className="linechart" transform="translate(100, 60)">
+        <g className="line-chart" transform="translate(100, 60)">
           <LabelsYAxis />
           <polyline
             className="path"

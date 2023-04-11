@@ -8,50 +8,43 @@ body {
   font-weight: 300;
 }
 
-.name-label {
+.node-group .name-label {
   text-anchor: middle;
   fill: #36393e;
   font-weight: 300;
   font-size: 1em;
 }
 
-.value-label {
+.node-group .values-label {
   text-anchor: middle;
   fill: #36393e;
   font-weight: 900;
   font-size: 0.7em;
 }
 
-.node-group .values {
-  text-anchor: middle;
-  fill: #36393e;
-  font-weight: 900;
-  font-size: 0.7em;
-}
-
-.linecontainer .node-group {
+.line-container .node-group {
   transition: opacity 0.3s;
 }
 
-.linecontainer:hover .node-group {
+.line-container:hover .node-group {
   opacity: 0.3;
 }
 
-.linecontainer:hover .path {
+.line-container:hover .path {
   opacity: 0.3;
 }
 
-.linecontainer .node-group:hover {
+.line-container .node-group:hover {
   opacity: 1;
 }
 
-.linecontainer .node-group:hover .values {
+.line-container .node-group:hover .values-label {
   font-weight: 400;
   font-size: 1.2em;
   fill: #EB3232;
 }
 
-.linecontainer .node-group:hover .name-label {
+.line-container .node-group:hover .name-label {
   font-weight: 400;
 }
 
