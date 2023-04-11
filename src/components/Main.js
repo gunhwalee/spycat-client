@@ -5,6 +5,8 @@ import styled from "styled-components";
 
 import logo from "../assets/img/logo.jpg";
 import { COLORS } from "../assets/constants";
+import mockData from "../utils/mockData.json";
+import BarVerticalChart from "../utils/verticalChart";
 
 const EntryWrapper = styled.div`
   width: 100%;
@@ -12,20 +14,8 @@ const EntryWrapper = styled.div`
   flex-direction: column;
   align-items: center;
 
-  > header {
-    display: flex;
-    margin-top: 150px;
-    padding-bottom: 50px;
-    font-size: 60px;
-
-    > h1 {
-      margin-left: 10px;
-    }
-  }
-
   .chart-example {
-    background-color: skyblue;
-    width: 500px;
+    width: 1000px;
     height: 500px;
     margin-bottom: 25px;
   }
@@ -50,11 +40,13 @@ function Main() {
   const { name } = useSelector(state => state.user);
   return (
     <EntryWrapper>
-      <header>
+      <header className="logo-header">
         <img alt="logo" src={logo} width="60px" height="60px" />
         <h1>Spy Cat</h1>
       </header>
-      <main className="chart-example">차트그림</main>
+      <main className="chart-example">
+        <BarVerticalChart name="Example Chart" data={mockData.verticalMock} />
+      </main>
       {!name && (
         <>
           <Link to="/login">

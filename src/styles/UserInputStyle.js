@@ -7,60 +7,34 @@ export const EntryWrapper = styled.div`
   flex-direction: column;
   align-items: center;
 
-  > header {
-    display: flex;
-    margin-top: 150px;
-    padding-bottom: 100px;
-    font-size: 60px;
-
-    > h1 {
-      margin-left: 10px;
-    }
-  }
-
-  .move {
-    color: ${COLORS.GRAY};
-  }
-
-  .main {
-    margin-right: 20px;
-  }
-
   #submit-form {
     display: flex;
     flex-direction: column;
-    margin-bottom: 20px;
+    margin-top: 100px;
 
     .box {
       display: flex;
       padding: 10px 0px;
 
-      > button {
+      .pwBtn {
         cursor: pointer;
         border: none;
         background-color: transparent;
       }
     }
 
-    .userinput {
-      margin-bottom: 35px;
-    }
-
     & input {
       border: none;
-      font-size: 18px;
+      font-size: 16px;
+      margin-left: 5px;
+      border-bottom: 1px solid ${COLORS.GRAY};
     }
 
     & input:focus {
       outline: none;
     }
 
-    & input:not([type="submit"]) {
-      margin-left: 5px;
-      border-bottom: 1px solid ${COLORS.GRAY};
-    }
-
-    .btn-login {
+    .submitBtn {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -69,30 +43,22 @@ export const EntryWrapper = styled.div`
       padding: 15px 0px;
       border-radius: 5px;
       border: none;
-
-      > button {
-        border: none;
-        background-color: transparent;
-        cursor: pointer;
-      }
+      margin-bottom: 30px;
+      font-size: 14px;
     }
 
-    .local {
-      margin-bottom: 25px;
+    .spinner {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      border: 5px solid #ccc;
+      border-top-color: #333;
+      animation: spin 1s infinite ease-in-out;
+    }
 
-      .spinner {
-        width: 15px;
-        height: 15px;
-        border-radius: 50%;
-        border: 5px solid #ccc;
-        border-top-color: #333;
-        animation: spin 1s infinite ease-in-out;
-      }
-
-      @keyframes spin {
-        to {
-          transform: rotate(360deg);
-        }
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
       }
     }
 
@@ -100,6 +66,25 @@ export const EntryWrapper = styled.div`
       font-size: 14px;
       margin: 10px 0px;
       color: ${COLORS.BLUE};
+    }
+
+    .login {
+      margin-bottom: 34px;
+    }
+  }
+
+  .moveBtn {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+
+    .move {
+      color: ${COLORS.GRAY};
+      font-size: 14px;
+    }
+
+    .main {
+      margin-right: 20px;
     }
   }
 `;
