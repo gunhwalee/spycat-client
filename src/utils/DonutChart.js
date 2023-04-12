@@ -1,5 +1,5 @@
 import React from "react";
-import "./PieChart.css";
+import "./DonutChart.css";
 import { v4 as uuid } from "uuid";
 
 const data = [
@@ -34,7 +34,7 @@ const data = [
 ];
 const color = ["red", "orange", "blue", "green", "yellow", "pink", "skyblue"];
 
-export default function PieChart() {
+export default function DonutChart() {
   const radius = 150;
   const circumference = 2 * Math.PI * radius;
   let filled = 0;

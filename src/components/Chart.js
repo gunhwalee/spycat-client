@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import HorizontalChart from "../utils/horizontalChart";
 import LineChart from "../utils/LineChart";
-import PieChart from "../utils/PieChart";
+import DonutChart from "../utils/DonutChart";
 import mockData from "../utils/mockData.json";
 
 const EntryWrapper = styled.div`
@@ -16,11 +16,12 @@ function Chart() {
   return (
     <EntryWrapper>
       <div>
-        <HorizontalChart name="Example Chart" data={mockData.horizontalMock} />
-        <PieChart name="Example" />
+        <HorizontalChart name="Horizontal" data={mockData.horizontalMock} />
+        <DonutChart name="Donut" />
       </div>
       <div>
         <LineChart
+          name="Line"
           width={900}
           height={500}
           data={mockData.lineMock}

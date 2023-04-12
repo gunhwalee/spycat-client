@@ -3,6 +3,7 @@ import "./LineChart.css";
 import { v4 as uuid } from "uuid";
 
 export default function LineChart({
+  name,
   data,
   width,
   height,
@@ -68,7 +69,7 @@ export default function LineChart({
     <svg width={width} height={height}>
       <g className="line-container">
         <text className="line-title" x="10" y="30">
-          Vertical Chart
+          {name}
         </text>
         <g className="line-chart" transform="translate(100, 60)">
           <LabelsYAxis />

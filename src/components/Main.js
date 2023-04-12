@@ -45,7 +45,7 @@ function Main() {
         <h1>Spy Cat</h1>
       </header>
       <main className="chart-example">
-        <VerticalChart name="Example Chart" data={mockData.verticalMock} />
+        <VerticalChart name="Vertical" data={mockData.verticalMock} />
       </main>
       {!name && (
         <>
