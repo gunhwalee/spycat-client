@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import LogoHeader from "./LogoHeader";
@@ -11,11 +12,14 @@ import "../utils/chart.css";
 const EntryWrapper = styled.div`
   width: 100%;
   height: 100%;
+  background-color: #787878;
 
   .small-logo-header {
     display: flex;
     align-items: center;
     text-align: center;
+    background-color: white;
+    border-radius: 5px;
   }
 
   .server-title {
@@ -26,25 +30,40 @@ const EntryWrapper = styled.div`
   }
 
   .chart-area {
-    background-color: aliceblue;
     display: flex;
     flex-direction: column;
     align-items: center;
 
     .main-chart {
       width: 100%;
+      margin-top: 10px;
       display: flex;
       justify-content: center;
-      background-color: antiquewhite;
+      background-color: white;
+      border-radius: 10px;
     }
 
     .sub-charts {
       margin-top: 10px;
       width: 100%;
-      background-color: aquamarine;
       display: flex;
       justify-content: space-around;
       align-items: center;
+
+      .sub1-chart,
+      .sub2-chart {
+        background-color: white;
+        width: 100%;
+        border-radius: 10px;
+      }
+
+      .sub1-chart {
+        margin-right: 5px;
+      }
+
+      .sub2-chart {
+        margin-left: 5px;
+      }
     }
   }
 `;
@@ -52,7 +71,9 @@ function Traffic() {
   return (
     <EntryWrapper>
       <header className="small-logo-header">
-        <LogoHeader size="30px" />
+        <Link to="/">
+          <LogoHeader size="30px" />
+        </Link>
         <h1 className="server-title">My Test Server 1</h1>
       </header>
       <main className="chart-area">
@@ -65,19 +86,23 @@ function Traffic() {
           />
         </section>
         <section className="sub-charts">
-          <DonutChart
-            data={mockData.horizontalMock}
-            color={mockData.color}
-            name="sub1"
-            width="350"
-            height="350"
-          />
-          <HorizontalChart
-            data={mockData.donutMock}
-            name="sub"
-            height="350"
-            width="500"
-          />
+          <article className="sub1-chart">
+            <DonutChart
+              data={mockData.horizontalMock}
+              color={mockData.color}
+              name="sub1"
+              width="350"
+              height="350"
+            />
+          </article>
+          <article className="sub2-chart">
+            <HorizontalChart
+              data={mockData.donutMock}
+              name="sub"
+              height="350"
+              width="500"
+            />
+          </article>
         </section>
       </main>
     </EntryWrapper>
