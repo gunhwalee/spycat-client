@@ -95,7 +95,7 @@ function Sidebar() {
 
   return (
     <Aside>
-      <div className="list-wrapper">
+      <nav className="list-wrapper">
         <Link to="/">
           <h1>Spy Cat</h1>
         </Link>
@@ -110,8 +110,8 @@ function Sidebar() {
             </button>
           </ol>
         )}
-      </div>
-      <div className="logout">
+      </nav>
+      <footer className="logout">
         {name && (
           <>
             <Logout width="15px" height="15px" />
@@ -120,7 +120,7 @@ function Sidebar() {
             </button>
           </>
         )}
-      </div>
+      </footer>
     </Aside>
   );
 }

@@ -1,41 +1,10 @@
 import React from "react";
-import "./PieChart.css";
 import { v4 as uuid } from "uuid";
 
-const data = [
-  {
-    name: "kentcdodds",
-    value: 28,
-  },
-  {
-    name: "sindresorhus",
-    value: 40,
-  },
-  {
-    name: "developit",
-    value: 30,
-  },
-  {
-    name: "getify",
-    value: 50,
-  },
-  {
-    name: "btholt",
-    value: 62,
-  },
-  {
-    name: "kyleshevlin",
-    value: 90,
-  },
-  {
-    name: "Holand",
-    value: 33,
-  },
-];
-const color = ["red", "orange", "blue", "green", "yellow", "pink", "skyblue"];
-
-export default function PieChart() {
-  const radius = 150;
+export default function DonutChart({ name, data, color, width, height }) {
+  const cx = width / 2;
+  const cy = height / 2;
+  const radius = cx * 0.75;
   const circumference = 2 * Math.PI * radius;
   let filled = 0;
   const total = data.reduce((accumulator, currentValue) => {
@@ -43,12 +12,12 @@ export default function PieChart() {
   }, 0);
 
   return (
-    <svg viewBox="0 0 400 400" width={400} height={400}>
-      <g className="donut-container">
-        <text className="donut-title" x="10" y="30">
-          Example
+    <svg viewBox={`0 0 ${width} ${height}`} width={width} height={height}>
+      <g className="container">
+        <text className="title" x="10" y="30">
+          {name}
         </text>
-        <g className="donut-chart">
+        <g className="chart">
           {data.map((element, index) => {
             const ratio = element.value / total;
             const strokeLength = circumference * ratio;
@@ -56,30 +25,30 @@ export default function PieChart() {
             const offset = filled * circumference;
             filled += ratio;
             return (
-              <g className="donut-group" key={uuid()}>
+              <g className="group" key={uuid()}>
                 <circle
                   r={radius}
-                  cx={200}
-                  cy={200}
+                  cx={cx}
+                  cy={cy}
                   fill="transparent"
                   stroke={color[index]}
                   strokeWidth={radius / 2}
                   strokeDasharray={`${strokeLength} ${spaceLength}`}
                   strokeDashoffset={-offset}
-                  transform="rotate(-90, 200, 200)"
+                  transform={`rotate(-90, ${cx}, ${cy})`}
                 />
                 <text
-                  className="value-label"
-                  x="200"
-                  y="200"
+                  className="value-label donut"
+                  x={cx}
+                  y={cy}
                   alignmentBaseline="middle"
                 >
                   {element.value}
                 </text>
                 <text
-                  className="name-label"
-                  x="200"
-                  y="200"
+                  className="name-label donut"
+                  x={cx}
+                  y={cy}
                   alignmentBaseline="middle"
                 >
                   {element.name}
@@ -88,10 +57,10 @@ export default function PieChart() {
             );
           })}
           <g className="chart-text">
-            <text x="50%" y="50%" className="chart-number" id="totalValue">
+            <text x="50%" y="50%" className="total-number">
               {total}
             </text>
-            <text x="50%" y="50%" className="chart-label">
+            <text x="50%" y="50%" className="total-label">
               Total
             </text>
           </g>

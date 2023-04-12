@@ -8,6 +8,7 @@ import Signup from "../components/Signup";
 import MyPage from "../components/MyPage";
 import CreateServer from "../components/CreateServer";
 import Chart from "../components/Chart";
+import Traffic from "../components/Traffic";
 
 function App() {
   return (
@@ -18,7 +19,8 @@ function App() {
         <Route path="/signup" element={<Signup />} exact />
         <Route path="/:id" element={<MyPage />} exact />
         <Route path="/createserver" element={<CreateServer />} exact />
-        <Route path="/:id/traffics" element={<Chart />} exact />
+        <Route path="/:id/traffics" element={<Traffic />} exact />
+        <Route path="/:id/errors" element={<Chart />} exact />
         <Route path="/" element={<Main />} exact />
       </Routes>
     </>

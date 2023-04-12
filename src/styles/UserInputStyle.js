@@ -83,7 +83,7 @@ export const EntryWrapper = styled.div`
       font-size: 14px;
     }
 
-    .main {
+    .left {
       margin-right: 20px;
     }
   }

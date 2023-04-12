@@ -113,32 +113,36 @@
   }],
   "horizontalMock": [
     {
-      "name": "kentcdodds",
-      "value": 20
+      "name": "/",
+      "value": 72
     },
     {
-      "name": "sindresorhus",
-      "value": 40
+      "name": "/signup",
+      "value": 24
     },
     {
-      "name": "developit",
-      "value": 35
+      "name": "/login",
+      "value": 45
     },
     {
-      "name": "getify",
+      "name": "/mypage",
       "value": 50
     },
     {
-      "name": "btholt",
-      "value": 62
+      "name": "/logout",
+      "value": 38
     },
     {
-      "name": "kyleshevlin",
-      "value": 40
+      "name": "/chats",
+      "value": 59
+    },
+    {
+      "name": "/nexon",
+      "value": 56
     }
   ],
   "lineMock": [
-      { "label": "A", "x": 0, "y": 23 },
+  { "label": "A", "x": 0, "y": 23 },
   { "label": "B", "x": 1, "y": 7 },
   { "label": "C", "x": 2, "y": 11 },
   { "label": "D", "x": 3, "y": 16 },
@@ -166,7 +170,58 @@
   { "label": "L", "x": 25, "y": 30 },
   { "label": "M", "x": 26, "y": 38 },
   { "label": "N", "x": 27, "y": 26 }
-  ]
+  ],
+  "donutMock": [
+    {
+      "name": "00 - 02",
+      "value": 22
+    },
+    {
+      "name": "02 - 04",
+      "value": 8
+    },
+    {
+      "name": "04 - 06",
+      "value": 33
+    },
+    {
+      "name": "06 - 08",
+      "value": 18
+    },
+    {
+      "name": "08 - 10",
+      "value": 39
+    },
+    {
+      "name": "10 - 12",
+      "value": 28
+    },
+    {
+      "name": "12 - 14",
+      "value": 42
+    },
+    {
+      "name": "14 - 16",
+      "value": 37
+    },
+    {
+      "name": "16 - 18",
+      "value": 50
+    },
+    {
+      "name": "18 - 20",
+      "value": 62
+    },
+    {
+      "name": "20 - 22",
+      "value": 90
+    },
+    {
+      "name": "22 - 24",
+      "value": 33
+    }
+  ],
+  "color": ["red", "orange", "blue", "green", "yellow", "pink", "skyblue"]
 }
 
 

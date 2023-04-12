@@ -6,8 +6,8 @@ import axios from "axios";
 import * as S from "../styles/UserInputStyle";
 import { ReactComponent as Server } from "../assets/img/server.svg";
 import { ReactComponent as Globe } from "../assets/img/globe.svg";
-import logo from "../assets/img/logo.jpg";
 import { changeUsingHook } from "../features/userSlice";
+import LogoHeader from "./LogoHeader";
 
 function CreateServer() {
   const [info, setInfo] = useState({
@@ -70,9 +70,8 @@ function CreateServer() {
 
   return (
     <S.EntryWrapper>
-      <header className="logo-header">
-        <img alt="logo" src={logo} width="60px" height="60px" />
-        <h1>Spy Cat</h1>
+      <header className="big-logo-header">
+        <LogoHeader size="60px" />
       </header>
       <form id="submit-form" onSubmit={handleSubmit}>
         <div className="inner-pannel">

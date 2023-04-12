@@ -1,21 +1,26 @@
 import React, { useState } from "react";
-import "./horizontalChart.css";
 import { v4 as uuid } from "uuid";
 
-export default function HorizontalChart({ name, data }) {
+export default function HorizontalChart({ name, data, width, height }) {
   const [ratio, setRatio] = useState(8);
+  const [barHeight, setBarHeight] = useState(30);
   const maxObjArr = data.reduce((prev, next) => {
     return prev.value >= next.value ? prev : next;
   });
-  const width = 500;
-
   const maxValue = maxObjArr.value;
+  const totalHeight = barHeight * data.length;
+
   if (maxValue * ratio > width * 0.8) {
     setRatio(Math.floor(ratio * 0.75));
   } else if (maxValue * ratio < width / 2) {
     setRatio(Math.floor(ratio * 1.5));
   }
-  const barHeight = 30;
+
+  if (totalHeight > height - 60) {
+    setBarHeight(barHeight * 0.97);
+  } else if (totalHeight < height * 0.5) {
+    setBarHeight(barHeight * 1.2);
+  }
 
   const barGroups = data.map((d, i) => {
     return (
@@ -26,12 +31,12 @@ export default function HorizontalChart({ name, data }) {
   });
 
   return (
-    <svg width={width} height="400">
-      <g className="horizontal-container">
-        <text className="horizontal-title" x="10" y="30">
+    <svg width={width} height={height}>
+      <g className="container">
+        <text className="title" x="10" y="30">
           {name}
         </text>
-        <g className="horizontal-chart" transform="translate(100, 60)">
+        <g className="chart" transform="translate(100, 60)">
           {barGroups}
         </g>
       </g>
@@ -47,8 +52,13 @@ function HorizontalGroup({ ratio, data, barHeight }) {
   const barWidth = widthScale(data.value);
 
   return (
-    <g className="horizontalbar-group">
-      <text className="name-label" x="-6" y={yMid} alignmentBaseline="middle">
+    <g className="group">
+      <text
+        className="name-label horizontal"
+        x="-6"
+        y={yMid}
+        alignmentBaseline="middle"
+      >
         {data.name}
       </text>
       <rect
@@ -58,7 +68,7 @@ function HorizontalGroup({ ratio, data, barHeight }) {
         fill={barColor}
       />
       <text
-        className="value-label"
+        className="value-label horizontal"
         x={barWidth + 5}
         y={yMid}
         alignmentBaseline="middle"
