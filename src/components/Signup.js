@@ -8,7 +8,7 @@ import { ReactComponent as Password } from "../assets/img/password.svg";
 import { ReactComponent as PasswordCheck } from "../assets/img/password-check.svg";
 import { ReactComponent as Eye } from "../assets/img/eye.svg";
 import { ReactComponent as EyeSlash } from "../assets/img/eye-slash.svg";
-import logo from "../assets/img/logo.jpg";
+import LogoHeader from "./LogoHeader";
 
 function Signup() {
   const [info, setInfo] = useState({
@@ -88,9 +88,8 @@ function Signup() {
 
   return (
     <S.EntryWrapper>
-      <header className="logo-header">
-        <img alt="logo" src={logo} width="60px" height="60px" />
-        <h1>Spy Cat</h1>
+      <header className="big-logo-header">
+        <LogoHeader size="60px" />
       </header>
       <form id="submit-form" onSubmit={handleSubmit}>
         <div className="inner-pannel">
@@ -191,7 +190,7 @@ function Signup() {
       </form>
       <nav>
         <button type="button" className="moveBtn" onClick={() => navigate("/")}>
-          <span className="move main">메인 페이지</span>
+          <span className="move left">메인 페이지</span>
         </button>
         <button
           type="button"

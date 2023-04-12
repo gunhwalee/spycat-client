@@ -1,5 +1,4 @@
 import React from "react";
-import "./LineChart.css";
 import { v4 as uuid } from "uuid";
 
 export default function LineChart({
@@ -51,14 +50,14 @@ export default function LineChart({
     const labelY = chartHeight + FONT_SIZE * 3;
 
     return (
-      <g className="node-group" key={uuid()}>
-        <text x={x} y={y - 15} className="values-label">
+      <g className="group" key={uuid()}>
+        <text x={x} y={y - 15} className="value-label line">
           {element.y}
         </text>
         <circle cx={x} cy={y} r="20" fill="transparent" stroke="none">
           {element.y}
         </circle>
-        <text x={x} y={labelY} className="name-label">
+        <text x={x} y={labelY} className="name-label line">
           {element.label}
         </text>
       </g>
@@ -67,16 +66,16 @@ export default function LineChart({
 
   return (
     <svg width={width} height={height}>
-      <g className="line-container">
-        <text className="line-title" x="10" y="30">
+      <g className="container">
+        <text className="title" x="10" y="30">
           {name}
         </text>
-        <g className="line-chart" transform="translate(100, 60)">
+        <g className="chart" transform="translate(100, 60)">
           <LabelsYAxis />
           <polyline
             className="path"
             fill="none"
-            stroke="#EB3232"
+            stroke="#EF904C	"
             strokeWidth="3"
             points={points}
           />

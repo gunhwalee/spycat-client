@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import logo from "../assets/img/logo.jpg";
+import LogoHeader from "./LogoHeader";
 
 const EntryWrapper = styled.div`
   width: 100%;
@@ -22,9 +22,8 @@ function MyPage() {
 
   return (
     <EntryWrapper>
-      <header className="logo-header">
-        <img alt="logo" src={logo} width="60px" height="60px" />
-        <h1>Spy Cat</h1>
+      <header className="big-logo-header">
+        <LogoHeader size="60px" />
       </header>
       <div>서버를 선택해주세요</div>
     </EntryWrapper>

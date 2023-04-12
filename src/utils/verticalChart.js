@@ -1,21 +1,26 @@
 import React, { useState } from "react";
-import "./verticalChart.css";
 import { v4 as uuid } from "uuid";
 
-export default function VerticalChart({ name, data }) {
+export default function VerticalChart({ name, data, width, height }) {
   const [ratio, setRatio] = useState(8);
+  const [barWidth, setBarWidth] = useState(30);
   const maxObjArr = data.reduce((prev, next) => {
     return prev.value >= next.value ? prev : next;
   });
-  const height = 500;
-
   const maxValue = maxObjArr.value;
+  const totalWidth = barWidth * data.length;
+
   if (maxValue * ratio > height * 0.8) {
     setRatio(Math.floor(ratio * 0.75));
   } else if (maxValue * ratio < height / 2) {
     setRatio(Math.floor(ratio * 1.5));
   }
-  const barWidth = 30;
+
+  if (totalWidth > width - 150) {
+    setBarWidth(barWidth * 0.97);
+  } else if (totalWidth < width * 0.5) {
+    setBarWidth(barWidth * 1.2);
+  }
 
   const barGroups = data.map((d, i) => {
     return (
@@ -31,12 +36,12 @@ export default function VerticalChart({ name, data }) {
   });
 
   return (
-    <svg width="1000" height={height}>
-      <g className="vertical-container">
-        <text className="vertical-title" x="10" y="30">
+    <svg width={width} height={height}>
+      <g className="container">
+        <text className="title" x="10" y="30">
           {name}
         </text>
-        <g className="vertical-chart" transform="translate(80, 60)">
+        <g className="chart" transform="translate(80, 60)">
           {barGroups}
         </g>
       </g>
@@ -53,9 +58,9 @@ function VerticalGroup({ ratio, data, barWidth, height }) {
   const startY = height - (barHeight + 100);
 
   return (
-    <g className="verticalbar-group">
+    <g className="group">
       <text
-        className="name-label"
+        className="name-label vertical"
         x={xMid}
         y={height - 80}
         alignmentBaseline="middle"
@@ -69,7 +74,12 @@ function VerticalGroup({ ratio, data, barWidth, height }) {
         height={barHeight}
         fill={barColor}
       />
-      <text className="value-label" x={xMid} y="-10" alignmentBaseline="middle">
+      <text
+        className="value-label vertical"
+        x={xMid}
+        y="-10"
+        alignmentBaseline="middle"
+      >
         {data.value}
       </text>
     </g>
