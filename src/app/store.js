@@ -7,6 +7,7 @@ import storageSession from "redux-persist/lib/storage/session";
 import { persistReducer } from "redux-persist";
 
 import userReducer from "../features/userSlice";
+import trafficSlice from "../features/trafficSlice";
 
 const persistConfig = {
   key: "root",
@@ -17,6 +18,7 @@ const persistConfig = {
 
 const reducer = combineReducers({
   user: userReducer,
+  traffic: trafficSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);

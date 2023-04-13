@@ -1,7 +1,16 @@
 import React from "react";
 import { v4 as uuid } from "uuid";
 
-export default function DonutChart({ name, data, color, width, height }) {
+function getRandomColor() {
+  const R = Math.floor(Math.random() * 126 + 128).toString(16);
+  const G = Math.floor(Math.random() * 126 + 128).toString(16);
+  const B = Math.floor(Math.random() * 126 + 128).toString(16);
+  return `#${R + G + B}`;
+}
+
+export default function DonutChart({ name, data, width, height }) {
+  const color = [];
+  for (let i = 0; i < data.length; i += 1) color.push(getRandomColor());
   const cx = width / 2;
   const cy = height / 2;
   const radius = cx * 0.75;
@@ -43,7 +52,7 @@ export default function DonutChart({ name, data, color, width, height }) {
                   y={cy}
                   alignmentBaseline="middle"
                 >
-                  {element.value}
+                  traffic: {element.value}
                 </text>
                 <text
                   className="name-label donut"
@@ -51,7 +60,7 @@ export default function DonutChart({ name, data, color, width, height }) {
                   y={cy}
                   alignmentBaseline="middle"
                 >
-                  {element.name}
+                  route: {element.name}
                 </text>
               </g>
             );

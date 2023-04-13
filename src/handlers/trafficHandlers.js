@@ -1,161 +1,46 @@
-/* eslint-disable no-unused-vars */
-const dailyForm = [
-  {
-    name: 1,
-    value: [],
-  },
-  {
-    name: 2,
-    value: [],
-  },
-  {
-    name: 3,
-    value: [],
-  },
-  {
-    name: 4,
-    value: [],
-  },
-  {
-    name: 5,
-    value: [],
-  },
-  {
-    name: 6,
-    value: [],
-  },
-  {
-    name: 7,
-    value: [],
-  },
-  {
-    name: 8,
-    value: [],
-  },
-  {
-    name: 9,
-    value: [],
-  },
-  {
-    name: 10,
-    value: [],
-  },
-  {
-    name: 11,
-    value: [],
-  },
-  {
-    name: 12,
-    value: [],
-  },
-  {
-    name: 13,
-    value: [],
-  },
-  {
-    name: 14,
-    value: [],
-  },
-  {
-    name: 15,
-    value: [],
-  },
-  {
-    name: 16,
-    value: [],
-  },
-  {
-    name: 17,
-    value: [],
-  },
-  {
-    name: 18,
-    value: [],
-  },
-  {
-    name: 19,
-    value: [],
-  },
-  {
-    name: 20,
-    value: [],
-  },
-  {
-    name: 21,
-    value: [],
-  },
-  {
-    name: 22,
-    value: [],
-  },
-  {
-    name: 23,
-    value: [],
-  },
-  {
-    name: 24,
-    value: [],
-  },
-  {
-    name: 25,
-    value: [],
-  },
-  {
-    name: 26,
-    value: [],
-  },
-  {
-    name: 27,
-    value: [],
-  },
-  {
-    name: 28,
-    value: [],
-  },
-  {
-    name: 29,
-    value: [],
-  },
-  {
-    name: 30,
-    value: [],
-  },
-  {
-    name: 31,
-    value: [],
-  },
-];
+function totalTraffics(data) {
+  const result = { dailyTraffic: [], routesTraffic: [], timeTraffic: null };
+  result.timeTraffic = Array(12)
+    .fill()
+    .map((v, i) => {
+      const obj = { name: i, value: 0 };
+      return obj;
+    });
 
-const timeForm = {
-  1: 0,
-  2: 0,
-  3: 0,
-  4: 0,
-  5: 0,
-  6: 0,
-  7: 0,
-  8: 0,
-  9: 0,
-  10: 0,
-  11: 0,
-  12: 0,
-};
-
-function dailyTraffics(data) {
-  const result = [];
-
-  for (let i = 0; i < 31; i += 1) {
-    result[i] = { name: i + 1, value: 0 };
+  for (let i = 0; i < 32; i += 1) {
+    result.dailyTraffic[i] = { name: i + 1, value: 0 };
   }
 
-  for (let i = 0; i < data.traffics.length; i += 1) {
-    let day = data.traffics[i].createdAt.slice(8, 10);
+  for (let i = 0; i < data.length; i += 1) {
+    let day = data[i].createdAt.slice(8, 10);
     if (day < 10) day = day.at(-1);
 
     for (let j = 0; j < 31; j += 1) {
-      if (result[j].name === Number(day)) result[j].value += 1;
+      if (result.dailyTraffic[j].name === Number(day))
+        result.dailyTraffic[j].value += 1;
     }
+
+    const { path } = data[i];
+    const hasPath = element => element.name === path;
+
+    if (!result.routesTraffic.some(hasPath))
+      result.routesTraffic.push({ name: path, value: 0 });
+
+    result.routesTraffic.forEach(element => {
+      if (element.name === path) {
+        element.value += 1;
+      }
+    });
+
+    const time = Math.floor(data[i].createdAt.slice(11, 13) / 2);
+    result.timeTraffic.forEach(element => {
+      if (element.name === time) {
+        element.value += 1;
+      }
+    });
   }
+
+  result.routesTraffic.sort((a, b) => b.value - a.value);
 
   return result;
 }
@@ -177,19 +62,44 @@ function XAxisArray() {
   return result;
 }
 
-export default { dailyTraffics, XAxisArray };
+function dailyTraffics(data, date) {
+  if (date === null) return null;
+  const result = { routesTraffic: [], timeTraffic: null };
+  result.timeTraffic = Array(12)
+    .fill()
+    .map((v, i) => {
+      const obj = { name: i, value: 0 };
+      return obj;
+    });
 
-/*
-  for (let i = 0; i < data.traffics.length; i += 1) {
-    let day = data.traffics[i].createdAt.slice(8, 10);
+  for (let i = 0; i < data.length; i += 1) {
+    let day = data[i].createdAt.slice(8, 10);
     if (day < 10) day = day.at(-1);
-    const time = data.traffics[i].createdAt.slice(11, 13);
-    const { path } = data.traffics[i];
-    const indexTime = Math.floor(time / 2 + 1);
+    if (day !== date) continue;
 
-    result.daily[day] += 1;
-    if (!result.path[path]) result.path[path] = 0;
-    result.path[path] += 1;
-    result.time[indexTime] += 1;
+    const { path } = data[i];
+    const hasPath = element => element.name === path;
+
+    if (!result.routesTraffic.some(hasPath))
+      result.routesTraffic.push({ name: path, value: 0 });
+
+    result.routesTraffic.forEach(element => {
+      if (element.name === path) {
+        element.value += 1;
+      }
+    });
+
+    const time = Math.floor(data[i].createdAt.slice(11, 13) / 2);
+    result.timeTraffic.forEach(element => {
+      if (element.name === time) {
+        element.value += 1;
+      }
+    });
   }
-  */
+
+  result.routesTraffic.sort((a, b) => b.value - a.value);
+
+  return result;
+}
+
+export default { totalTraffics, XAxisArray, dailyTraffics };

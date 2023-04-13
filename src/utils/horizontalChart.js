@@ -59,7 +59,7 @@ function HorizontalGroup({ ratio, data, barHeight }) {
         y={yMid}
         alignmentBaseline="middle"
       >
-        {data.name}
+        {`${data.name * 2} - ${(data.name + 1) * 2}시`}
       </text>
       <rect
         y={barPadding * 0.5}

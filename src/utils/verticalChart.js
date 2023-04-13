@@ -1,6 +1,8 @@
 import React, { useState, useRef } from "react";
+import { useDispatch } from "react-redux";
 import { v4 as uuid } from "uuid";
 import Handler from "../handlers/trafficHandlers";
+import { selectDay } from "../features/trafficSlice";
 
 export default function VerticalChart({ name, data, width, height }) {
   const [ratio, setRatio] = useState(8);
@@ -52,6 +54,7 @@ export default function VerticalChart({ name, data, width, height }) {
 }
 
 function VerticalGroup({ ratio, data, barWidth, height }) {
+  const dispatch = useDispatch();
   const nameRef = useRef(null);
   const barPadding = 5;
   const barColor = "#348AA7";
@@ -61,7 +64,8 @@ function VerticalGroup({ ratio, data, barWidth, height }) {
   const startY = height - (barHeight + 100);
 
   const clickHandler = () => {
-    console.log(nameRef.current.textContent);
+    const selectDate = nameRef.current.textContent;
+    dispatch(selectDay({ selectDate }));
   };
 
   return (
