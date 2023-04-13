@@ -115,7 +115,7 @@ function Login() {
           {!disabled && "로그인"}
           {disabled && <div className="spinner" />}
         </button>
-        <button type="button" className="submitBtn github">
+        <button type="button" disabled={disabled} className="submitBtn github">
           <Github width="20px" height="20px" />
           Github 로그인
         </button>

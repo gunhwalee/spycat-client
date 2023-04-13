@@ -1,12 +1,15 @@
-import React from "react";
+/* eslint-disable no-unused-vars */
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import LogoHeader from "./LogoHeader";
 import VerticalChart from "../utils/VerticalChart";
+import MockData from "../utils/MockData";
 import mockData from "../utils/mockData.json";
 import HorizontalChart from "../utils/HorizontalChart";
 import DonutChart from "../utils/DonutChart";
+import Handler from "../handlers/trafficHandlers";
 import "../utils/chart.css";
 
 const EntryWrapper = styled.div`
@@ -68,6 +71,8 @@ const EntryWrapper = styled.div`
   }
 `;
 function Traffic() {
+  const result = Handler.dailyTraffics(MockData);
+
   return (
     <EntryWrapper>
       <header className="small-logo-header">
@@ -79,7 +84,7 @@ function Traffic() {
       <main className="chart-area">
         <section className="main-chart">
           <VerticalChart
-            data={mockData.verticalMock}
+            data={result}
             name="Daily Traffics"
             height={500}
             width={1000}

@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { v4 as uuid } from "uuid";
+import Handler from "../handlers/trafficHandlers";
 
 export default function VerticalChart({ name, data, width, height }) {
   const [ratio, setRatio] = useState(8);
   const [barWidth, setBarWidth] = useState(30);
+  const array = Handler.XAxisArray();
   const maxObjArr = data.reduce((prev, next) => {
     return prev.value >= next.value ? prev : next;
   });
   const maxValue = maxObjArr.value;
-  const totalWidth = barWidth * data.length;
+  const totalWidth = barWidth * 28;
 
   if (maxValue * ratio > height * 0.8) {
     setRatio(Math.floor(ratio * 0.75));
@@ -22,11 +24,11 @@ export default function VerticalChart({ name, data, width, height }) {
     setBarWidth(barWidth * 1.2);
   }
 
-  const barGroups = data.map((d, i) => {
+  const barGroups = array.map((d, i) => {
     return (
       <g transform={`translate(${i * barWidth}, 0)`} key={uuid()}>
         <VerticalGroup
-          data={d}
+          data={data[array[i] - 1]}
           barWidth={barWidth}
           ratio={ratio}
           height={height}
@@ -50,6 +52,7 @@ export default function VerticalChart({ name, data, width, height }) {
 }
 
 function VerticalGroup({ ratio, data, barWidth, height }) {
+  const nameRef = useRef(null);
   const barPadding = 5;
   const barColor = "#348AA7";
   const heightScale = d => d * ratio;
@@ -57,13 +60,18 @@ function VerticalGroup({ ratio, data, barWidth, height }) {
   const barHeight = heightScale(data.value);
   const startY = height - (barHeight + 100);
 
+  const clickHandler = () => {
+    console.log(nameRef.current.textContent);
+  };
+
   return (
-    <g className="group">
+    <g className="group" onClick={clickHandler}>
       <text
         className="name-label vertical"
         x={xMid}
         y={height - 80}
         alignmentBaseline="middle"
+        ref={nameRef}
       >
         {data.name}
       </text>
