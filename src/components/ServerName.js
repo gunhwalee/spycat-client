@@ -8,8 +8,8 @@ const EntryWrapper = styled.div`
   }
 
   .servername {
-    font-size: 18px;
-    padding-bottom: 15px;
+    font-size: 20px;
+    padding-bottom: 20px;
   }
 
   .dropdown {

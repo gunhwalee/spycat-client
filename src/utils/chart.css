@@ -26,6 +26,12 @@ body {
   font-size: 1em;
 }
 
+.group .per-label {
+  fill: #36393e;
+  font-weight: 300;
+  font-size: 1em;
+}
+
 .container .group {
   transition: opacity 0.3s;
 }
@@ -49,6 +55,11 @@ body {
 }
 
 .container .group:hover .value-label {
+  font-weight: 400;
+  font-size: 1.2em;
+}
+
+.container .group:hover .per-label {
   font-weight: 400;
   font-size: 1.2em;
 }
@@ -78,22 +89,18 @@ body {
 }
 
 .name-label.donut {
-  text-anchor: middle;
+  text-anchor: start;
   display: none;
-  -moz-transform: translateY(0.7em);
-  -ms-transform: translateY(0.7em);
-  -webkit-transform: translateY(0.7em);
-  transform: translateY(0.7em);
 }
 
 .value-label.donut {
+  text-anchor: start;
+  display: none;
+}
+
+.per-label.donut {
   text-anchor: middle;
   display: none;
-  line-height: 1;
-  -moz-transform: translateY(-0.25em);
-  -ms-transform: translateY(-0.25em);
-  -webkit-transform: translateY(-0.25em);
-  transform: translateY(-0.25em);
 }
 
 .group:hover .name-label.donut {
@@ -101,6 +108,10 @@ body {
 }
 
 .group:hover .value-label.donut {
+  display: block;
+}
+
+.group:hover .per-label.donut {
   display: block;
 }
 

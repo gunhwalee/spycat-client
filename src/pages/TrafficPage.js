@@ -60,7 +60,7 @@ function TrafficPage() {
       setData(Handler.totalTraffics(traffics));
       setSelectedData(Handler.dailyTraffics(traffics, selectDate));
     }
-  }, [traffics]);
+  }, [traffics, selectDate]);
 
   return (
     <EntryWrapper>

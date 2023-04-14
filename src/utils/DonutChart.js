@@ -3,8 +3,8 @@ import { v4 as uuid } from "uuid";
 import { CHART_COLORS } from "../assets/constants";
 
 export default function DonutChart({ name, data, width, height }) {
-  const cx = width / 2;
-  const cy = height / 2;
+  const cx = 175;
+  const cy = 175;
   const radius = cx * 0.75;
   const circumference = 2 * Math.PI * radius;
   let filled = 0;
@@ -49,28 +49,36 @@ export default function DonutChart({ name, data, width, height }) {
                 />
                 <text
                   className="value-label donut"
-                  x={cx}
-                  y={cy}
+                  x="70%"
+                  y="20%"
                   alignmentBaseline="middle"
                 >
                   traffic: {element.value}
                 </text>
                 <text
                   className="name-label donut"
+                  x="70%"
+                  y="30%"
+                  alignmentBaseline="middle"
+                >
+                  route: {element.name}
+                </text>
+                <text
+                  className="per-label donut"
                   x={cx}
                   y={cy}
                   alignmentBaseline="middle"
                 >
-                  route: {element.name}
+                  {(ratio * 100).toFixed(1)}%
                 </text>
               </g>
             );
           })}
           <g className="chart-text">
-            <text x="50%" y="50%" className="total-number">
+            <text x={cx} y={cy} className="total-number">
               {total}
             </text>
-            <text x="50%" y="50%" className="total-label">
+            <text x={cx} y={cy} className="total-label">
               Total
             </text>
           </g>

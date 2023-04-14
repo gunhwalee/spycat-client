@@ -32,7 +32,7 @@ function TrafficCharts({ data, selectedData }) {
                 selectedData ? selectedData.routesTraffic : data.routesTraffic
               }
               name="sub1"
-              width="350"
+              width="600"
               height="350"
             />
           )}

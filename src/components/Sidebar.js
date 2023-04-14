@@ -8,6 +8,7 @@ import ServerName from "./ServerName";
 import { COLORS } from "../assets/constants";
 import { ReactComponent as Logout } from "../assets/img/logout.svg";
 import { deleteUser } from "../features/userSlice";
+import logo from "../assets/img/logo-white.png";
 
 const Aside = styled.aside`
   width: 200px;
@@ -27,13 +28,28 @@ const Aside = styled.aside`
     cursor: pointer;
   }
 
-  & h1 {
-    font-size: 18px;
-    padding-bottom: 15px;
+  .logo {
+    display: flex;
+    align-items: center;
+    padding-bottom: 20px;
+  }
+
+  h1 {
+    font-size: 20px;
+    font-weight: 400;
+  }
+
+  .name {
+    padding-bottom: 20px;
+  }
+
+  .title {
+    margin-left: 5px;
   }
 
   > .logout {
     display: flex;
+    align-items: center;
   }
 `;
 
@@ -97,12 +113,15 @@ function Sidebar() {
     <Aside>
       <nav className="list-wrapper">
         <Link to="/entry">
-          <h1>Spy Cat</h1>
+          <div className="logo">
+            <img alt="logo" src={logo} width="20px" height="20px" />
+            <h1 className="title">Spy Cat</h1>
+          </div>
         </Link>
         {name && (
           <ol>
             <Link to="/users">
-              <h1>{name}님</h1>
+              <h1 className="name">{name}님</h1>
             </Link>
             {serverList}
             <button type="button" onClick={() => navigate("/createserver")}>

@@ -14,6 +14,7 @@ const InputWrapper = styled.div`
 
     input {
       border: none;
+      background-color: transparent;
       font-size: ${SIZE.FONT_REGULAR}px;
       margin-left: ${SIZE.MARGIN / 2}px;
       border-bottom: 1px solid ${COLORS.GRAY};
