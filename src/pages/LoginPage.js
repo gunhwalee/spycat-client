@@ -3,14 +3,14 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 
-import * as S from "../styles/UserInputStyle";
+import * as S from "../styles/SumbitStyles";
 import { ReactComponent as Id } from "../assets/img/id.svg";
 import { ReactComponent as Password } from "../assets/img/password.svg";
 import { ReactComponent as Github } from "../assets/img/github.svg";
-import { ReactComponent as Eye } from "../assets/img/eye.svg";
-import { ReactComponent as EyeSlash } from "../assets/img/eye-slash.svg";
 import { setUser } from "../features/userSlice";
-import LogoHeader from "./LogoHeader";
+import LogoHeader from "../components/LogoHeader";
+import UserTextInput from "../components/UserTextInput";
+import UserSecretInput from "../components/UserScretInput";
 
 function LoginPage() {
   const [info, setInfo] = useState({
@@ -20,6 +20,8 @@ function LoginPage() {
   const [errorMessage, setErrorMessage] = useState("");
   const [showPw, setShowPw] = useState(false);
   const [disabled, setDisabled] = useState(false);
+  const [idFocus, setIdFocus] = useState(false);
+  const [pwFocus, setPwFocus] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -82,34 +84,26 @@ function LoginPage() {
       </header>
       <form id="submit-form" onSubmit={handleSubmit}>
         <div className="inner-pannel">
-          <div className="box login">
-            <Id width="20px" height="20px" />
-            <input
-              type="email"
-              id="id"
-              placeholder="아이디(이메일)"
-              maxLength="40"
-              onChange={inputHandler}
-            />
-          </div>
-          <div className="box login">
-            <Password width="20px" height="20px" />
-            <input
-              type={showPw ? "text" : "password"}
-              id="pw"
-              placeholder="비밀번호"
-              minLength="8"
-              maxLength="16"
-              onChange={inputHandler}
-            />
-            <button type="button" onClick={pwHandler} className="pwBtn">
-              {showPw ? (
-                <Eye width="20px" height="20px" />
-              ) : (
-                <EyeSlash width="20px" height="20px" />
-              )}
-            </button>
-          </div>
+          <UserTextInput
+            Component={Id}
+            id="id"
+            placeholder="아이디 (이메일)"
+            inputHandler={inputHandler}
+            setFocus={setIdFocus}
+            focus={idFocus}
+            rule="아이디는 이메일을 사용하세요."
+          />
+          <UserSecretInput
+            Component={Password}
+            id="pw"
+            placeholder="비밀번호"
+            inputHandler={inputHandler}
+            setFocus={setPwFocus}
+            focus={pwFocus}
+            rule="8~16자 영문 대 소문자, 숫자를 사용하세요."
+            pwHandler={pwHandler}
+            showPw={showPw}
+          />
         </div>
         <button type="submit" disabled={disabled} className="submitBtn">
           {!disabled && "로그인"}

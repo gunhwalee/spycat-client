@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-import LogoHeader from "./LogoHeader";
+import LogoHeader from "../components/LogoHeader";
 import { COLORS } from "../assets/constants";
 import Handler from "../handlers/trafficHandlers";
 import VerticalChart from "../utils/VerticalChart";
@@ -47,7 +47,7 @@ function HomePage() {
       </header>
       <main className="chart-example">
         <VerticalChart
-          name="Vertical"
+          name="Example"
           data={data.dailyTraffic}
           height={500}
           width={1000}

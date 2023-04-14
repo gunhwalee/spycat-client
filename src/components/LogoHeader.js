@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import logo from "../assets/img/logo.jpg";
+import logo from "../assets/img/logo.png";
 
 const LogoBox = styled.div`
   display: flex;

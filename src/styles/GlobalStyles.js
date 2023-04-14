@@ -13,10 +13,6 @@ const GlobalStyles = createGlobalStyle`
     color: inherit;
   }
 
-  html, body, #root {
-    height: 100%;
-  }
-
   html,
   body,
   body > div {

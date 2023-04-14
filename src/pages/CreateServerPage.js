@@ -3,11 +3,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-import * as S from "../styles/UserInputStyle";
+import * as S from "../styles/SumbitStyles";
 import { ReactComponent as Server } from "../assets/img/server.svg";
 import { ReactComponent as Globe } from "../assets/img/globe.svg";
 import { changeUsingHook } from "../features/userSlice";
-import LogoHeader from "./LogoHeader";
+import LogoHeader from "../components/LogoHeader";
+import UserTextInput from "../components/UserTextInput";
 
 function CreateServerPage() {
   const [info, setInfo] = useState({
@@ -75,41 +76,24 @@ function CreateServerPage() {
       </header>
       <form id="submit-form" onSubmit={handleSubmit}>
         <div className="inner-pannel">
-          <div className="box">
-            <Server width="20px" height="20px" />
-            <input
-              type="text"
-              id="serverName"
-              placeholder="서버이름"
-              maxLength="20"
-              onChange={inputHandler}
-              onFocus={() => setNameFocus(true)}
-              onBlur={() => setNameFocus(false)}
-            />
-          </div>
-          <div
-            className="rule"
-            style={{ visibility: nameFocus ? "visible" : "hidden" }}
-          >
-            서버를 식별할 이름을 작성해주세요.
-          </div>
-          <div className="box">
-            <Globe width="20px" height="20px" />
-            <input
-              type="text"
-              id="url"
-              placeholder="호스트주소"
-              onChange={inputHandler}
-              onFocus={() => setHostFocus(true)}
-              onBlur={() => setHostFocus(false)}
-            />
-          </div>
-          <div
-            className="rule"
-            style={{ visibility: hostFocus ? "visible" : "hidden" }}
-          >
-            서버 호스트 주소를 입력해주세요.
-          </div>
+          <UserTextInput
+            Component={Server}
+            id="serverName"
+            placeholder="서버 이름"
+            inputHandler={inputHandler}
+            setFocus={setNameFocus}
+            focus={nameFocus}
+            rule="서버를 식별할 이름을 작성해주세요."
+          />
+          <UserTextInput
+            Component={Globe}
+            id="url"
+            placeholder="호스트 주소"
+            inputHandler={inputHandler}
+            setFocus={setHostFocus}
+            focus={hostFocus}
+            rule="서버 호스트 주소를 입력해주세요."
+          />
         </div>
         <button type="submit" disabled={disabled} className="submitBtn">
           {!disabled && "만들기"}

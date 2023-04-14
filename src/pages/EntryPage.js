@@ -5,8 +5,8 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 
-import LogoHeader from "./LogoHeader";
-import MockCharts from "./MockCharts";
+import LogoHeader from "../components/LogoHeader";
+import MockCharts from "../components/MockCharts";
 import Handler from "../handlers/trafficHandlers";
 import { setData } from "../features/trafficSlice";
 

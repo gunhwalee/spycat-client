@@ -9,6 +9,13 @@ const COLORS = {
   BLUE: "#1E82FF",
 };
 
+const SIZE = {
+  FONT_REGULAR: 16,
+  FONT_SMALL: 12,
+  PADDING: 10,
+  MARGIN: 10,
+};
+
 const CHART_COLORS = [
   "#d4fac7",
   "#bbf4de",
@@ -30,3 +37,4 @@ const CHART_COLORS = [
 
 exports.COLORS = COLORS;
 exports.CHART_COLORS = CHART_COLORS;
+exports.SIZE = SIZE;
