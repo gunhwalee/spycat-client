@@ -1,5 +1,5 @@
 import React from "react";
-import InputWrapper from "../styles/UserInputStyle";
+import InputWrapper from "../styles/UserInputStyles";
 
 function UserTextInput({
   Component,

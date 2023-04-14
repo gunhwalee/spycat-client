@@ -2,99 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
-import styled from "styled-components";
 
 import LogoHeader from "../components/LogoHeader";
 import TrafficCharts from "../components/TrafficCharts";
 import Handler from "../handlers/trafficHandlers";
 import { saveData, deleteData } from "../features/trafficSlice";
-
-const EntryWrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  background-color: #787878;
-
-  .small-logo-header {
-    display: flex;
-    align-items: center;
-    text-align: center;
-    justify-content: space-between;
-    background-color: white;
-    border-radius: 5px;
-
-    .server-title {
-      font-weight: 700;
-      font-size: 2.5em;
-      cursor: pointer;
-    }
-  }
-
-  .chart-area {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    .main-chart {
-      height: 500px;
-      width: 100%;
-      margin-top: 10px;
-      display: flex;
-      justify-content: center;
-      background-color: white;
-      border-radius: 10px;
-    }
-
-    .sub-charts {
-      margin-top: 10px;
-      width: 100%;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-
-      .sub1-chart,
-      .sub2-chart {
-        background-color: white;
-        width: 100%;
-        border-radius: 10px;
-      }
-
-      .sub1-chart {
-        margin-right: 5px;
-      }
-
-      .sub2-chart {
-        margin-left: 5px;
-      }
-    }
-
-    .loading-box {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-
-      .spinner {
-        width: 400px;
-        height: 400px;
-        border-radius: 50%;
-        border: 100px solid #ccc;
-        border-top-color: #333;
-        animation: spin 1.5s infinite ease-in-out;
-      }
-
-      @keyframes spin {
-        to {
-          transform: rotate(360deg);
-        }
-      }
-
-      h1 {
-        margin-top: 30px;
-        font-size: 24px;
-      }
-    }
-  }
-`;
+import EntryWrapper from "../styles/ChartPageStyles";
 
 function TrafficPage() {
   const [data, setData] = useState(null);

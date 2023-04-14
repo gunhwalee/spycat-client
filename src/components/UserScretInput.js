@@ -1,5 +1,5 @@
 import React from "react";
-import InputWrapper from "../styles/UserInputStyle";
+import InputWrapper from "../styles/UserInputStyles";
 
 import { ReactComponent as Eye } from "../assets/img/eye.svg";
 import { ReactComponent as EyeSlash } from "../assets/img/eye-slash.svg";

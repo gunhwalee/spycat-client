@@ -1,50 +1,12 @@
 import React from "react";
-import styled from "styled-components";
+import Main from "../styles/TrafficChartStyles";
 
 import VerticalChart from "../utils/VerticalChart";
 import HorizontalChart from "../utils/HorizontalChart";
 import DonutChart from "../utils/DonutChart";
 import "../utils/chart.css";
 
-const Main = styled.main`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  .main-chart {
-    width: 100%;
-    margin-top: 10px;
-    display: flex;
-    justify-content: center;
-    background-color: white;
-    border-radius: 10px;
-  }
-
-  .sub-charts {
-    margin-top: 10px;
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-
-    .sub1-chart,
-    .sub2-chart {
-      background-color: white;
-      width: 100%;
-      border-radius: 10px;
-    }
-
-    .sub1-chart {
-      margin-right: 5px;
-    }
-
-    .sub2-chart {
-      margin-left: 5px;
-    }
-  }
-`;
 function TrafficCharts({ data, selectedData }) {
-  console.log(data);
   return (
     <Main className="chart-area">
       <section className="main-chart">

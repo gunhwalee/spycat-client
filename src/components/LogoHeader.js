@@ -4,10 +4,6 @@ import logo from "../assets/img/logo.png";
 
 const LogoBox = styled.div`
   display: flex;
-
-  .logo {
-    opacity: 0.5;
-  }
 `;
 
 function LogoHeader({ size }) {
