@@ -32,6 +32,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   .small-logo-header {
+    height: 60px;
     padding: 10px;
   }
 `;

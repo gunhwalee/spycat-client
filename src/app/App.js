@@ -7,7 +7,7 @@ import LoginPage from "../pages/LoginPage";
 import SignupPage from "../pages/SignupPage";
 import CreateServerPage from "../pages/CreateServerPage";
 import EntryPage from "../pages/EntryPage";
-import TrafficCharts from "../components/TrafficCharts";
+import TrafficPage from "../pages/TrafficPage";
 import TestPage from "../pages/TestPage";
 
 function App() {
@@ -19,9 +19,10 @@ function App() {
         <Route path="/login" element={<LoginPage />} exact />
         <Route path="/signup" element={<SignupPage />} exact />
         <Route path="/createserver" element={<CreateServerPage />} exact />
-        <Route path="/users" element={<EntryPage />} exact />
-        <Route path="/:id/traffics" element={<TrafficCharts />} exact />
-        <Route path="/" element={<HomePage />} exact />
+        <Route path="/entry" element={<EntryPage />} exact />
+        <Route path="/:id/traffics" element={<TrafficPage />} exact />
+        <Route path="/test" element={<TestPage />} />
+        <Route path="/" element={<HomePage />} />
       </Routes>
     </>
   );

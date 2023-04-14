@@ -1,13 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
-import MockData from "../utils/MockData";
 
-const initialState = MockData;
+const initialState = {
+  serverName: null,
+  url: null,
+  traffics: null,
+  errorLists: null,
+  selectDate: null,
+};
 
 const trafficSlice = createSlice({
   name: "traffic",
   initialState,
   reducers: {
-    setData(state, action) {
+    saveData(state, action) {
       state.serverName = action.payload.serverName;
       state.url = action.payload.url;
       state.traffics = action.payload.traffics;
@@ -17,8 +22,15 @@ const trafficSlice = createSlice({
     selectDay(state, action) {
       state.selectDate = action.payload.selectDate;
     },
+    deleteData(state) {
+      state.serverName = null;
+      state.url = null;
+      state.traffics = null;
+      state.errorLists = null;
+      state.selectDate = null;
+    },
   },
 });
 
-export const { setData, selectDay } = trafficSlice.actions;
+export const { saveData, selectDay, deleteData } = trafficSlice.actions;
 export default trafficSlice.reducer;

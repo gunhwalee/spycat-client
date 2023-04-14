@@ -19,6 +19,15 @@ export default function DonutChart({ name, data, width, height }) {
           {name}
         </text>
         <g className="chart">
+          <circle
+            className="background"
+            r={radius}
+            cx={cx}
+            cy={cy}
+            fill="transparent"
+            stroke="black"
+            strokeWidth={radius / 2}
+          />
           {data.map((element, index) => {
             const ratio = element.value / total;
             const strokeLength = circumference * ratio;

@@ -8,7 +8,6 @@ import { persistReducer } from "redux-persist";
 
 import userReducer from "../features/userSlice";
 import trafficSlice from "../features/trafficSlice";
-import routeSlice from "../features/routeSlice";
 
 const persistConfig = {
   key: "root",
@@ -20,7 +19,6 @@ const persistConfig = {
 const reducer = combineReducers({
   user: userReducer,
   traffic: trafficSlice,
-  route: routeSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);

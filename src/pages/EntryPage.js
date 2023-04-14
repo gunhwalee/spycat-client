@@ -1,14 +1,16 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from "react";
+/* eslint-disable no-undef */
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 
 import LogoHeader from "../components/LogoHeader";
-import MockCharts from "../components/MockCharts";
+import TrafficCharts from "../components/TrafficCharts";
 import Handler from "../handlers/trafficHandlers";
-import { setData } from "../features/trafficSlice";
+import mockData from "../utils/MockData";
+// import { setData, resetData } from "../features/trafficSlice";
 
 const EntryWrapper = styled.div`
   width: 100%;
@@ -70,46 +72,43 @@ const EntryWrapper = styled.div`
 `;
 function EntryPage() {
   const { apikey } = useSelector(state => state.user);
-  const { serverName, url, traffics, selectDate } = useSelector(
-    state => state.traffic,
-  );
-  const [isMock, setIsMock] = useState(true);
-  const [errorMessage, setErrorMessage] = useState("");
-  const dispatch = useDispatch();
+  const { selectDate } = useSelector(state => state.traffic);
   const { id } = useParams();
-  const data = Handler.totalTraffics(traffics);
-  const selectedData = Handler.dailyTraffics(traffics, selectDate);
+  const dispatch = useDispatch();
+  const data = Handler.totalTraffics(mockData.traffics);
+  const selectedData = Handler.dailyTraffics(mockData.traffics, selectDate);
 
-  useEffect(() => {
-    const getTrafficData = async () => {
-      try {
-        const response = await axios.get(
-          `${process.env.REACT_APP_SPYCAT_SERVER}/users/${apikey}/servers/${id}/traffics`,
-          { withCredentials: true },
-        );
+  // useEffect(() => {
+  //   const getTrafficData = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         `${process.env.REACT_APP_SPYCAT_SERVER}/users/${apikey}/servers/${id}/traffics`,
+  //         { withCredentials: true },
+  //       );
 
-        console.log(response);
-        if (response.data.result === "error") {
-          return setErrorMessage(response.data.message);
-        }
+  //       if (response.data.result === "error") {
+  //         return setErrorMessage(response.data.message);
+  //       }
 
-        dispatch(
-          setData({
-            serverName: response.data.serverName,
-            url: response.data.url,
-            traffics: response.data.traffics,
-          }),
-        );
-      } catch (err) {
-        console.error(err);
-        return setErrorMessage(
-          "서버 접속이 원활하지 않습니다. 잠시 후 시도해주세요.",
-        );
-      }
-    };
+  //       dispatch(
+  //         setData({
+  //           serverName: response.data.serverName,
+  //           url: response.data.url,
+  //           traffics: response.data.traffics,
+  //         }),
+  //       );
+  //     } catch (err) {
+  //       console.error(err);
+  //       return setErrorMessage(
+  //         "서버 접속이 원활하지 않습니다. 잠시 후 시도해주세요.",
+  //       );
+  //     }
+  //   };
 
-    getTrafficData();
-  }, []);
+  //   if (id) getTrafficData();
+
+  //   if (!id) dispatch(resetData());
+  // }, [id]);
 
   return (
     <EntryWrapper>
@@ -117,14 +116,10 @@ function EntryPage() {
         <Link to="/">
           <LogoHeader size="30px" />
         </Link>
-        <h1 className="server-title">
-          {isMock ? "서버를 선택하세요" : serverName}
-        </h1>
-        <h1 className="server-url">
-          {isMock ? "예시용 차트" : errorMessage || url}
-        </h1>
+        <h1 className="server-title">예시용 차트</h1>
+        <h1 className="server-url">서버를 선택하세요</h1>
       </header>
-      {isMock && <MockCharts data={data} selectedData={selectedData} />}
+      <TrafficCharts data={data} selectedData={selectedData} />
     </EntryWrapper>
   );
 }

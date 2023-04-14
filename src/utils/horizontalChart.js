@@ -7,7 +7,7 @@ export default function HorizontalChart({ name, data, width, height }) {
   const maxObjArr = data.reduce((prev, next) => {
     return prev.value >= next.value ? prev : next;
   });
-  const maxValue = maxObjArr.value;
+  const maxValue = maxObjArr.value || 50;
   const totalHeight = barHeight * data.length;
 
   if (maxValue * ratio > width * 0.8) {

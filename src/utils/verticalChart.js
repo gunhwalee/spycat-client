@@ -1,8 +1,21 @@
 import React, { useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { v4 as uuid } from "uuid";
+import styled from "styled-components";
+
 import Handler from "../handlers/trafficHandlers";
 import { selectDay } from "../features/trafficSlice";
+
+const ErrorBox = styled.div`
+  height: 500px;
+  display: flex;
+  align-items: center;
+
+  h1 {
+    font-weight: 700;
+    font-size: 24px;
+  }
+`;
 
 export default function VerticalChart({ name, data, width, height }) {
   const [ratio, setRatio] = useState(8);
@@ -11,7 +24,15 @@ export default function VerticalChart({ name, data, width, height }) {
   const maxObjArr = data.reduce((prev, next) => {
     return prev.value >= next.value ? prev : next;
   });
-  const maxValue = maxObjArr.value;
+
+  if (maxObjArr.value === 0)
+    return (
+      <ErrorBox>
+        <h1>저장된 트래픽 정보가 없습니다.</h1>
+      </ErrorBox>
+    );
+
+  const maxValue = maxObjArr.value || 50;
   const totalWidth = barWidth * 28;
 
   if (maxValue * ratio > height * 0.8) {

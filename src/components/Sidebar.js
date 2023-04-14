@@ -96,12 +96,12 @@ function Sidebar() {
   return (
     <Aside>
       <nav className="list-wrapper">
-        <Link to="/">
+        <Link to="/entry">
           <h1>Spy Cat</h1>
         </Link>
         {name && (
           <ol>
-            <Link to={`/${apikey}`}>
+            <Link to="/users">
               <h1>{name}님</h1>
             </Link>
             {serverList}
