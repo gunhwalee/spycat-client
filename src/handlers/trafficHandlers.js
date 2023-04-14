@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 function totalTraffics(data) {
   const result = { dailyTraffic: [], routesTraffic: [], timeTraffic: null };
   result.timeTraffic = Array(12)
@@ -102,4 +103,20 @@ function dailyTraffics(data, date) {
   return result;
 }
 
-export default { totalTraffics, XAxisArray, dailyTraffics };
+function totalErrors(data) {
+  const result = { dailyError: [], routesError: [], timeError: null };
+  result.timeTraffic = Array(12)
+    .fill()
+    .map((v, i) => {
+      const obj = { name: i, value: 0 };
+      return obj;
+    });
+
+  for (let i = 0; i < 32; i += 1) {
+    result.dailyTraffic[i] = { name: i + 1, value: 0 };
+  }
+
+  return result;
+}
+
+export default { totalTraffics, XAxisArray, dailyTraffics, totalErrors };

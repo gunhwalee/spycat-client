@@ -1,11 +1,10 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 
-import LogoHeader from "../components/LogoHeader";
 import TrafficCharts from "../components/TrafficCharts";
 import Handler from "../handlers/trafficHandlers";
 import mockData from "../utils/MockData";
+import PageHeader from "../components/PageHeader";
 import EntryWrapper from "../styles/ChartPageStyles";
 
 function EntryPage() {
@@ -15,13 +14,7 @@ function EntryPage() {
 
   return (
     <EntryWrapper>
-      <header className="small-logo-header">
-        <Link to="/">
-          <LogoHeader size="30px" />
-        </Link>
-        <h1 className="server-title">예시용 차트</h1>
-        <h1 className="server-url">서버를 선택하세요</h1>
-      </header>
+      <PageHeader title="예시용 차트" text="서버를 선택하세요." />
       <TrafficCharts data={data} selectedData={selectedData} />
     </EntryWrapper>
   );

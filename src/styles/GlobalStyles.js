@@ -1,5 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
+import { SIZE } from "../assets/constants";
 
 const GlobalStyles = createGlobalStyle`
   ${reset}
@@ -27,13 +28,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   .big-logo-header {
-    margin-top: 100px;
-    margin-bottom: 50px;
-  }
-
-  .small-logo-header {
-    height: 60px;
-    padding: 10px;
+    margin: ${SIZE.MARGIN * 10}px 0px ${SIZE.MARGIN * 5}px;
   }
 `;
 

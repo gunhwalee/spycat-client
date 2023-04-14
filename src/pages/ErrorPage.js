@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 
-import PageHeader from "../components/PageHeader";
+import LogoHeader from "../components/LogoHeader";
 import TrafficCharts from "../components/TrafficCharts";
 import Handler from "../handlers/trafficHandlers";
 import { saveData, deleteData } from "../features/trafficSlice";
 import EntryWrapper from "../styles/ChartPageStyles";
 
-function TrafficPage() {
+function ErrorPage() {
   const [data, setData] = useState(null);
   const [selectedData, setSelectedData] = useState(null);
   const { apikey } = useSelector(state => state.user);
@@ -24,7 +24,7 @@ function TrafficPage() {
     const getTrafficData = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_SPYCAT_SERVER}/users/${apikey}/servers/${id}/traffics`,
+          `${process.env.REACT_APP_SPYCAT_SERVER}/users/${apikey}/servers/${id}/errors`,
           { withCredentials: true },
         );
 
@@ -36,7 +36,7 @@ function TrafficPage() {
           saveData({
             serverName: response.data.serverName,
             url: response.data.url,
-            traffics: response.data.traffics,
+            errorLists: response.data.errorLists,
           }),
         );
       } catch (err) {
@@ -64,10 +64,16 @@ function TrafficPage() {
 
   return (
     <EntryWrapper>
-      <PageHeader title={serverName} text={errorMessage || url} />
+      <header className="small-logo-header">
+        <Link to="/">
+          <LogoHeader size="30px" />
+        </Link>
+        <h1 className="server-title">{serverName}</h1>
+        <h1 className="server-url">{errorMessage || url}</h1>
+      </header>
       <TrafficCharts data={data} selectedData={selectedData} />
     </EntryWrapper>
   );
 }
 
-export default TrafficPage;
+export default ErrorPage;

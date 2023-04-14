@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { COLORS } from "../assets/constants";
+import { COLORS, SIZE } from "../assets/constants";
 
 export const EntryWrapper = styled.div`
   width: 100%;
@@ -12,24 +12,28 @@ export const EntryWrapper = styled.div`
     flex-direction: column;
     margin-top: 100px;
 
+    .inner-pannel {
+      margin-bottom: ${SIZE.MARGIN * 5}px;
+    }
+
     .submitBtn {
       display: flex;
       justify-content: center;
       align-items: center;
       background-color: ${COLORS.LOGIN};
       cursor: pointer;
-      padding: 15px 0px;
-      border-radius: 5px;
+      padding: ${SIZE.PADDING * 2}px 0px;
+      border-radius: ${SIZE.BORDER}px;
       border: none;
-      margin-bottom: 30px;
-      font-size: 14px;
+      margin-bottom: ${SIZE.MARGIN * 3}px;
+      font-size: ${SIZE.FONT_BUTTON}px;
     }
 
     .spinner {
-      width: 15px;
-      height: 15px;
+      width: ${SIZE.FONT_REGULAR}px;
+      height: ${SIZE.FONT_REGULAR}px;
       border-radius: 50%;
-      border: 5px solid #ccc;
+      border: ${SIZE.BORDER}px solid #ccc;
       border-top-color: #333;
       animation: spin 1s infinite ease-in-out;
     }
@@ -48,22 +52,22 @@ export const EntryWrapper = styled.div`
 
     .move {
       color: ${COLORS.GRAY};
-      font-size: 14px;
+      font-size: ${SIZE.FONT_SMALL}px;
     }
 
     .left {
-      margin-right: 20px;
+      margin-right: ${SIZE.MARGIN * 2}px;
     }
   }
 `;
 
 export const Footer = styled.footer`
-  margin-top: 20px;
+  margin-top: ${SIZE.MARGIN * 2}px;
 
   > li {
     list-style: none;
-    font-size: 14px;
-    margin: 10px 0px;
+    font-size: ${SIZE.FONT_SMALL}px;
+    margin: ${SIZE.MARGIN}px 0px;
   }
 
   .error {

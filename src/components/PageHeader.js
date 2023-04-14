@@ -1,29 +1,37 @@
 import React from "react";
-import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-const Header = styled.header`
-  height: 60px;
-  padding: 10px;
-  border-radius: 5px;
+import Header from "../styles/PageHeaderStyles";
+import logo from "../assets/img/logo.png";
+import { SIZE } from "../assets/constants";
 
-  .title {
-    font-weight: 700;
-    font-size: 25px;
-    text-align: center;
-  }
-
-  .text {
-    font-weight: 400;
-    font-size: 15px;
-    text-align: right;
-  }
-`;
-
-function PageHeader() {
+function PageHeader({ title, text }) {
   return (
     <Header>
-      <h1 className="title">Title</h1>
-      <h2 className="text">text</h2>
+      <div className="container">
+        <Link to="/">
+          <img
+            alt="logo"
+            src={logo}
+            width={`${SIZE.PAGEHEADER_LOGO}px`}
+            height={`${SIZE.PAGEHEADER_LOGO}px`}
+          />
+          <h1
+            style={{
+              fontSize: `${SIZE.PAGEHEADER_LOGO}px`,
+              marginLeft: `${SIZE.MARGIN / 2}px`,
+            }}
+          >
+            Spy Cat
+          </h1>
+        </Link>
+      </div>
+      <div className="container">
+        <h1 className="title">{title}</h1>
+      </div>
+      <div className="container last">
+        <h1 className="text">{text}</h1>
+      </div>
     </Header>
   );
 }

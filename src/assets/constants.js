@@ -1,5 +1,5 @@
 const COLORS = {
-  BACKGROUND: "#1e2124",
+  SIDEBAR: "#1e2124",
   FONT: "#ffffff",
   BORDER: "#424549",
   BUTTON: "#7289da",
@@ -10,10 +10,17 @@ const COLORS = {
 };
 
 const SIZE = {
-  FONT_REGULAR: 16,
-  FONT_SMALL: 12,
+  SIDEBAR: 200,
+  FONT_BUTTON: 18,
+  BIG_LOGO: 60,
+  FONT_TITLE: 24,
+  FONT_INPUT: 20,
+  FONT_REGULAR: 18,
+  FONT_SMALL: 14,
   PADDING: 10,
   MARGIN: 10,
+  PAGEHEADER_LOGO: 30,
+  BORDER: 5,
 };
 
 const CHART_COLORS = [

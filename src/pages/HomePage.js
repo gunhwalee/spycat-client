@@ -6,7 +6,7 @@ import styled from "styled-components";
 import LogoHeader from "../components/LogoHeader";
 import { COLORS } from "../assets/constants";
 import Handler from "../handlers/trafficHandlers";
-import VerticalChart from "../utils/VerticalChart";
+import VerticalChart from "../utils/verticalChart";
 import MockData from "../utils/MockData";
 
 const EntryWrapper = styled.div`

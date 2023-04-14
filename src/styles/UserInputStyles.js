@@ -2,9 +2,12 @@ import styled from "styled-components";
 import { COLORS, SIZE } from "../assets/constants";
 
 const InputWrapper = styled.div`
+  width: 400px;
+
   .input-box {
     display: flex;
-    padding: ${SIZE.PADDING}px 0px;
+    font-size: 20px;
+    padding: ${SIZE.PADDING * 2}px 0px;
 
     .pwBtn {
       cursor: pointer;
@@ -13,6 +16,7 @@ const InputWrapper = styled.div`
     }
 
     input {
+      width: 340px;
       border: none;
       background-color: transparent;
       font-size: ${SIZE.FONT_REGULAR}px;

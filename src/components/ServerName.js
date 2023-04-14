@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { SIZE } from "../assets/constants";
 
 const EntryWrapper = styled.div`
   & li {
@@ -8,19 +9,19 @@ const EntryWrapper = styled.div`
   }
 
   .servername {
-    font-size: 20px;
-    padding-bottom: 20px;
+    font-size: ${SIZE.FONT_BUTTON}px;
+    padding-bottom: ${SIZE.PADDING * 2}px;
   }
 
   .dropdown {
-    margin-bottom: 15px;
-    margin-left: 10px;
+    margin-bottom: ${SIZE.MARGIN * 2}px;
+    margin-left: ${SIZE.MARGIN}px;
     display: flex;
     flex-direction: column;
     align-items: first baseline;
 
     & li {
-      margin-bottom: 10px;
+      margin-bottom: ${SIZE.MARGIN}px;
     }
   }
 `;

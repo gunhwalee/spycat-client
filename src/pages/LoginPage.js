@@ -11,6 +11,7 @@ import { setUser } from "../features/userSlice";
 import LogoHeader from "../components/LogoHeader";
 import UserTextInput from "../components/UserTextInput";
 import UserSecretInput from "../components/UserScretInput";
+import { SIZE } from "../assets/constants";
 
 function LoginPage() {
   const [info, setInfo] = useState({
@@ -110,7 +111,7 @@ function LoginPage() {
           {disabled && <div className="spinner" />}
         </button>
         <button type="button" disabled={disabled} className="submitBtn github">
-          <Github width="20px" height="20px" />
+          <Github width={SIZE.FONT_BUTTON} height={SIZE.FONT_BUTTON} />
           Github 로그인
         </button>
       </form>

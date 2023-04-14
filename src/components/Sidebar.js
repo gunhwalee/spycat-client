@@ -5,46 +5,42 @@ import styled from "styled-components";
 import axios from "axios";
 
 import ServerName from "./ServerName";
-import { COLORS } from "../assets/constants";
+import { COLORS, SIZE } from "../assets/constants";
 import { ReactComponent as Logout } from "../assets/img/logout.svg";
 import { deleteUser } from "../features/userSlice";
 import logo from "../assets/img/logo-white.png";
 
 const Aside = styled.aside`
-  width: 200px;
+  width: ${SIZE.SIDEBAR}px;
   height: 100%;
-  padding: 15px;
-  background-color: ${COLORS.BACKGROUND};
+  padding: ${SIZE.PADDING}px;
+  background-color: ${COLORS.SIDEBAR};
   color: ${COLORS.FONT};
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 
   & button {
-    font-size: 16px;
+    font-size: ${SIZE.FONT_SMALL}px;
     color: ${COLORS.FONT};
-    border: 0;
+    border: none;
     background-color: transparent;
     cursor: pointer;
   }
 
-  .logo {
+  .list {
     display: flex;
     align-items: center;
-    padding-bottom: 20px;
+    padding-bottom: ${SIZE.PADDING * 2}px;
   }
 
   h1 {
-    font-size: 20px;
+    font-size: ${SIZE.FONT_BUTTON}px;
     font-weight: 400;
   }
 
-  .name {
-    padding-bottom: 20px;
-  }
-
   .title {
-    margin-left: 5px;
+    margin-left: ${SIZE.MARGIN / 2}px;
   }
 
   > .logout {
@@ -113,15 +109,20 @@ function Sidebar() {
     <Aside>
       <nav className="list-wrapper">
         <Link to="/entry">
-          <div className="logo">
-            <img alt="logo" src={logo} width="20px" height="20px" />
+          <div className="list">
+            <img
+              alt="logo"
+              src={logo}
+              width={SIZE.FONT_BUTTON}
+              height={SIZE.FONT_BUTTON}
+            />
             <h1 className="title">Spy Cat</h1>
           </div>
         </Link>
         {name && (
           <ol>
             <Link to="/users">
-              <h1 className="name">{name}님</h1>
+              <h1 className="list">{name}님</h1>
             </Link>
             {serverList}
             <button type="button" onClick={() => navigate("/createserver")}>
@@ -133,7 +134,7 @@ function Sidebar() {
       <footer className="logout">
         {name && (
           <>
-            <Logout width="15px" height="15px" />
+            <Logout width={SIZE.FONT_SMALL} height={SIZE.FONT_SMALL} />
             <button type="button" onClick={handleLogout}>
               로그 아웃
             </button>
