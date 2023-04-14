@@ -592,9 +592,52 @@ const MockData = {
       host: "mytestserver1.com",
       createdAt: "2023-04-08T05:15:35.417+00:00",
     },
+    {
+      path: "/entry",
+      host: "mytestserver1.com",
+      createdAt: "2023-04-08T09:15:35.417+00:00",
+    },
+    {
+      path: "/docs",
+      host: "mytestserver1.com",
+      createdAt: "2023-04-07T23:15:35.417+00:00",
+    },
+    {
+      path: "/",
+      host: "mytestserver1.com",
+      createdAt: "2023-04-07T23:15:35.417+00:00",
+    },
+    {
+      path: "/",
+      host: "mytestserver1.com",
+      createdAt: "2023-03-17T06:15:35.417+00:00",
+    },
+    {
+      path: "/users",
+      host: "mytestserver1.com",
+      createdAt: "2023-04-02T04:15:35.417+00:00",
+    },
+    {
+      path: "/login",
+      host: "mytestserver1.com",
+      createdAt: "2023-04-02T04:15:35.417+00:00",
+    },
+    {
+      path: "/",
+      host: "mytestserver1.com",
+      createdAt: "2023-04-08T08:15:35.417+00:00",
+    },
   ],
   errorLists: [],
   selectDate: null,
 };
 
 export default MockData;
+
+function getRandomColor() {
+  const R = Math.floor(Math.random() * 126 + 128).toString(16);
+  const G = Math.floor(Math.random() * 126 + 128).toString(16);
+  const B = Math.floor(Math.random() * 126 + 128).toString(16);
+  return `#${R + G + B}`;
+}
+getRandomColor();

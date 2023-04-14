@@ -1,16 +1,8 @@
 import React from "react";
 import { v4 as uuid } from "uuid";
-
-function getRandomColor() {
-  const R = Math.floor(Math.random() * 126 + 128).toString(16);
-  const G = Math.floor(Math.random() * 126 + 128).toString(16);
-  const B = Math.floor(Math.random() * 126 + 128).toString(16);
-  return `#${R + G + B}`;
-}
+import { CHART_COLORS } from "../assets/constants";
 
 export default function DonutChart({ name, data, width, height }) {
-  const color = [];
-  for (let i = 0; i < data.length; i += 1) color.push(getRandomColor());
   const cx = width / 2;
   const cy = height / 2;
   const radius = cx * 0.75;
@@ -40,7 +32,7 @@ export default function DonutChart({ name, data, width, height }) {
                   cx={cx}
                   cy={cy}
                   fill="transparent"
-                  stroke={color[index]}
+                  stroke={CHART_COLORS[index]}
                   strokeWidth={radius / 2}
                   strokeDasharray={`${strokeLength} ${spaceLength}`}
                   strokeDashoffset={-offset}

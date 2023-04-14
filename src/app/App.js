@@ -2,26 +2,24 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 
 import Sidebar from "../components/Sidebar";
-import Main from "../components/Main";
-import Login from "../components/Login";
-import Signup from "../components/Signup";
-import MyPage from "../components/MyPage";
-import CreateServer from "../components/CreateServer";
-import Chart from "../components/Chart";
-import Traffic from "../components/Traffic";
+import HomePage from "../components/HomePage";
+import LoginPage from "../components/LoginPage";
+import SignupPage from "../components/SignupPage";
+import CreateServerPage from "../components/CreateServerPage";
+import EntryPage from "../components/EntryPage";
+import TrafficCharts from "../components/TrafficCharts";
 
 function App() {
   return (
     <>
       <Sidebar />
       <Routes>
-        <Route path="/login" element={<Login />} exact />
-        <Route path="/signup" element={<Signup />} exact />
-        <Route path="/:id" element={<MyPage />} exact />
-        <Route path="/createserver" element={<CreateServer />} exact />
-        <Route path="/:id/traffics" element={<Traffic />} exact />
-        <Route path="/:id/errors" element={<Chart />} exact />
-        <Route path="/" element={<Main />} exact />
+        <Route path="/login" element={<LoginPage />} exact />
+        <Route path="/signup" element={<SignupPage />} exact />
+        <Route path="/createserver" element={<CreateServerPage />} exact />
+        <Route path="/users" element={<EntryPage />} exact />
+        <Route path="/:id/traffics" element={<TrafficCharts />} exact />
+        <Route path="/" element={<HomePage />} exact />
       </Routes>
     </>
   );

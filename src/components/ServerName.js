@@ -22,7 +22,7 @@ const EntryWrapper = styled.div`
   }
 `;
 
-function Serverlist({ name, id }) {
+function ServerName({ name, id }) {
   const [showDrop, setShowDrop] = useState(false);
 
   const mouseEvent = bool => {
@@ -50,4 +50,4 @@ function Serverlist({ name, id }) {
   );
 }
 
-export default Serverlist;
+export default ServerName;

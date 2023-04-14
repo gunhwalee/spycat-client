@@ -9,7 +9,7 @@ import { ReactComponent as Globe } from "../assets/img/globe.svg";
 import { changeUsingHook } from "../features/userSlice";
 import LogoHeader from "./LogoHeader";
 
-function CreateServer() {
+function CreateServerPage() {
   const [info, setInfo] = useState({
     serverName: null,
     url: null,
@@ -128,4 +128,4 @@ function CreateServer() {
   );
 }
 
-export default CreateServer;
+export default CreateServerPage;

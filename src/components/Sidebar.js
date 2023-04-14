@@ -4,7 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 
-import Serverlist from "./Serverlist";
+import ServerName from "./ServerName";
 import { COLORS } from "../assets/constants";
 import { ReactComponent as Logout } from "../assets/img/logout.svg";
 import { deleteUser } from "../features/userSlice";
@@ -66,10 +66,10 @@ function Sidebar() {
   if (serverArray && serverArray.length) {
     serverList = serverArray.map(element => {
       return (
-        <Serverlist
+        <ServerName
           name={element.serverName}
-          id={element._id}
-          key={element.url}
+          id={element.url}
+          key={element._id}
         />
       );
     });

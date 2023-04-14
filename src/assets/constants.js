@@ -9,4 +9,24 @@ const COLORS = {
   BLUE: "#1E82FF",
 };
 
+const CHART_COLORS = [
+  "#d4fac7",
+  "#bbf4de",
+  "#f491e6",
+  "#faebc3",
+  "#eee1de",
+  "#caa4f5",
+  "#e5e7c3",
+  "#f8eeef",
+  "#dee2ab",
+  "#e4eae9",
+  "#b281e6",
+  "#a9eaf3",
+  "#cba9b2",
+  "#e2efd0",
+  "#a1f7af",
+  "#8bb8d0",
+];
+
 exports.COLORS = COLORS;
+exports.CHART_COLORS = CHART_COLORS;

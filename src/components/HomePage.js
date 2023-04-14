@@ -5,8 +5,9 @@ import styled from "styled-components";
 
 import LogoHeader from "./LogoHeader";
 import { COLORS } from "../assets/constants";
-import mockData from "../utils/mockData.json";
+import Handler from "../handlers/trafficHandlers";
 import VerticalChart from "../utils/VerticalChart";
+import MockData from "../utils/MockData";
 
 const EntryWrapper = styled.div`
   width: 100%;
@@ -36,8 +37,9 @@ const EntryWrapper = styled.div`
   }
 `;
 
-function Main() {
+function HomePage() {
   const { name } = useSelector(state => state.user);
+  const data = Handler.totalTraffics(MockData.traffics);
   return (
     <EntryWrapper>
       <header className="big-logo-header">
@@ -46,7 +48,7 @@ function Main() {
       <main className="chart-example">
         <VerticalChart
           name="Vertical"
-          data={mockData.verticalMock}
+          data={data.dailyTraffic}
           height={500}
           width={1000}
         />
@@ -67,4 +69,4 @@ function Main() {
   );
 }
 
-export default Main;
+export default HomePage;
