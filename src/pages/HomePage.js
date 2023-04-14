@@ -6,7 +6,7 @@ import styled from "styled-components";
 import LogoHeader from "../components/LogoHeader";
 import { COLORS } from "../assets/constants";
 import Handler from "../handlers/trafficHandlers";
-import VerticalChart from "../utils/verticalChart";
+import VerticalChart from "../utils/VerticalChart";
 import MockData from "../utils/MockData";
 
 const EntryWrapper = styled.div`
@@ -49,8 +49,8 @@ function HomePage() {
         <VerticalChart
           name="Example"
           data={data.dailyTraffic}
-          height={500}
           width={1000}
+          height={500}
         />
       </main>
       {!name && (

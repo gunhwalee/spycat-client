@@ -18,6 +18,36 @@ const MockData = {
       createdAt: "2023-04-02T11:19:35.417+00:00",
     },
     {
+      path: "/signup",
+      host: "mytestserver1.com",
+      createdAt: "2023-04-15T11:09:35.417+00:00",
+    },
+    {
+      path: "/",
+      host: "mytestserver1.com",
+      createdAt: "2023-04-15T09:19:35.417+00:00",
+    },
+    {
+      path: "/docs",
+      host: "mytestserver1.com",
+      createdAt: "2023-04-15T21:19:35.417+00:00",
+    },
+    {
+      path: "/login",
+      host: "mytestserver1.com",
+      createdAt: "2023-04-15T21:19:35.417+00:00",
+    },
+    {
+      path: "/users",
+      host: "mytestserver1.com",
+      createdAt: "2023-04-14T14:19:35.417+00:00",
+    },
+    {
+      path: "/",
+      host: "mytestserver1.com",
+      createdAt: "2023-04-14T14:19:35.417+00:00",
+    },
+    {
       path: "/login",
       host: "mytestserver1.com",
       createdAt: "2023-04-03T23:15:35.417+00:00",
