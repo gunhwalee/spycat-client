@@ -43,8 +43,8 @@ function LoginPage() {
         return setErrorMessage(response.data.message);
       }
 
-      const { name, apikey } = response.data;
-      dispatch(setUser({ name, apikey }));
+      const { name, apikey, id } = response.data;
+      dispatch(setUser({ name, apikey, id }));
 
       navigate("/entry");
     } catch (err) {
@@ -107,8 +107,7 @@ function LoginPage() {
           />
         </div>
         <button type="submit" disabled={disabled} className="submitBtn">
-          {!disabled && "로그인"}
-          {disabled && <div className="spinner" />}
+          {disabled ? <div className="spinner" /> : "로그인"}
         </button>
         <button type="button" disabled={disabled} className="submitBtn github">
           <Github width={SIZE.FONT_BUTTON} height={SIZE.FONT_BUTTON} />

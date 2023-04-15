@@ -43,8 +43,6 @@ export default function VerticalChart({ name, data, width, height }) {
 
   if (totalWidth > width - 150) {
     setBarWidth(barWidth * 0.97);
-  } else if (totalWidth < width * 0.5) {
-    setBarWidth(barWidth * 1.2);
   }
 
   const barGroups = array.map((d, i) => {

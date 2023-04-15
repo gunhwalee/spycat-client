@@ -1,12 +1,15 @@
 const COLORS = {
   SIDEBAR: "#1e2124",
-  FONT: "#ffffff",
+  WHITE: "#ffffff",
   BORDER: "#424549",
   BUTTON: "#7289da",
   VIEW_BACKGROUND: "#36393e",
   GRAY: "#c8c8c8",
   LOGIN: "#FFD0A1",
   BLUE: "#1E82FF",
+  BLUE_HOVER: "#28A0FF",
+  RED_HOVER: "#ff4646",
+  RED: "#EB0000",
 };
 
 const SIZE = {

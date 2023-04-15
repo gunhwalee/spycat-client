@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { COLORS, SIZE } from "../assets/constants";
 
 const EntryWrapper = styled.div`
   width: 100%;
@@ -6,7 +7,8 @@ const EntryWrapper = styled.div`
   main {
     display: flex;
     justify-content: space-evenly;
-    height: calc(100% - 60px);
+    height: calc(100% - 80px);
+    margin-top: ${SIZE.MARGIN * 2}px;
 
     .wrapper {
       width: 45%;
@@ -23,14 +25,14 @@ const EntryWrapper = styled.div`
 
     .sub-title {
       font-weight: 400;
-      font-size: 1.5em;
+      font-size: ${SIZE.FONT_TITLE}px;
     }
 
     .content {
       border: 1px solid gray;
-      border-radius: 10px;
-      padding: 20px;
-      margin: 20px 0;
+      border-radius: ${SIZE.BORDER * 2}px;
+      padding: ${SIZE.PADDING * 2}px;
+      margin: ${SIZE.MARGIN}px 0;
     }
 
     .btn {
@@ -39,15 +41,54 @@ const EntryWrapper = styled.div`
       align-items: center;
 
       button {
-        width: 40px;
-        height: 25px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        border-radius: ${SIZE.BORDER}px;
+        border: 1px solid;
+        width: 50px;
+        height: 30px;
+      }
+
+      .create {
+        background-color: ${COLORS.BLUE};
+        color: ${COLORS.SIDEBAR};
+      }
+
+      .create:hover {
+        background-color: ${COLORS.BLUE_HOVER};
+      }
+
+      .delete {
+        background-color: ${COLORS.RED};
+        color: ${COLORS.SIDEBAR};
+      }
+
+      .delete:hover {
+        background-color: ${COLORS.RED_HOVER};
       }
     }
 
     .name {
-      font-size: 18px;
+      font-size: ${SIZE.FONT_REGULAR}px;
       font-weight: 500;
-      margin-bottom: 10px;
+      margin-bottom: ${SIZE.MARGIN}px;
+    }
+
+    .spinner {
+      width: ${SIZE.FONT_REGULAR}px;
+      height: ${SIZE.FONT_REGULAR}px;
+      border-radius: 50%;
+      border: ${SIZE.BORDER}px solid #ccc;
+      border-top-color: #333;
+      animation: spin 1s infinite ease-in-out;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
     }
   }
 `;

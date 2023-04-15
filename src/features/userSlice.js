@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  name: false,
-  apikey: false,
-  usingHook: false,
+  name: null,
+  apikey: null,
+  id: null,
+  servers: [],
 };
 
 const userSlice = createSlice({
@@ -13,16 +14,22 @@ const userSlice = createSlice({
     setUser(state, action) {
       state.name = action.payload.name;
       state.apikey = action.payload.apikey;
+      state.id = action.payload.id;
+    },
+    setServers(state, action) {
+      state.servers = action.payload.servers;
+    },
+    updateKey(state, action) {
+      state.apikey = action.payload.apikey;
     },
     deleteUser(state) {
-      state.name = false;
-      state.apikey = false;
-    },
-    changeUsingHook(state) {
-      state.usingHook = !state.usingHook;
+      state.name = null;
+      state.apikey = null;
+      state.id = null;
+      state.servers = [];
     },
   },
 });
 
-export const { setUser, deleteUser, changeUsingHook } = userSlice.actions;
+export const { setUser, deleteUser, setServers, updateKey } = userSlice.actions;
 export default userSlice.reducer;

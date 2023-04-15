@@ -8,6 +8,7 @@ import SignupPage from "../pages/SignupPage";
 import CreateServerPage from "../pages/CreateServerPage";
 import EntryPage from "../pages/EntryPage";
 import TrafficPage from "../pages/TrafficPage";
+import ErrorPage from "../pages/ErrorPage";
 import UserPage from "../pages/UserPage";
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route path="/createserver" element={<CreateServerPage />} exact />
         <Route path="/entry" element={<EntryPage />} exact />
         <Route path="/:id/traffics" element={<TrafficPage />} exact />
+        <Route path="/:id/errors" element={<ErrorPage />} exact />
         <Route path="/users" element={<UserPage />} />
         <Route path="/" element={<HomePage />} />
       </Routes>

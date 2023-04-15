@@ -35,6 +35,18 @@ const EntryWrapper = styled.div`
   .move-signup {
     color: ${COLORS.GRAY};
   }
+
+  .footer {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    button {
+      width: 400px;
+      height: 62px;
+    }
+  }
 `;
 
 function HomePage() {
@@ -54,7 +66,7 @@ function HomePage() {
         />
       </main>
       {!name && (
-        <>
+        <footer className="footer">
           <Link to="/login">
             <button type="button" className="move-login">
               로그인
@@ -63,7 +75,7 @@ function HomePage() {
           <Link to="/signup">
             <span className="move-signup">회원가입</span>
           </Link>
-        </>
+        </footer>
       )}
     </EntryWrapper>
   );

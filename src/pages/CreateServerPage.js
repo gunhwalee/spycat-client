@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import * as S from "../styles/SumbitStyles";
 import { ReactComponent as Server } from "../assets/img/server.svg";
 import { ReactComponent as Globe } from "../assets/img/globe.svg";
-import { changeUsingHook } from "../features/userSlice";
 import LogoHeader from "../components/LogoHeader";
 import UserTextInput from "../components/UserTextInput";
 
@@ -21,7 +20,6 @@ function CreateServerPage() {
   const [disabled, setDisabled] = useState(false);
   const { apikey } = useSelector(state => state.user);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const handleSubmit = async event => {
     event.preventDefault();
@@ -40,7 +38,6 @@ function CreateServerPage() {
         return setErrorMessage(response.data.message);
       }
 
-      dispatch(changeUsingHook());
       navigate("/");
     } catch (err) {
       console.error(err);

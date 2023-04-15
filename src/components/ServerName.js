@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { SIZE } from "../assets/constants";
 
@@ -28,17 +28,12 @@ const EntryWrapper = styled.div`
 
 function ServerName({ name, id }) {
   const [showDrop, setShowDrop] = useState(false);
-  const navigate = useNavigate();
 
   const mouseEvent = bool => {
     setShowDrop(bool);
   };
 
   const clickHandler = () => {};
-
-  const showTraffic = () => {
-    navigate(`/${id}/traffics`);
-  };
 
   return (
     <EntryWrapper
@@ -48,12 +43,12 @@ function ServerName({ name, id }) {
       <li className="servername">{name}</li>
       {showDrop && (
         <ul className="dropdown">
-          <button type="button" onClick={showTraffic}>
+          <Link to={`/${id}/traffics`}>
             <li>트래픽</li>
-          </button>
-          <button type="button" onClick={showTraffic}>
+          </Link>
+          <Link to={`/${id}/errors`}>
             <li>에러</li>
-          </button>
+          </Link>
           <button type="button" onClick={clickHandler}>
             <li>삭제하기</li>
           </button>

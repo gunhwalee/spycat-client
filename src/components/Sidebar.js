@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
@@ -7,7 +7,7 @@ import axios from "axios";
 import ServerName from "./ServerName";
 import { COLORS, SIZE } from "../assets/constants";
 import { ReactComponent as Logout } from "../assets/img/logout.svg";
-import { deleteUser } from "../features/userSlice";
+import { deleteUser, setServers } from "../features/userSlice";
 import logo from "../assets/img/logo-white.png";
 
 const Aside = styled.aside`
@@ -15,14 +15,14 @@ const Aside = styled.aside`
   height: 100%;
   padding: ${SIZE.PADDING}px;
   background-color: ${COLORS.SIDEBAR};
-  color: ${COLORS.FONT};
+  color: ${COLORS.WHITE};
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 
   & button {
     font-size: ${SIZE.FONT_SMALL}px;
-    color: ${COLORS.FONT};
+    color: ${COLORS.WHITE};
     border: none;
     background-color: transparent;
     cursor: pointer;
@@ -50,8 +50,7 @@ const Aside = styled.aside`
 `;
 
 function Sidebar() {
-  const { name, apikey, usingHook } = useSelector(state => state.user);
-  const [serverArray, setServerArray] = useState(null);
+  const { name, apikey, servers } = useSelector(state => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   let serverList;
@@ -64,7 +63,7 @@ function Sidebar() {
           { withCredentials: true },
         );
 
-        setServerArray(response.data.serverList);
+        dispatch(setServers({ servers: response.data.servers }));
       } catch (err) {
         console.error(err);
       }
@@ -73,10 +72,10 @@ function Sidebar() {
     if (name) {
       loadServerList();
     }
-  }, [name, usingHook]);
+  }, [name]);
 
-  if (serverArray && serverArray.length) {
-    serverList = serverArray.map(element => {
+  if (servers && servers.length) {
+    serverList = servers.map(element => {
       return (
         <ServerName
           name={element.serverName}
@@ -96,7 +95,6 @@ function Sidebar() {
       );
 
       if (response.data.result === "ok") {
-        setServerArray(null);
         dispatch(deleteUser());
         navigate("/");
       }
