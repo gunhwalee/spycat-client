@@ -29,7 +29,7 @@ const EntryWrapper = styled.div`
     }
 
     .content {
-      border: 1px solid gray;
+      border: 1px solid ${COLORS.VIEW_BACKGROUND};
       border-radius: ${SIZE.BORDER * 2}px;
       padding: ${SIZE.PADDING * 2}px;
       margin: ${SIZE.MARGIN}px 0;

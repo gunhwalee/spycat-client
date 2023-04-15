@@ -10,6 +10,7 @@ import EntryPage from "../pages/EntryPage";
 import TrafficPage from "../pages/TrafficPage";
 import ErrorPage from "../pages/ErrorPage";
 import UserPage from "../pages/UserPage";
+import ErrorListPage from "../pages/ErrorListPage";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/:id/traffics" element={<TrafficPage />} exact />
         <Route path="/:id/errors" element={<ErrorPage />} exact />
         <Route path="/users" element={<UserPage />} />
+        <Route path="/:id/errorlists" element={<ErrorListPage />} exact />
         <Route path="/" element={<HomePage />} />
       </Routes>
     </>
