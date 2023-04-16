@@ -12,9 +12,8 @@ function ErrorDetailPage({ error }) {
   const filterData = errorLists.filter(
     element => element.errorName === data.errorName,
   );
-
   const chartData = Handler.totalTraffics(filterData);
-  console.log(filterData);
+
   return (
     <div>
       <PageHeader title={data.errorName} />

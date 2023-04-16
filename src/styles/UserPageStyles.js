@@ -30,7 +30,7 @@ const EntryWrapper = styled.div`
 
     .content {
       border: 1px solid ${COLORS.VIEW_BACKGROUND};
-      border-radius: ${SIZE.BORDER * 2}px;
+      border-radius: ${SIZE.BORDER_RADIUS * 2}px;
       padding: ${SIZE.PADDING * 2}px;
       margin: ${SIZE.MARGIN}px 0;
     }
@@ -45,7 +45,7 @@ const EntryWrapper = styled.div`
         justify-content: center;
         align-items: center;
         cursor: pointer;
-        border-radius: ${SIZE.BORDER}px;
+        border-radius: ${SIZE.BORDER_RADIUS}px;
         border: 1px solid;
         width: 50px;
         height: 30px;
@@ -80,7 +80,7 @@ const EntryWrapper = styled.div`
       width: ${SIZE.FONT_REGULAR}px;
       height: ${SIZE.FONT_REGULAR}px;
       border-radius: 50%;
-      border: ${SIZE.BORDER}px solid #ccc;
+      border: ${SIZE.BORDER_RADIUS}px solid #ccc;
       border-top-color: #333;
       animation: spin 1s infinite ease-in-out;
     }

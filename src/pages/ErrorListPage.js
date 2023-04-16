@@ -8,6 +8,8 @@ import * as S from "../styles/ErrorListPageStyles";
 import { saveData, deleteData } from "../features/trafficSlice";
 import ModalBox from "../components/Modal";
 import ErrorDetailPage from "./ErrorDetailPage";
+import Handler from "../handlers/errorInfoHandlers";
+import Spinner from "../components/Spinner";
 
 function ErrorListPage() {
   const { errorLists } = useSelector(state => state.server);
@@ -15,19 +17,23 @@ function ErrorListPage() {
   const { id } = useParams();
   const [errorMessage, setErrorMessage] = useState("");
   const [errorArray, setErrorArray] = useState(null);
-  const [showModal, setShowModal] = useState(false);
   const [selectedError, setSelectedError] = useState(null);
-  const [buttonArray, setButtonArray] = useState([]);
+  const [buttonLists, setButtonLists] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [disabled, setDisabled] = useState(false);
+  const [type, setType] = useState("All");
   const dispatch = useDispatch();
 
   useEffect(() => {
     const getTrafficData = async () => {
       try {
+        setDisabled(true);
         const response = await axios.get(
           `${process.env.REACT_APP_SPYCAT_SERVER}/users/${apikey}/servers/${id}/errors`,
           { withCredentials: true },
         );
 
+        setDisabled(false);
         if (response.data.result === "error") {
           return setErrorMessage(response.data.message);
         }
@@ -47,20 +53,17 @@ function ErrorListPage() {
       }
     };
 
-    if (id) getTrafficData();
+    getTrafficData();
 
     return () => {
       dispatch(deleteData());
     };
-  }, [id]);
+  }, []);
 
   useEffect(() => {
     if (errorLists) {
       const errorBoxes = errorLists.map(element => {
-        if (!buttonArray.includes(element.errorName)) {
-          setButtonArray([...buttonArray, element.errorName]);
-        }
-
+        if (type !== "All" && element.errorName !== type) return;
         const date = new Date(element.createdAt.toString());
         const errorTime = String(date).slice(0, 24);
 
@@ -75,34 +78,54 @@ function ErrorListPage() {
             <S.ErrorTitle>{element.errorName}</S.ErrorTitle>
             <S.ErrorMessage>{element.errorMessage}</S.ErrorMessage>
             <S.ErrorDetail>
-              <div className="time">{errorTime}</div>
-              <div>| {element.host}</div>
+              <div>{errorTime}</div>
+              <div>||</div>
+              <div>{element.host}</div>
             </S.ErrorDetail>
           </S.ErrorBox>
         );
       });
 
       setErrorArray(errorBoxes);
+      setButtonLists(Handler.ErrorNameHandler(errorLists));
     }
-  }, [errorLists]);
+  }, [errorLists, type]);
+
+  const showErrorNames = event => {
+    const selectType = event.target.textContent.split(" ");
+    setType(selectType[0]);
+  };
 
   return (
     <S.EntryWrapper>
       <PageHeader title="에러 목록" text={errorMessage} />
-      <S.Main>
-        <S.Nav>
-          <S.Button>All {errorLists && errorLists.length}</S.Button>
-          {buttonArray.length !== 0 &&
-            buttonArray.map(element => {
-              return <S.Button key={element}>{element}</S.Button>;
-            })}
-          <S.Button>Type Error 3</S.Button>
-        </S.Nav>
-        <section>
-          <hr />
-          {errorArray}
-        </section>
-      </S.Main>
+      {disabled ? (
+        <S.SpinnerBox>
+          <Spinner />
+          <S.LoadingText>로딩중입니다.</S.LoadingText>
+        </S.SpinnerBox>
+      ) : (
+        <S.Main>
+          <S.Nav onClick={showErrorNames}>
+            <S.Button className={type === "All" ? "select" : ""}>
+              All {errorLists && errorLists.length}
+            </S.Button>
+            {buttonLists &&
+              buttonLists.map(element => {
+                return (
+                  <S.Button
+                    key={element.name}
+                    className={type === element.name ? "select" : ""}
+                  >{`${element.name} ${element.value.length}`}</S.Button>
+                );
+              })}
+          </S.Nav>
+          <section>
+            <hr />
+            {errorArray}
+          </section>
+        </S.Main>
+      )}
       {showModal && (
         <ModalBox setShowModal={setShowModal}>
           <ErrorDetailPage error={selectedError} />

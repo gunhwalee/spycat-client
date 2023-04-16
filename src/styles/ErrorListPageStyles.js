@@ -8,6 +8,20 @@ export const EntryWrapper = styled.div`
   overflow: scroll;
 `;
 
+export const SpinnerBox = styled.div`
+  height: calc(100vh - 60px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const LoadingText = styled.div`
+  font-size: ${SIZE.FONT_TITLE}px;
+  font-weight: 500;
+  margin-top: ${SIZE.MARGIN * 2}px;
+`;
+
 export const Main = styled.main`
   display: flex;
   flex-direction: column;
@@ -35,6 +49,12 @@ export const Button = styled.button`
     color: ${COLORS.WHITE};
     border: 1px solid ${COLORS.VIEW_BACKGROUND};
   }
+
+  &.select {
+    background-color: ${COLORS.BUTTON};
+    color: ${COLORS.WHITE};
+    border: 1px solid ${COLORS.VIEW_BACKGROUND};
+  }
 `;
 
 export const ErrorTitle = styled.div`
@@ -52,10 +72,6 @@ export const ErrorMessage = styled.div`
 export const ErrorDetail = styled.div`
   display: flex;
   font-size: ${SIZE.FONT_INPUT}px;
-
-  .time {
-    margin-right: ${SIZE.MARGIN / 2}px;
-  }
 `;
 
 export const ErrorBox = styled.article`

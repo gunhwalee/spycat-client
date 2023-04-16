@@ -5,7 +5,7 @@ import axios from "axios";
 
 import PageHeader from "../components/PageHeader";
 import ErrorCharts from "../components/ErrorCharts";
-import Handler from "../handlers/trafficHandlers";
+import Handler from "../handlers/errorInfoHandlers";
 import { saveData, deleteData } from "../features/trafficSlice";
 import EntryWrapper from "../styles/ChartPageStyles";
 
