@@ -1,4 +1,3 @@
-import React from "react";
 import { useSelector } from "react-redux";
 
 import TrafficCharts from "../components/TrafficCharts";
@@ -8,7 +7,7 @@ import PageHeader from "../components/PageHeader";
 import EntryWrapper from "../styles/ChartPageStyles";
 
 function EntryPage() {
-  const { selectDate } = useSelector(state => state.traffic);
+  const { selectDate } = useSelector(state => state.server);
   const data = Handler.totalTraffics(mockData.traffics);
   const selectedData = Handler.dailyTraffics(mockData.traffics, selectDate);
 

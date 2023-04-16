@@ -17,7 +17,17 @@ const ErrorBox = styled.div`
   }
 `;
 
-export default function VerticalChart({ name, data, width, height }) {
+const NameText = styled.text`
+  font-size: 14px;
+`;
+
+const Values = styled.text`
+  text-anchor: middle;
+  font-size: 12px;
+  font-weight: 300;
+`;
+
+export default function DetailChart({ name, data, width, height }) {
   const [ratio, setRatio] = useState(8);
   const [barWidth, setBarWidth] = useState(30);
   const array = Handler.XAxisArray();
@@ -48,7 +58,7 @@ export default function VerticalChart({ name, data, width, height }) {
   const barGroups = array.map((d, i) => {
     return (
       <g transform={`translate(${i * barWidth}, 0)`} key={uuid()}>
-        <VerticalGroup
+        <Group
           data={data[array[i] - 1]}
           barWidth={barWidth}
           ratio={ratio}
@@ -59,11 +69,11 @@ export default function VerticalChart({ name, data, width, height }) {
   });
 
   return (
-    <svg width={width} height={height}>
+    <svg viewBox={`0 0 ${width} ${height}`}>
       <g className="container">
-        <text className="title" x="10" y="30">
+        <NameText x="10" y="20">
           {name}
-        </text>
+        </NameText>
         <g className="chart" transform="translate(80, 60)">
           {barGroups}
         </g>
@@ -72,7 +82,7 @@ export default function VerticalChart({ name, data, width, height }) {
   );
 }
 
-function VerticalGroup({ ratio, data, barWidth, height }) {
+function Group({ ratio, data, barWidth, height }) {
   const dispatch = useDispatch();
   const nameRef = useRef(null);
   const barPadding = 5;
@@ -89,15 +99,9 @@ function VerticalGroup({ ratio, data, barWidth, height }) {
 
   return (
     <g className="group" onClick={clickHandler}>
-      <text
-        className="name-label vertical"
-        x={xMid}
-        y={height - 80}
-        alignmentBaseline="middle"
-        ref={nameRef}
-      >
+      <Values x={xMid} y={height - 80} alignmentBaseline="middle" ref={nameRef}>
         {data.name}
-      </text>
+      </Values>
       <rect
         x={barPadding * 0.5}
         y={startY}
@@ -105,14 +109,9 @@ function VerticalGroup({ ratio, data, barWidth, height }) {
         height={barHeight}
         fill={barColor}
       />
-      <text
-        className="value-label vertical"
-        x={xMid}
-        y="-10"
-        alignmentBaseline="middle"
-      >
+      <Values x={xMid} y="-20" alignmentBaseline="middle">
         {data.value}
-      </text>
+      </Values>
     </g>
   );
 }

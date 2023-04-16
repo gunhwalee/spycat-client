@@ -8,8 +8,8 @@ const initialState = {
   selectDate: null,
 };
 
-const trafficSlice = createSlice({
-  name: "traffic",
+const serverSlice = createSlice({
+  name: "server",
   initialState,
   reducers: {
     saveData(state, action) {
@@ -32,5 +32,5 @@ const trafficSlice = createSlice({
   },
 });
 
-export const { saveData, selectDay, deleteData } = trafficSlice.actions;
-export default trafficSlice.reducer;
+export const { saveData, selectDay, deleteData } = serverSlice.actions;
+export default serverSlice.reducer;

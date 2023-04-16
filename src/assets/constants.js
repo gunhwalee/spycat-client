@@ -1,6 +1,7 @@
 const COLORS = {
   SIDEBAR: "#1e2124",
   WHITE: "#ffffff",
+  MODAL_BACK: "#dcdcdc",
   BORDER: "#424549",
   BUTTON: "#7289da",
   VIEW_BACKGROUND: "#36393e",

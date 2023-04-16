@@ -1,4 +1,3 @@
-import React from "react";
 import { v4 as uuid } from "uuid";
 
 export default function LineChart({
@@ -6,8 +5,8 @@ export default function LineChart({
   data,
   width,
   height,
-  precision,
-  horizontalGuides,
+  precision = 0,
+  horizontalGuides = 5,
 }) {
   const FONT_SIZE = width / 50;
   const maximumXFromData = Math.max(...data.map(e => e.x));
@@ -65,7 +64,7 @@ export default function LineChart({
   });
 
   return (
-    <svg width={width} height={height}>
+    <svg viewBox={`0 0 ${width} ${height}`}>
       <g className="container">
         <text className="title" x="10" y="30">
           {name}

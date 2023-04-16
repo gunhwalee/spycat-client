@@ -1,6 +1,4 @@
-import React from "react";
 import Main from "../styles/TrafficChartStyles";
-
 import VerticalChart from "../utils/VerticalChart";
 import HorizontalChart from "../utils/HorizontalChart";
 import DonutChart from "../utils/DonutChart";

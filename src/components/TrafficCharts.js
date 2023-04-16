@@ -1,4 +1,3 @@
-import React from "react";
 import Main from "../styles/TrafficChartStyles";
 
 import VerticalChart from "../utils/VerticalChart";

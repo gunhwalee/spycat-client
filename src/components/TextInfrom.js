@@ -1,4 +1,3 @@
-import React from "react";
 import * as S from "../styles/UserInputStyles";
 
 function TextInfrom({ Component, value }) {

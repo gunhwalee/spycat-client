@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 import { ReactComponent as Id } from "../assets/img/id.svg";
@@ -28,7 +28,7 @@ function UserPage() {
 
   return (
     <EntryWrapper>
-      <PageHeader title="마이페이지" text="" />
+      <PageHeader title="마이페이지" />
       <main>
         <section className="wrapper left">
           <section>

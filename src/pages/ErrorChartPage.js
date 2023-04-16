@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
 import PageHeader from "../components/PageHeader";
-import TrafficCharts from "../components/TrafficCharts";
+import ErrorCharts from "../components/ErrorCharts";
 import Handler from "../handlers/trafficHandlers";
 import { saveData, deleteData } from "../features/trafficSlice";
 import EntryWrapper from "../styles/ChartPageStyles";
 
-function TrafficPage() {
+function ErrorChartPage() {
   const [data, setData] = useState(null);
   const [selectedData, setSelectedData] = useState(null);
   const { apikey } = useSelector(state => state.user);
-  const { serverName, url, traffics, selectDate } = useSelector(
-    state => state.traffic,
+  const { serverName, url, errorLists, selectDate } = useSelector(
+    state => state.server,
   );
   const { id } = useParams();
   const [errorMessage, setErrorMessage] = useState("");
@@ -24,7 +24,7 @@ function TrafficPage() {
     const getTrafficData = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_SPYCAT_SERVER}/users/${apikey}/servers/${id}/traffics`,
+          `${process.env.REACT_APP_SPYCAT_SERVER}/users/${apikey}/servers/${id}/errors`,
           { withCredentials: true },
         );
 
@@ -36,7 +36,7 @@ function TrafficPage() {
           saveData({
             serverName: response.data.serverName,
             url: response.data.url,
-            traffics: response.data.traffics,
+            errorLists: response.data.errorLists,
           }),
         );
       } catch (err) {
@@ -56,18 +56,18 @@ function TrafficPage() {
   }, [id]);
 
   useEffect(() => {
-    if (traffics) {
-      setData(Handler.totalTraffics(traffics));
-      setSelectedData(Handler.dailyTraffics(traffics, selectDate));
+    if (errorLists) {
+      setData(Handler.totalErrors(errorLists));
+      setSelectedData(Handler.dailyErrors(errorLists, selectDate));
     }
-  }, [traffics, selectDate]);
+  }, [errorLists, selectDate]);
 
   return (
     <EntryWrapper>
-      <PageHeader title={`Traffic: ${serverName}`} text={errorMessage || url} />
-      <TrafficCharts data={data} selectedData={selectedData} />
+      <PageHeader title={`Error: ${serverName}`} text={errorMessage || url} />
+      <ErrorCharts data={data} selectedData={selectedData} />
     </EntryWrapper>
   );
 }
 
-export default TrafficPage;
+export default ErrorChartPage;

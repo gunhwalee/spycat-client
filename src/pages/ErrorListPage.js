@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import axios from "axios";
@@ -6,13 +6,17 @@ import axios from "axios";
 import PageHeader from "../components/PageHeader";
 import * as S from "../styles/ErrorListPageStyles";
 import { saveData, deleteData } from "../features/trafficSlice";
+import ModalBox from "../components/Modal";
+import ErrorDetailPage from "./ErrorDetailPage";
 
 function ErrorListPage() {
-  const { errorLists } = useSelector(state => state.traffic);
+  const { errorLists } = useSelector(state => state.server);
   const { apikey } = useSelector(state => state.user);
   const { id } = useParams();
   const [errorMessage, setErrorMessage] = useState("");
   const [errorArray, setErrorArray] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedError, setSelectedError] = useState(null);
   const dispatch = useDispatch();
   const errorBox = useRef();
 
@@ -59,7 +63,10 @@ function ErrorListPage() {
         return (
           <S.ErrorBox
             key={element._id}
-            onClick={() => console.log(element._id)}
+            onClick={() => {
+              setSelectedError(element._id);
+              setShowModal(true);
+            }}
             ref={errorBox}
           >
             <S.ErrorTitle>{element.errorName}</S.ErrorTitle>
@@ -76,7 +83,6 @@ function ErrorListPage() {
     }
   }, [errorLists]);
 
-  console.log(errorLists);
   return (
     <S.EntryWrapper>
       <PageHeader title="에러 목록" text={errorMessage} />
@@ -90,6 +96,11 @@ function ErrorListPage() {
           {errorArray}
         </section>
       </S.Main>
+      {showModal && (
+        <ModalBox setShowModal={setShowModal}>
+          <ErrorDetailPage error={selectedError} />
+        </ModalBox>
+      )}
     </S.EntryWrapper>
   );
 }
