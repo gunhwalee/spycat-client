@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 
 import * as S from "../styles/SumbitStyles";
+import * as G from "../styles/GlobalStyles";
 import { ReactComponent as Id } from "../assets/img/id.svg";
 import { ReactComponent as Password } from "../assets/img/password.svg";
 import { ReactComponent as Github } from "../assets/img/github.svg";
@@ -11,6 +12,7 @@ import { setUser } from "../features/userSlice";
 import LogoHeader from "../components/LogoHeader";
 import UserTextInput from "../components/UserTextInput";
 import UserSecretInput from "../components/UserScretInput";
+import Spinner from "../components/Spinner";
 import { SIZE } from "../assets/constants";
 
 function LoginPage() {
@@ -80,11 +82,9 @@ function LoginPage() {
 
   return (
     <S.EntryWrapper>
-      <header className="big-logo-header">
-        <LogoHeader size="60px" />
-      </header>
-      <form id="submit-form" onSubmit={handleSubmit}>
-        <div className="inner-pannel">
+      <LogoHeader size="60px" />
+      <S.SubmitForm onSubmit={handleSubmit}>
+        <div>
           <UserTextInput
             Component={Id}
             id="id"
@@ -106,28 +106,24 @@ function LoginPage() {
             showPw={showPw}
           />
         </div>
-        <button type="submit" disabled={disabled} className="submitBtn">
-          {disabled ? <div className="spinner" /> : "로그인"}
-        </button>
-        <button type="button" disabled={disabled} className="submitBtn github">
-          <Github width={SIZE.FONT_BUTTON} height={SIZE.FONT_BUTTON} />
+        <G.Button type="submit" disabled={disabled}>
+          {disabled ? <Spinner /> : "로그인"}
+        </G.Button>
+        <G.Button type="button" disabled={disabled}>
+          <Github width={SIZE.FONT_REGULAR} height={SIZE.FONT_REGULAR} />
           Github 로그인
-        </button>
-      </form>
-      <nav>
-        <button type="button" className="moveBtn" onClick={() => navigate("/")}>
-          <span className="move left">메인 페이지</span>
-        </button>
-        <button
-          type="button"
-          className="moveBtn"
-          onClick={() => navigate("/signup")}
-        >
-          <span className="move">회원가입</span>
-        </button>
-      </nav>
+        </G.Button>
+      </S.SubmitForm>
+      <S.Nav>
+        <Link to="/">
+          <G.LinkSpan>메인 페이지</G.LinkSpan>
+        </Link>
+        <Link to="/signup">
+          <G.LinkSpan>회원가입</G.LinkSpan>
+        </Link>
+      </S.Nav>
       <S.Footer>
-        {errorMessage && <li className="error">{errorMessage}</li>}
+        {errorMessage && <S.ErrorMessage>{errorMessage}</S.ErrorMessage>}
       </S.Footer>
     </S.EntryWrapper>
   );

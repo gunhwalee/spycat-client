@@ -64,7 +64,10 @@ function TrafficChartPage() {
 
   return (
     <EntryWrapper>
-      <PageHeader title={`Traffic: ${serverName}`} text={errorMessage || url} />
+      <PageHeader
+        title={data ? `Traffic: ${serverName}` : null}
+        text={errorMessage || url}
+      />
       <TrafficCharts data={data} selectedData={selectedData} />
     </EntryWrapper>
   );

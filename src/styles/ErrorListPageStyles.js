@@ -22,7 +22,7 @@ export const Nav = styled.nav`
 
 export const Button = styled.button`
   border: 1px solid ${SIZE.GRAY};
-  border-radius: ${SIZE.BORDER}px;
+  border-radius: ${SIZE.BORDER_RADIUS}px;
   background-color: transparent;
   width: 120px;
   height: 40px;
@@ -44,13 +44,12 @@ export const ErrorTitle = styled.div`
 `;
 
 export const ErrorMessage = styled.div`
-  font-weight: bold;
+  font-weight: 500;
   font-size: ${SIZE.FONT_TITLE}px;
   margin-bottom: ${SIZE.MARGIN}px;
 `;
 
 export const ErrorDetail = styled.div`
-  font-weight: bold;
   display: flex;
   font-size: ${SIZE.FONT_INPUT}px;
 
@@ -60,20 +59,18 @@ export const ErrorDetail = styled.div`
 `;
 
 export const ErrorBox = styled.article`
-  border: 1px solid gray;
-  border: 2px solid ${COLORS.GRAY};
-  border-radius: ${SIZE.BORDER * 5}px;
+  border: 1px solid ${COLORS.VIEW_BACKGROUND};
+  border-radius: ${SIZE.BORDER_RADIUS * 5}px;
   padding: ${SIZE.PADDING * 2}px;
   margin: ${SIZE.MARGIN * 4}px 0px;
 
   :hover {
     background-color: ${COLORS.RED_HOVER};
-    border: 2px solid ${COLORS.RED};
+    border: 1px solid ${COLORS.RED};
     cursor: pointer;
   }
 
   &:hover ${ErrorDetail}, &:hover ${ErrorTitle}, &:hover ${ErrorMessage} {
     color: ${COLORS.WHITE};
-    font-weight: bold;
   }
 `;

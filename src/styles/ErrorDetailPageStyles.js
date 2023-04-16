@@ -22,11 +22,10 @@ export const Header = styled.header`
 export const Content = styled.div`
   background-color: ${COLORS.WHITE};
   min-height: 50px;
-  max-height: 350px;
-  overflow: scroll;
+  max-height: 300px;
   border: 1px solid ${COLORS.BORDER};
   padding: ${SIZE.PADDING}px;
-  border-radius: ${SIZE.BORDER}px;
+  border-radius: ${SIZE.BORDER_RADIUS}px;
 `;
 
 export const Description = styled.div`
@@ -39,5 +38,7 @@ export const StackBox = styled.div`
   padding: ${SIZE.PADDING}px;
   background-color: ${COLORS.SIDEBAR};
   color: ${COLORS.WHITE};
-  border-radius: ${SIZE.BORDER}px;
+  border-radius: ${SIZE.BORDER_RADIUS}px;
+  max-height: 250px;
+  overflow: scroll;
 `;

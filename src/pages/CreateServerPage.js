@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import * as S from "../styles/SumbitStyles";
+import * as G from "../styles/GlobalStyles";
 import { ReactComponent as Server } from "../assets/img/server.svg";
 import { ReactComponent as Globe } from "../assets/img/globe.svg";
 import LogoHeader from "../components/LogoHeader";
 import UserTextInput from "../components/UserTextInput";
+import Spinner from "../components/Spinner";
 import { setAxios } from "../features/userSlice";
 
 function CreateServerPage() {
@@ -71,11 +73,9 @@ function CreateServerPage() {
 
   return (
     <S.EntryWrapper>
-      <header className="big-logo-header">
-        <LogoHeader size="60px" />
-      </header>
-      <form id="submit-form" onSubmit={handleSubmit}>
-        <div className="inner-pannel">
+      <LogoHeader size="60px" />
+      <S.SubmitForm onSubmit={handleSubmit}>
+        <div>
           <UserTextInput
             Component={Server}
             id="serverName"
@@ -95,18 +95,17 @@ function CreateServerPage() {
             rule="서버 호스트 주소를 입력해주세요."
           />
         </div>
-        <button type="submit" disabled={disabled} className="submitBtn">
-          {!disabled && "만들기"}
-          {disabled && <div className="spinner" />}
-        </button>
-      </form>
-      <nav>
-        <button type="button" onClick={() => navigate(-1)} className="moveBtn">
-          <span className="move">뒤로가기</span>
-        </button>
-      </nav>
+        <G.Button type="submit" disabled={disabled}>
+          {disabled ? <Spinner /> : "서버 생성"}
+        </G.Button>
+      </S.SubmitForm>
+      <S.Nav>
+        <Link to="/">
+          <G.LinkSpan>메인 페이지</G.LinkSpan>
+        </Link>
+      </S.Nav>
       <S.Footer>
-        {errorMessage && <li className="error">{errorMessage}</li>}
+        {errorMessage && <S.ErrorMessage>{errorMessage}</S.ErrorMessage>}
       </S.Footer>
     </S.EntryWrapper>
   );

@@ -13,7 +13,7 @@ function EntryPage() {
 
   return (
     <EntryWrapper>
-      <PageHeader title="예시용 차트" text="서버를 선택하세요." />
+      <PageHeader title="Example Chart" text="서버를 선택하세요." />
       <TrafficCharts data={data} selectedData={selectedData} />
     </EntryWrapper>
   );

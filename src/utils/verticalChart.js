@@ -59,7 +59,7 @@ export default function VerticalChart({ name, data, width, height }) {
   });
 
   return (
-    <svg width={width} height={height}>
+    <svg viewBox={`0 0 ${width} ${height}`} width={width} height={height}>
       <g className="container">
         <text className="title" x="10" y="30">
           {name}

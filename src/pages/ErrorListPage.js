@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import axios from "axios";
@@ -17,8 +17,8 @@ function ErrorListPage() {
   const [errorArray, setErrorArray] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [selectedError, setSelectedError] = useState(null);
+  const [buttonArray, setButtonArray] = useState([]);
   const dispatch = useDispatch();
-  const errorBox = useRef();
 
   useEffect(() => {
     const getTrafficData = async () => {
@@ -57,6 +57,10 @@ function ErrorListPage() {
   useEffect(() => {
     if (errorLists) {
       const errorBoxes = errorLists.map(element => {
+        if (!buttonArray.includes(element.errorName)) {
+          setButtonArray([...buttonArray, element.errorName]);
+        }
+
         const date = new Date(element.createdAt.toString());
         const errorTime = String(date).slice(0, 24);
 
@@ -67,7 +71,6 @@ function ErrorListPage() {
               setSelectedError(element._id);
               setShowModal(true);
             }}
-            ref={errorBox}
           >
             <S.ErrorTitle>{element.errorName}</S.ErrorTitle>
             <S.ErrorMessage>{element.errorMessage}</S.ErrorMessage>
@@ -89,6 +92,10 @@ function ErrorListPage() {
       <S.Main>
         <S.Nav>
           <S.Button>All {errorLists && errorLists.length}</S.Button>
+          {buttonArray.length !== 0 &&
+            buttonArray.map(element => {
+              return <S.Button key={element}>{element}</S.Button>;
+            })}
           <S.Button>Type Error 3</S.Button>
         </S.Nav>
         <section>

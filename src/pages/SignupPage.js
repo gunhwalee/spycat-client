@@ -1,14 +1,16 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import * as S from "../styles/SumbitStyles";
+import * as G from "../styles/GlobalStyles";
 import { ReactComponent as Id } from "../assets/img/id.svg";
 import { ReactComponent as Password } from "../assets/img/password.svg";
 import { ReactComponent as PasswordCheck } from "../assets/img/password-check.svg";
 import LogoHeader from "../components/LogoHeader";
 import UserTextInput from "../components/UserTextInput";
 import UserSecretInput from "../components/UserScretInput";
+import Spinner from "../components/Spinner";
 
 function SignupPage() {
   const [info, setInfo] = useState({
@@ -88,11 +90,9 @@ function SignupPage() {
 
   return (
     <S.EntryWrapper>
-      <header className="big-logo-header">
-        <LogoHeader size="60px" />
-      </header>
-      <form id="submit-form" onSubmit={handleSubmit}>
-        <div className="inner-pannel">
+      <LogoHeader size="60px" />
+      <S.SubmitForm onSubmit={handleSubmit}>
+        <div>
           <UserTextInput
             Component={Id}
             id="name"
@@ -134,25 +134,20 @@ function SignupPage() {
             showPw={showPw}
           />
         </div>
-        <button type="submit" disabled={disabled} className="submitBtn">
-          {!disabled && "회원가입"}
-          {disabled && <div className="spinner" />}
-        </button>
-      </form>
-      <nav>
-        <button type="button" className="moveBtn" onClick={() => navigate("/")}>
-          <span className="move left">메인 페이지</span>
-        </button>
-        <button
-          type="button"
-          className="moveBtn"
-          onClick={() => navigate("/login")}
-        >
-          <span className="move">로그인</span>
-        </button>
-      </nav>
+        <G.Button type="submit" disabled={disabled}>
+          {disabled ? <Spinner /> : "회원가입"}
+        </G.Button>
+      </S.SubmitForm>
+      <S.Nav>
+        <Link to="/">
+          <G.LinkSpan>메인 페이지</G.LinkSpan>
+        </Link>
+        <Link to="/login">
+          <G.LinkSpan>로그인</G.LinkSpan>
+        </Link>
+      </S.Nav>
       <S.Footer>
-        {errorMessage && <li className="error">{errorMessage}</li>}
+        {errorMessage && <S.ErrorMessage>{errorMessage}</S.ErrorMessage>}
       </S.Footer>
     </S.EntryWrapper>
   );

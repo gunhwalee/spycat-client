@@ -7,6 +7,7 @@ import { PersistGate } from "redux-persist/integration/react";
 
 import App from "./app/App";
 import store from "./app/store";
+import "./assets/fonts/Font.css";
 import GlobalStyles from "./styles/GlobalStyles";
 
 const persistor = persistStore(store);

@@ -4,9 +4,11 @@ import { v4 as uuid } from "uuid";
 export default function HorizontalChart({ name, data, width, height, type }) {
   const [ratio, setRatio] = useState(8);
   const [barHeight, setBarHeight] = useState(30);
+  if (!data.length) return null;
   const maxObjArr = data.reduce((prev, next) => {
     return prev.value >= next.value ? prev : next;
   });
+
   const maxValue = maxObjArr.value || 50;
   const totalHeight = barHeight * data.length;
 
@@ -16,7 +18,7 @@ export default function HorizontalChart({ name, data, width, height, type }) {
     setRatio(Math.floor(ratio * 1.5));
   }
 
-  if (totalHeight > height - 60) {
+  if (totalHeight > height - 100) {
     setBarHeight(barHeight * 0.97);
   }
 
@@ -34,7 +36,7 @@ export default function HorizontalChart({ name, data, width, height, type }) {
   });
 
   return (
-    <svg width={width} height={height}>
+    <svg viewBox={`0 0 ${width} ${height}`} width={width} height={height}>
       <g className="container">
         <text className="title" x="10" y="30">
           {name}

@@ -2,8 +2,8 @@ import { v4 as uuid } from "uuid";
 import { CHART_COLORS } from "../assets/constants";
 
 export default function DonutChart({ name, data, width, height }) {
-  const cx = 175;
-  const cy = 175;
+  const cx = 150;
+  const cy = 185;
   const radius = cx * 0.75;
   const circumference = 2 * Math.PI * radius;
   let filled = 0;

@@ -1,6 +1,6 @@
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
-import { SIZE } from "../assets/constants";
+import { COLORS, SIZE } from "../assets/constants";
 
 const GlobalStyles = createGlobalStyle`
   ${reset}
@@ -9,7 +9,7 @@ const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
   }
 
-  a{
+  a {
     text-decoration: none;
     color: inherit;
   }
@@ -17,7 +17,7 @@ const GlobalStyles = createGlobalStyle`
   html,
   body,
   body > div {
-    font-family: "Lato", sans-serif;
+    font-family: "Pretendard", sans-serif;
     margin: 0;
     padding: 0;
     height: 100%;
@@ -26,10 +26,26 @@ const GlobalStyles = createGlobalStyle`
   #root {
     display: flex;
   }
+`;
 
-  .big-logo-header {
-    margin: ${SIZE.MARGIN * 10}px 0px ${SIZE.MARGIN * 5}px;
-  }
+export const Button = styled.button`
+  width: 400px;
+  height: 60px;
+  background-color: ${COLORS.LOGIN};
+  border: none;
+  border-radius: ${SIZE.BORDER_RADIUS * 2}px;
+  margin-bottom: ${SIZE.MARGIN * 4}px;
+  font-weight: 500;
+  font-size: ${SIZE.FONT_REGULAR}px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const LinkSpan = styled.span`
+  color: ${COLORS.GRAY};
+  font-size: ${SIZE.FONT_SMALL}px;
 `;
 
 export default GlobalStyles;

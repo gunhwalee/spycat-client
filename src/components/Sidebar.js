@@ -4,11 +4,11 @@ import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
 import ServerName from "./ServerName";
+import { deleteUser, setServers } from "../features/userSlice";
+import * as S from "../styles/SideBarStyles";
 import { SIZE } from "../assets/constants";
 import { ReactComponent as Logout } from "../assets/img/logout.svg";
-import { deleteUser, setServers } from "../features/userSlice";
 import logo from "../assets/img/logo-white.png";
-import * as S from "../styles/SideBarStyles";
 
 function Sidebar() {
   const { name, apikey, servers, toApi } = useSelector(state => state.user);
@@ -70,14 +70,14 @@ function Sidebar() {
 
   return (
     <S.Aside>
-      <nav className="list-wrapper">
+      <nav>
         <Link to="/entry">
           <S.List>
             <img
               alt="logo"
               src={logo}
-              width={SIZE.FONT_BUTTON}
-              height={SIZE.FONT_BUTTON}
+              width={SIZE.FONT_REGULAR}
+              height={SIZE.FONT_REGULAR}
             />
             <S.Title>Spy Cat</S.Title>
           </S.List>
@@ -88,9 +88,7 @@ function Sidebar() {
               <S.List>{name}님</S.List>
             </Link>
             {serverList}
-            <S.Button type="button" onClick={() => navigate("/createserver")}>
-              + 서버 추가
-            </S.Button>
+            <Link to="/createserver">+ 서버 추가</Link>
           </ol>
         )}
       </nav>
