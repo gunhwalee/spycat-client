@@ -7,7 +7,6 @@ import DonutChart from "../utils/DonutChart";
 import "../utils/chart.css";
 
 function ErrorCharts({ data, selectedData }) {
-  console.log(selectedData);
   return (
     <Main className="chart-area">
       <section className="main-chart">

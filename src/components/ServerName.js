@@ -1,29 +1,32 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { SIZE } from "../assets/constants";
+import { SIZE, COLORS } from "../assets/constants";
 
-const EntryWrapper = styled.div`
-  & li {
-    cursor: pointer;
-  }
+const ServerList = styled.li`
+  font-size: ${SIZE.FONT_BUTTON}px;
+  padding-bottom: ${SIZE.PADDING * 2}px;
+`;
 
-  .servername {
-    font-size: ${SIZE.FONT_BUTTON}px;
-    padding-bottom: ${SIZE.PADDING * 2}px;
-  }
+const DropDown = styled.ul`
+  margin-bottom: ${SIZE.MARGIN * 2}px;
+  margin-left: ${SIZE.MARGIN}px;
+  display: flex;
+  flex-direction: column;
+  align-items: first baseline;
+`;
 
-  .dropdown {
-    margin-bottom: ${SIZE.MARGIN * 2}px;
-    margin-left: ${SIZE.MARGIN}px;
-    display: flex;
-    flex-direction: column;
-    align-items: first baseline;
+const List = styled.li`
+  margin-bottom: ${SIZE.MARGIN}px;
+  cursor: pointer;
+`;
 
-    & li {
-      margin-bottom: ${SIZE.MARGIN}px;
-    }
-  }
+const Button = styled.button`
+  font-size: ${SIZE.FONT_SMALL}px;
+  color: ${COLORS.WHITE};
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
 `;
 
 function ServerName({ name, id }) {
@@ -36,25 +39,28 @@ function ServerName({ name, id }) {
   const clickHandler = () => {};
 
   return (
-    <EntryWrapper
+    <div
       onMouseEnter={() => mouseEvent(true)}
       onMouseLeave={() => mouseEvent(false)}
     >
-      <li className="servername">{name}</li>
+      <ServerList>{name}</ServerList>
       {showDrop && (
-        <ul className="dropdown">
+        <DropDown>
           <Link to={`/${id}/traffics`}>
-            <li>트래픽</li>
+            <List>트래픽 차트</List>
           </Link>
           <Link to={`/${id}/errors`}>
-            <li>에러</li>
+            <List>에러 차트</List>
           </Link>
-          <button type="button" onClick={clickHandler}>
-            <li>삭제하기</li>
-          </button>
-        </ul>
+          <Link to={`/${id}/errorlists`}>
+            <List>에러 목록</List>
+          </Link>
+          <Button type="button" onClick={clickHandler}>
+            <List>삭제하기</List>
+          </Button>
+        </DropDown>
       )}
-    </EntryWrapper>
+    </div>
   );
 }
 

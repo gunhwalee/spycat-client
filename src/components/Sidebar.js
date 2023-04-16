@@ -1,59 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
-import styled from "styled-components";
 import axios from "axios";
 
 import ServerName from "./ServerName";
-import { COLORS, SIZE } from "../assets/constants";
+import { SIZE } from "../assets/constants";
 import { ReactComponent as Logout } from "../assets/img/logout.svg";
 import { deleteUser, setServers } from "../features/userSlice";
 import logo from "../assets/img/logo-white.png";
-
-const Aside = styled.aside`
-  width: ${SIZE.SIDEBAR}px;
-  height: 100%;
-  padding: ${SIZE.PADDING}px;
-  background-color: ${COLORS.SIDEBAR};
-  color: ${COLORS.WHITE};
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
-  & button {
-    font-size: ${SIZE.FONT_SMALL}px;
-    color: ${COLORS.WHITE};
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-  }
-
-  .list {
-    display: flex;
-    align-items: center;
-    padding-bottom: ${SIZE.PADDING * 2}px;
-  }
-
-  h1 {
-    font-size: ${SIZE.FONT_BUTTON}px;
-    font-weight: 400;
-  }
-
-  .title {
-    margin-left: ${SIZE.MARGIN / 2}px;
-  }
-
-  > .logout {
-    display: flex;
-    align-items: center;
-  }
-`;
+import * as S from "../styles/SideBarStyles";
 
 function Sidebar() {
-  const { name, apikey, servers } = useSelector(state => state.user);
+  const { name, apikey, servers, toApi } = useSelector(state => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  let serverList;
+  const [serverList, setServerList] = useState(null);
 
   useEffect(() => {
     const loadServerList = async () => {
@@ -72,19 +33,23 @@ function Sidebar() {
     if (name) {
       loadServerList();
     }
-  }, [name]);
+  }, [name, toApi]);
 
-  if (servers && servers.length) {
-    serverList = servers.map(element => {
-      return (
-        <ServerName
-          name={element.serverName}
-          id={element.url}
-          key={element._id}
-        />
-      );
-    });
-  }
+  useEffect(() => {
+    if (servers && servers.length) {
+      const contents = servers.map(element => {
+        return (
+          <ServerName
+            name={element.serverName}
+            id={element.url}
+            key={element._id}
+          />
+        );
+      });
+
+      setServerList(contents);
+    }
+  }, [servers]);
 
   const handleLogout = async () => {
     try {
@@ -104,42 +69,42 @@ function Sidebar() {
   };
 
   return (
-    <Aside>
+    <S.Aside>
       <nav className="list-wrapper">
         <Link to="/entry">
-          <div className="list">
+          <S.List>
             <img
               alt="logo"
               src={logo}
               width={SIZE.FONT_BUTTON}
               height={SIZE.FONT_BUTTON}
             />
-            <h1 className="title">Spy Cat</h1>
-          </div>
+            <S.Title>Spy Cat</S.Title>
+          </S.List>
         </Link>
         {name && (
           <ol>
             <Link to="/users">
-              <h1 className="list">{name}님</h1>
+              <S.List>{name}님</S.List>
             </Link>
             {serverList}
-            <button type="button" onClick={() => navigate("/createserver")}>
+            <S.Button type="button" onClick={() => navigate("/createserver")}>
               + 서버 추가
-            </button>
+            </S.Button>
           </ol>
         )}
       </nav>
-      <footer className="logout">
+      <S.Footer>
         {name && (
           <>
             <Logout width={SIZE.FONT_SMALL} height={SIZE.FONT_SMALL} />
-            <button type="button" onClick={handleLogout}>
+            <S.Button type="button" onClick={handleLogout}>
               로그 아웃
-            </button>
+            </S.Button>
           </>
         )}
-      </footer>
-    </Aside>
+      </S.Footer>
+    </S.Aside>
   );
 }
 

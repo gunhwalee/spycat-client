@@ -1,5 +1,5 @@
 import React from "react";
-import InputWrapper from "../styles/UserInputStyles";
+import * as S from "../styles/UserInputStyles";
 
 import { ReactComponent as Eye } from "../assets/img/eye.svg";
 import { ReactComponent as EyeSlash } from "../assets/img/eye-slash.svg";
@@ -16,10 +16,10 @@ function UserSecretInput({
   showPw,
 }) {
   return (
-    <InputWrapper>
-      <div className="input-box">
+    <S.InputWrapper>
+      <S.InputBox>
         {Component && <Component width="20px" height="20px" />}
-        <input
+        <S.Input
           type={showPw ? "text" : "password"}
           id={id}
           placeholder={placeholder}
@@ -27,21 +27,18 @@ function UserSecretInput({
           onFocus={() => setFocus(!focus)}
           onBlur={() => setFocus(!focus)}
         />
-        <button type="button" onClick={pwHandler} className="pwBtn">
+        <S.PwBtn type="button" onClick={pwHandler}>
           {showPw ? (
             <Eye width="20px" height="20px" />
           ) : (
             <EyeSlash width="20px" height="20px" />
           )}
-        </button>
-      </div>
-      <div
-        className="rule"
-        style={{ visibility: focus ? "visible" : "hidden" }}
-      >
+        </S.PwBtn>
+      </S.InputBox>
+      <S.RuleBox style={{ visibility: focus ? "visible" : "hidden" }}>
         {rule}
-      </div>
-    </InputWrapper>
+      </S.RuleBox>
+    </S.InputWrapper>
   );
 }
 
