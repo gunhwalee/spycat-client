@@ -17,10 +17,17 @@ export const Title = styled.h1`
 `;
 
 export const List = styled.div`
-  font-size: ${SIZE.FONT_REGULAR}px;
+  font-size: ${SIZE.FONT_NORMAL}px;
+  font-weight: 500;
   display: flex;
   align-items: center;
-  padding-bottom: ${SIZE.PADDING * 2}px;
+  padding: ${SIZE.PADDING * 2}px 0px;
+  cursor: pointer;
+
+  &.namemenu {
+    justify-content: space-between;
+    border-bottom: 2px solid ${COLORS.VIEW_BACKGROUND};
+  }
 `;
 
 export const Footer = styled.footer`
@@ -38,13 +45,31 @@ export const Button = styled.button`
 `;
 
 export const DropDown = styled.ul`
+  position: absolute;
+  width: 130px;
+  background-color: ${COLORS.VIEW_BACKGROUND};
   margin-bottom: ${SIZE.MARGIN * 2}px;
   display: flex;
+  z-index: 999;
   flex-direction: column;
   align-items: baseline;
+  border-bottom-left-radius: ${SIZE.BORDER_RADIUS}px;
+  border-bottom-right-radius: ${SIZE.BORDER_RADIUS}px;
+
+  a {
+    width: 100%;
+  }
+
+  a:hover {
+    background-color: ${COLORS.BACKGROUND};
+  }
 `;
 
 export const DropDownList = styled.li`
-  margin: ${SIZE.MARGIN}px;
-  font-size: ${SIZE.FONT_NORMAL}px;
+  font-size: ${SIZE.FONT_SMALL}px;
+  margin: ${SIZE.MARGIN}px ${SIZE.MARGIN}px;
+
+  :hover {
+    background-color: ${COLORS.BACKGROUND};
+  }
 `;

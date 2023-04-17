@@ -1,20 +1,22 @@
 import * as S from "../styles/ModalStyles";
-import { ReactComponent as Arrow } from "../assets/img/angles-right.svg";
+import { ReactComponent as CloseArrow } from "../assets/img/angles-right.svg";
+import { ReactComponent as OpenArrow } from "../assets/img/angles-left.svg";
 
-function ModalBox({ setShowModal, children }) {
-  const closeModal = () => {
-    setShowModal(false);
-  };
+function ModalBox({ closeModal, showModal, children }) {
   return (
-    <>
-      <S.ArrowBtn type="button" onClick={closeModal}>
-        <Arrow width="15px" />
+    <S.Container>
+      <S.ArrowBtn
+        type="button"
+        onClick={closeModal}
+        className={showModal ? "active" : ""}
+      >
+        {showModal ? <CloseArrow width="15px" /> : <OpenArrow width="15px" />}
       </S.ArrowBtn>
-      <S.ModalContainer>
+      <S.ModalContainer className={showModal ? "active" : ""}>
         <S.Wrapper>{children}</S.Wrapper>
       </S.ModalContainer>
-      <S.Canvas onClick={closeModal} />
-    </>
+      {showModal && <S.Canvas onClick={closeModal} />}
+    </S.Container>
   );
 }
 

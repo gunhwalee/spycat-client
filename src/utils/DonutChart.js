@@ -65,15 +65,15 @@ export default function DonutChart({ name, data, width, height }) {
                 </circle>
                 <text
                   className="value-label donut"
-                  x="70%"
+                  x="50%"
                   y="20%"
                   alignmentBaseline="middle"
                 >
-                  traffic: {element.value}
+                  count: {element.value}
                 </text>
                 <text
                   className="name-label donut"
-                  x="70%"
+                  x="50%"
                   y="30%"
                   alignmentBaseline="middle"
                 >

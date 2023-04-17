@@ -16,6 +16,10 @@ const COLORS = {
   SPINNER: "#ccc",
 };
 
+const TIME = {
+  DETAIL_TRANSITION: "1s",
+};
+
 const SIZE = {
   BIG_LOGO: 60,
   PAGEHEADER_LOGO: 30,
@@ -31,18 +35,34 @@ const SIZE = {
 };
 
 const CHART_COLORS = [
-  "#d4fac7",
-  "#bbf4de",
+  "#C8FFFF",
+  "#98FB98",
   "#f491e6",
-  "#faebc3",
-  "#eee1de",
-  "#caa4f5",
-  "#e5e7c3",
-  "#f8eeef",
-  "#dee2ab",
-  "#e4eae9",
-  "#b281e6",
-  "#a9eaf3",
+  "#FFF978",
+  "#FF8C8C",
+  "#F5AF64",
+  "#5ABEFF",
+  "#78EFAD",
+  "#FFA5F0",
+  "#FFF064",
+  "#F88EF4",
+  "#6EE5A3",
+  "#cba9b2",
+  "#e2efd0",
+  "#a1f7af",
+  "#8bb8d0",
+  "#C8FFFF",
+  "#98FB98",
+  "#f491e6",
+  "#FFF978",
+  "#FF8C8C",
+  "#F5AF64",
+  "#5ABEFF",
+  "#78EFAD",
+  "#FFA5F0",
+  "#FFF064",
+  "#F88EF4",
+  "#6EE5A3",
   "#cba9b2",
   "#e2efd0",
   "#a1f7af",
@@ -52,3 +72,4 @@ const CHART_COLORS = [
 exports.COLORS = COLORS;
 exports.CHART_COLORS = CHART_COLORS;
 exports.SIZE = SIZE;
+exports.TIME = TIME;

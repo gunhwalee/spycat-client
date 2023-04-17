@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import * as S from "../styles/TrafficChartStyles";
 
 import VerticalChart from "../utils/VerticalChart";
@@ -35,6 +34,7 @@ function ErrorCharts({ data, selectedData }) {
               name="Routes Error"
               width={600}
               height={350}
+              key={Math.random()}
             />
           )}
         </S.SubChartBox>
@@ -46,6 +46,7 @@ function ErrorCharts({ data, selectedData }) {
               width={500}
               height={350}
               type="error"
+              key={Math.random()}
             />
           )}
         </S.SubChartBox>

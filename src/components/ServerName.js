@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import * as S from "../styles/SideBarStyles";
+import { ReactComponent as DownArrow } from "../assets/img/angle-down.svg";
+import { COLORS } from "../assets/constants";
 
 function ServerName({ name, id }) {
   const [showDrop, setShowDrop] = useState(false);
@@ -15,9 +17,12 @@ function ServerName({ name, id }) {
       onMouseEnter={() => mouseEvent(true)}
       onMouseLeave={() => mouseEvent(false)}
     >
-      <S.List>{name}</S.List>
+      <S.List className="namemenu">
+        {name}
+        <DownArrow width="10px" fill={COLORS.WHITE} />
+      </S.List>
       {showDrop && (
-        <S.DropDown>
+        <S.DropDown className={`none ${showDrop ? "appear" : "disappear"}`}>
           <Link to={`/${id}/traffics`}>
             <S.DropDownList>트래픽 차트</S.DropDownList>
           </Link>

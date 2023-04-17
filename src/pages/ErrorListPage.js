@@ -96,6 +96,10 @@ function ErrorListPage() {
     setType(selectType[0]);
   };
 
+  const handleModal = () => {
+    setShowModal(!showModal);
+  };
+
   return (
     <S.EntryWrapper>
       <PageHeader title="에러 목록" text={errorMessage} />
@@ -126,11 +130,9 @@ function ErrorListPage() {
           </section>
         </S.Main>
       )}
-      {showModal && (
-        <ModalBox setShowModal={setShowModal}>
-          <ErrorDetailPage error={selectedError} />
-        </ModalBox>
-      )}
+      <ModalBox closeModal={handleModal} showModal={showModal}>
+        <ErrorDetailPage error={selectedError} />
+      </ModalBox>
     </S.EntryWrapper>
   );
 }

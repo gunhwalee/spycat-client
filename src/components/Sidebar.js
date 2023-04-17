@@ -88,7 +88,9 @@ function Sidebar() {
               <S.List>{name}님</S.List>
             </Link>
             {serverList}
-            <Link to="/createserver">+ 서버 추가</Link>
+            <Link to="/createserver">
+              <S.List>+ 서버 추가</S.List>
+            </Link>
           </ol>
         )}
       </nav>

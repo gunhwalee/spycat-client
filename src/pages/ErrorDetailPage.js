@@ -6,6 +6,7 @@ import Handler from "../handlers/trafficHandlers";
 import * as S from "../styles/ErrorDetailPageStyles";
 
 function ErrorDetailPage({ error }) {
+  if (error === null) return;
   const { errorLists } = useSelector(state => state.server);
   const data = errorLists.find(element => element._id === error);
   const time = String(new Date(data.createdAt.toString())).slice(0, 24);

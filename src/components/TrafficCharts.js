@@ -36,6 +36,7 @@ function TrafficCharts({ data, selectedData }) {
               name="Routes Traffics"
               width={600}
               height={350}
+              key={Math.random()}
             />
           )}
         </S.SubChartBox>
@@ -46,6 +47,7 @@ function TrafficCharts({ data, selectedData }) {
               name="Time Traffics"
               height={350}
               width={500}
+              key={Math.random()}
             />
           )}
         </S.SubChartBox>
