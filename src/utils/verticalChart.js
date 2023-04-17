@@ -104,7 +104,24 @@ function VerticalGroup({ ratio, data, barWidth, height }) {
         width={barWidth - barPadding}
         height={barHeight}
         fill={barColor}
-      />
+      >
+        <animate
+          attributeName="y"
+          from={startY + barHeight}
+          to={startY}
+          dur="1s"
+          begin="0s"
+          fill="freeze"
+        />
+        <animate
+          attributeName="height"
+          from="0"
+          to={barHeight}
+          dur="1s"
+          begin="0s"
+          fill="freeze"
+        />
+      </rect>
       <text
         className="value-label vertical"
         x={xMid}

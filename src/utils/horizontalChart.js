@@ -71,13 +71,28 @@ function HorizontalGroup({ ratio, data, barHeight, type }) {
         width={barWidth}
         height={barHeight - barPadding}
         fill={barColor}
-      />
+      >
+        <animate
+          attributeName="width"
+          from="0"
+          to={barWidth}
+          dur="1s"
+          begin="0s"
+        />
+      </rect>
       <text
         className="value-label horizontal"
         x={barWidth + 5}
         y={yMid}
         alignmentBaseline="middle"
       >
+        <animate
+          attributeName="x"
+          from="5"
+          to={barWidth + 5}
+          dur="1s"
+          begin="0s"
+        />
         {data.value}
       </text>
     </g>
