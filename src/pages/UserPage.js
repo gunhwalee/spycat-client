@@ -24,7 +24,11 @@ function UserPage() {
     const index = text.lastIndexOf(":");
     const url = text.slice(index + 2);
 
-    if (window.confirm("정말 삭제합니까?")) {
+    if (
+      window.confirm(
+        "서버를 삭제할 경우 해당 트래픽 정보도 같이 삭제됩니다. 삭제하시겠습니까?",
+      )
+    ) {
       try {
         setDisabled(true);
         const response = await axios.patch(
@@ -46,7 +50,7 @@ function UserPage() {
       }
       alert("삭제되었습니다.");
     } else {
-      alert("취소합니다.");
+      alert("취소되었습니다.");
     }
   };
 

@@ -24,7 +24,7 @@ export default function DonutChart({ name, data, width, height }) {
             cx={cx}
             cy={cy}
             fill="transparent"
-            stroke="black"
+            stroke="transparent"
             strokeWidth={radius / 2}
           />
           {data.map((element, index) => {
@@ -45,7 +45,24 @@ export default function DonutChart({ name, data, width, height }) {
                   strokeDasharray={`${strokeLength} ${spaceLength}`}
                   strokeDashoffset={-offset}
                   transform={`rotate(-90, ${cx}, ${cy})`}
-                />
+                >
+                  <animate
+                    attributeName="stroke-dasharray"
+                    from={`0 ${circumference}`}
+                    to={`${strokeLength} ${spaceLength}`}
+                    dur="1s"
+                    begin="0s"
+                    fill="freeze"
+                  />
+                  <animate
+                    attributeName="stroke-dashoffset"
+                    from="0"
+                    to={`${-offset}`}
+                    dur="1s"
+                    begin="0s"
+                    fill="freeze"
+                  />
+                </circle>
                 <text
                   className="value-label donut"
                   x="70%"
