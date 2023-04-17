@@ -12,7 +12,7 @@ export const InputBox = styled.div`
 `;
 
 export const Input = styled.input`
-  width: 340px;
+  width: 350px;
   border: none;
   outline: none;
   background-color: transparent;
@@ -22,6 +22,10 @@ export const Input = styled.input`
 
   :hover {
     outline: none;
+  }
+
+  &.read {
+    background-color: aliceblue;
   }
 `;
 

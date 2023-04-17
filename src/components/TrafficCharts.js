@@ -20,7 +20,7 @@ function TrafficCharts({ data, selectedData }) {
             />
           ) : (
             <S.LoadingBox>
-              <Spinner />
+              <Spinner size={50} />
               <S.LoadingText>로딩중입니다.</S.LoadingText>
             </S.LoadingBox>
           )}

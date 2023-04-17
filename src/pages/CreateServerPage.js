@@ -43,7 +43,7 @@ function CreateServerPage() {
       }
 
       dispatch(setAxios());
-      navigate("/");
+      navigate(-1);
     } catch (err) {
       console.error(err);
       setDisabled(false);

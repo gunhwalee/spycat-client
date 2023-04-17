@@ -23,7 +23,9 @@ function HomePage() {
           height={500}
         />
       </S.Main>
-      {!name && (
+      {name ? (
+        <S.Description>서버를 선택해 트래픽을 확인해보세요.</S.Description>
+      ) : (
         <S.Footer className="footer">
           <Link to="/login">
             <G.Button type="button" className="move-login">

@@ -16,6 +16,7 @@
     "no-param-reassign": "off",
     "no-underscore-dangle":"off",
     "no-continue":"off",
-    "react/react-in-jsx-scope": "off"
+    "react/react-in-jsx-scope": "off",
+    "no-alert":"off"
   }
 }

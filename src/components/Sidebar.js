@@ -71,7 +71,7 @@ function Sidebar() {
   return (
     <S.Aside>
       <nav>
-        <Link to="/entry">
+        <Link to="/">
           <S.List>
             <img
               alt="logo"

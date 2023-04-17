@@ -101,7 +101,7 @@ function ErrorListPage() {
       <PageHeader title="에러 목록" text={errorMessage} />
       {disabled ? (
         <S.SpinnerBox>
-          <Spinner />
+          <Spinner size={50} />
           <S.LoadingText>로딩중입니다.</S.LoadingText>
         </S.SpinnerBox>
       ) : (

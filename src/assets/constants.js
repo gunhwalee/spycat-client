@@ -13,6 +13,7 @@ const COLORS = {
   BLUE_HOVER: "#28A0FF",
   RED: "#EB0000",
   RED_HOVER: "#ff4646",
+  SPINNER: "#ccc",
 };
 
 const SIZE = {
