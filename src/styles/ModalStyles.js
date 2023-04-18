@@ -44,6 +44,10 @@ export const ArrowBtn = styled.button`
   cursor: pointer;
   transition: ${TIME.DETAIL_TRANSITION};
 
+  &.none {
+    right: -5%;
+  }
+
   :hover svg {
     width: 20px;
     fill: skyblue;

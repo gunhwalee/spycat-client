@@ -90,7 +90,7 @@ function Group({ ratio, data, barWidth, height }) {
   const heightScale = d => d * ratio;
   const xMid = barWidth * 0.5;
   const barHeight = heightScale(data.value);
-  const startY = height - (barHeight + 100);
+  const startY = height - (barHeight + 90);
 
   const clickHandler = () => {
     const selectDate = nameRef.current.textContent;

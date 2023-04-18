@@ -130,7 +130,11 @@ function ErrorListPage() {
           </section>
         </S.Main>
       )}
-      <ModalBox closeModal={handleModal} showModal={showModal}>
+      <ModalBox
+        closeModal={handleModal}
+        showModal={showModal}
+        error={selectedError}
+      >
         <ErrorDetailPage error={selectedError} />
       </ModalBox>
     </S.EntryWrapper>

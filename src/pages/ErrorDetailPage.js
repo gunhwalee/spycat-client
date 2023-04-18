@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 
 import PageHeader from "../components/PageHeader";
 import DetailChart from "../utils/DetailChart";
-import Handler from "../handlers/trafficHandlers";
+import Handler from "../handlers/errorInfoHandlers";
 import * as S from "../styles/ErrorDetailPageStyles";
 
 function ErrorDetailPage({ error }) {
@@ -13,7 +13,7 @@ function ErrorDetailPage({ error }) {
   const filterData = errorLists.filter(
     element => element.errorName === data.errorName,
   );
-  const chartData = Handler.totalTraffics(filterData);
+  const chartData = Handler.totalErrors(filterData);
 
   return (
     <div>
@@ -32,7 +32,7 @@ function ErrorDetailPage({ error }) {
           <S.Content>
             <DetailChart
               name={`같은 종류의 에러는 지난 28일 동안 ${filterData.length}건 발생했습니다.`}
-              data={chartData.dailyTraffic}
+              data={chartData.dailyError}
               width={700}
               height={250}
             />

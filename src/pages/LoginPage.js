@@ -7,13 +7,11 @@ import * as S from "../styles/SumbitStyles";
 import * as G from "../styles/GlobalStyles";
 import { ReactComponent as Id } from "../assets/img/id.svg";
 import { ReactComponent as Password } from "../assets/img/password.svg";
-import { ReactComponent as Github } from "../assets/img/github.svg";
 import { setUser } from "../features/userSlice";
 import LogoHeader from "../components/LogoHeader";
 import UserTextInput from "../components/UserTextInput";
 import UserSecretInput from "../components/UserScretInput";
 import Spinner from "../components/Spinner";
-import { SIZE } from "../assets/constants";
 
 function LoginPage() {
   const [info, setInfo] = useState({
@@ -108,10 +106,6 @@ function LoginPage() {
         </div>
         <G.Button type="submit" disabled={disabled}>
           {disabled ? <Spinner /> : "로그인"}
-        </G.Button>
-        <G.Button type="button" disabled={disabled}>
-          <Github width={SIZE.FONT_REGULAR} height={SIZE.FONT_REGULAR} />
-          Github 로그인
         </G.Button>
       </S.SubmitForm>
       <S.Nav>
