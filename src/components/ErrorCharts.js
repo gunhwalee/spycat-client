@@ -1,12 +1,12 @@
 import * as S from "../styles/TrafficChartStyles";
 
-import VerticalChart from "../utils/VerticalChart";
-import HorizontalChart from "../utils/HorizontalChart";
-import DonutChart from "../utils/DonutChart";
+import VerticalChart from "../charts/VerticalChart";
+import HorizontalChart from "../charts/HorizontalChart";
+import DonutChart from "../charts/DonutChart";
 import Spinner from "./Spinner";
-import "../utils/chart.css";
+import "../charts/chart.css";
 
-function ErrorCharts({ data, selectedData }) {
+function ErrorCharts({ data, selectedData, errorMessage }) {
   return (
     <S.Main>
       <S.MainChart>
@@ -21,7 +21,7 @@ function ErrorCharts({ data, selectedData }) {
           ) : (
             <S.LoadingBox>
               <Spinner size={50} />
-              <S.LoadingText>로딩중입니다.</S.LoadingText>
+              <S.LoadingText>{errorMessage || "로딩중입니다."}</S.LoadingText>
             </S.LoadingBox>
           )}
         </S.MainChartBox>

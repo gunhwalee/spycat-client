@@ -20,6 +20,9 @@ export const Header = styled.header`
 `;
 
 export const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   background-color: ${COLORS.WHITE};
   min-height: 50px;
   max-height: 300px;
@@ -40,5 +43,5 @@ export const StackBox = styled.div`
   color: ${COLORS.WHITE};
   border-radius: ${SIZE.BORDER_RADIUS}px;
   max-height: 250px;
-  overflow: scroll;
+  overflow: auto;
 `;

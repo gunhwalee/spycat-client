@@ -64,11 +64,12 @@ function ErrorChartPage() {
 
   return (
     <EntryWrapper>
-      <PageHeader
-        title={data ? `Error: ${serverName}` : null}
-        text={errorMessage || url}
+      <PageHeader title={data ? `Error: ${serverName}` : null} text={url} />
+      <ErrorCharts
+        data={data}
+        selectedData={selectedData}
+        errorMessage={errorMessage}
       />
-      <ErrorCharts data={data} selectedData={selectedData} />
     </EntryWrapper>
   );
 }

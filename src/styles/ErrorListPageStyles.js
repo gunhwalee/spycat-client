@@ -5,7 +5,7 @@ export const EntryWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  overflow: scroll;
+  overflow: auto;
 `;
 
 export const SpinnerBox = styled.div`

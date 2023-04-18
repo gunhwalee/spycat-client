@@ -2,9 +2,9 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import LogoHeader from "../components/LogoHeader";
-import Handler from "../handlers/trafficHandlers";
-import VerticalChart from "../utils/VerticalChart";
-import MockData from "../utils/MockData";
+import Handler from "../handlers/trafficInfoHandlers";
+import VerticalChart from "../charts/VerticalChart";
+import MockData from "../charts/MockData";
 import * as S from "../styles/HomePageStyles";
 import * as G from "../styles/GlobalStyles";
 

@@ -13,14 +13,14 @@ import GlobalStyles from "./styles/GlobalStyles";
 const persistor = persistStore(store);
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <Router>
-          <GlobalStyles />
-          <App />
-        </Router>
-      </PersistGate>
-    </Provider>
-  </React.StrictMode>,
+  // <React.StrictMode>
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
+      <Router>
+        <GlobalStyles />
+        <App />
+      </Router>
+    </PersistGate>
+  </Provider>,
+  // </React.StrictMode>,
 );

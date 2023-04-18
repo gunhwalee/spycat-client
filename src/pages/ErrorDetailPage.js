@@ -1,13 +1,13 @@
 import { useSelector } from "react-redux";
 
 import PageHeader from "../components/PageHeader";
-import DetailChart from "../utils/DetailChart";
+import DetailChart from "../charts/DetailChart";
 import Handler from "../handlers/errorInfoHandlers";
 import * as S from "../styles/ErrorDetailPageStyles";
 
 function ErrorDetailPage({ error }) {
-  if (error === null) return;
   const { errorLists } = useSelector(state => state.server);
+  if (error === null) return;
   const data = errorLists.find(element => element._id === error);
   const time = String(new Date(data.createdAt.toString())).slice(0, 24);
   const filterData = errorLists.filter(

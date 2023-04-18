@@ -36,6 +36,7 @@ export const SubContent = styled.article`
   border-radius: ${SIZE.BORDER_RADIUS * 2}px;
   padding: ${SIZE.PADDING * 2}px;
   margin: ${SIZE.MARGIN}px 0;
+  overflow: auto;
 
   &.button {
     display: flex;

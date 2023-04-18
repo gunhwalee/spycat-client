@@ -5,7 +5,7 @@ import axios from "axios";
 
 import PageHeader from "../components/PageHeader";
 import TrafficCharts from "../components/TrafficCharts";
-import Handler from "../handlers/trafficHandlers";
+import Handler from "../handlers/trafficInfoHandlers";
 import { saveData, deleteData } from "../features/trafficSlice";
 import EntryWrapper from "../styles/ChartPageStyles";
 
@@ -64,11 +64,12 @@ function TrafficChartPage() {
 
   return (
     <EntryWrapper>
-      <PageHeader
-        title={data ? `Traffic: ${serverName}` : null}
-        text={errorMessage || url}
+      <PageHeader title={data ? `Traffic: ${serverName}` : null} text={url} />
+      <TrafficCharts
+        data={data}
+        selectedData={selectedData}
+        errorMessage={errorMessage}
       />
-      <TrafficCharts data={data} selectedData={selectedData} />
     </EntryWrapper>
   );
 }

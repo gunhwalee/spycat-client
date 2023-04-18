@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux";
 
 import TrafficCharts from "../components/TrafficCharts";
-import Handler from "../handlers/trafficHandlers";
-import mockData from "../utils/MockData";
+import Handler from "../handlers/trafficInfoHandlers";
+import mockData from "../charts/MockData";
 import PageHeader from "../components/PageHeader";
 import EntryWrapper from "../styles/ChartPageStyles";
 

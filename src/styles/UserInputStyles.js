@@ -3,6 +3,7 @@ import { COLORS, SIZE } from "../assets/constants";
 
 export const InputWrapper = styled.div`
   width: 400px;
+  overflow: auto;
 `;
 
 export const InputBox = styled.div`
