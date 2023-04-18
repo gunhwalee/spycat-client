@@ -1,36 +1,38 @@
-import * as S from "../styles/TrafficChartStyles";
+import { useSelector } from "react-redux";
 
+import * as S from "../styles/TrafficChartStyles";
+import ErrorHandler from "../handlers/errorInfoHandlers";
 import VerticalChart from "../charts/VerticalChart";
 import HorizontalChart from "../charts/HorizontalChart";
 import DonutChart from "../charts/DonutChart";
-import Spinner from "./Spinner";
 import "../charts/chart.css";
 
-function ErrorCharts({ data, selectedData, errorMessage }) {
+function ErrorCharts({ data }) {
+  const { selectDate } = useSelector(state => state.server);
+  const chartData = ErrorHandler.totalErrors(data);
+  const selectedData = ErrorHandler.dailyErrors(data, selectDate);
+
   return (
     <S.Main>
       <S.MainChart>
         <S.MainChartBox>
-          {data ? (
+          {chartData && (
             <VerticalChart
-              data={data.dailyError}
+              data={chartData.dailyError}
               name="Daily Error"
               height={500}
               width={1000}
             />
-          ) : (
-            <S.LoadingBox>
-              <Spinner size={50} />
-              <S.LoadingText>{errorMessage || "로딩중입니다."}</S.LoadingText>
-            </S.LoadingBox>
           )}
         </S.MainChartBox>
       </S.MainChart>
       <S.SubChart>
         <S.SubChartBox>
-          {data && (
+          {chartData && (
             <DonutChart
-              data={selectedData ? selectedData.routesError : data.routesError}
+              data={
+                selectedData ? selectedData.routesError : chartData.routesError
+              }
               name="Routes Error"
               width={600}
               height={350}
@@ -39,9 +41,11 @@ function ErrorCharts({ data, selectedData, errorMessage }) {
           )}
         </S.SubChartBox>
         <S.SubChartBox>
-          {data && (
+          {chartData && (
             <HorizontalChart
-              data={selectedData ? selectedData.errorNames : data.errorNames}
+              data={
+                selectedData ? selectedData.errorNames : chartData.errorNames
+              }
               name="Time Error"
               width={500}
               height={350}

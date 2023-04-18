@@ -3,38 +3,50 @@ import { Link } from "react-router-dom";
 
 import * as S from "../styles/SideBarStyles";
 import { ReactComponent as DownArrow } from "../assets/img/angle-down.svg";
-import { COLORS } from "../assets/constants";
+import { COLORS, TIME } from "../assets/constants";
 
 function ServerName({ name, id }) {
   const [showDrop, setShowDrop] = useState(false);
+  const [animation, setAnimation] = useState(false);
 
-  const mouseEvent = bool => {
-    setShowDrop(bool);
+  const mouseHandler = () => {
+    if (showDrop) {
+      setAnimation(false);
+      setTimeout(() => {
+        setShowDrop(false);
+      }, TIME.SIDE_DROPDOWN * 1000);
+    } else {
+      setAnimation(true);
+      setShowDrop(true);
+    }
   };
 
   return (
-    <div
-      onMouseEnter={() => mouseEvent(true)}
-      onMouseLeave={() => mouseEvent(false)}
-    >
-      <S.List className="namemenu">
-        {name}
-        <DownArrow width="10px" fill={COLORS.WHITE} />
-      </S.List>
-      {showDrop && (
-        <S.DropDown className={`none ${showDrop ? "appear" : "disappear"}`}>
-          <Link to={`/${id}/traffics`}>
-            <S.DropDownList>트래픽 차트</S.DropDownList>
-          </Link>
-          <Link to={`/${id}/errors`}>
-            <S.DropDownList>에러 차트</S.DropDownList>
-          </Link>
-          <Link to={`/${id}/errorlists`}>
-            <S.DropDownList>에러 목록</S.DropDownList>
-          </Link>
-        </S.DropDown>
-      )}
-    </div>
+    <S.List>
+      <S.NameMenu onMouseEnter={mouseHandler} onMouseLeave={mouseHandler}>
+        <S.NameBox>
+          {name}
+          <button type="button">
+            <DownArrow width="10px" fill={COLORS.WHITE} />
+          </button>
+        </S.NameBox>
+        {showDrop && (
+          <S.DropDownPosition>
+            <S.DropDown className={animation ? "active" : "none"}>
+              <Link to={`/${id}/traffics`}>
+                <S.DropDownList>트래픽 차트</S.DropDownList>
+              </Link>
+              <Link to={`/${id}/errors`}>
+                <S.DropDownList>에러 차트</S.DropDownList>
+              </Link>
+              <Link to={`/${id}/errorlists`}>
+                <S.DropDownList>에러 목록</S.DropDownList>
+              </Link>
+            </S.DropDown>
+          </S.DropDownPosition>
+        )}
+      </S.NameMenu>
+    </S.List>
   );
 }
 

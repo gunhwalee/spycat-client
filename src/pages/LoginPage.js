@@ -46,7 +46,7 @@ function LoginPage() {
       const { name, apikey, id } = response.data;
       dispatch(setUser({ name, apikey, id }));
 
-      navigate("/entry");
+      navigate("/");
     } catch (err) {
       console.error(err);
       setDisabled(false);

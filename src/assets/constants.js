@@ -17,7 +17,8 @@ const COLORS = {
 };
 
 const TIME = {
-  DETAIL_TRANSITION: "1s",
+  DETAIL_TRANSITION: 0.7,
+  SIDE_DROPDOWN: 0.5,
 };
 
 const SIZE = {

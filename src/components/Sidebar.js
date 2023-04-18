@@ -8,6 +8,7 @@ import { deleteUser, setServers } from "../features/userSlice";
 import * as S from "../styles/SideBarStyles";
 import { SIZE } from "../assets/constants";
 import { ReactComponent as Logout } from "../assets/img/logout.svg";
+import { ReactComponent as Login } from "../assets/img/login.svg";
 import logo from "../assets/img/logo-white.png";
 
 function Sidebar() {
@@ -72,7 +73,7 @@ function Sidebar() {
     <S.Aside>
       <nav>
         <Link to="/">
-          <S.List>
+          <S.Header>
             <img
               alt="logo"
               src={logo}
@@ -80,27 +81,36 @@ function Sidebar() {
               height={SIZE.FONT_REGULAR}
             />
             <S.Title>Spy Cat</S.Title>
-          </S.List>
+          </S.Header>
         </Link>
-        {name && (
+        {name ? (
           <ol>
             <Link to="/users">
               <S.List>{name}님</S.List>
             </Link>
             {serverList}
             <Link to="/createserver">
-              <S.List>+ 서버 추가</S.List>
+              <S.List>
+                <span>+ 서버 추가</span>
+              </S.List>
             </Link>
           </ol>
+        ) : (
+          <ServerName name="예시용 차트" id="example" />
         )}
       </nav>
       <S.Footer>
-        {name && (
+        {name ? (
           <>
             <Logout width={SIZE.FONT_SMALL} height={SIZE.FONT_SMALL} />
             <S.Button type="button" onClick={handleLogout}>
               로그 아웃
             </S.Button>
+          </>
+        ) : (
+          <>
+            <Login width={SIZE.FONT_SMALL} height={SIZE.FONT_SMALL} />
+            <Link to="/login">로그인</Link>
           </>
         )}
       </S.Footer>

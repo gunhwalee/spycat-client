@@ -1,37 +1,39 @@
-import * as S from "../styles/TrafficChartStyles";
+import { useSelector } from "react-redux";
 
+import * as S from "../styles/TrafficChartStyles";
+import TrafficHandler from "../handlers/trafficInfoHandlers";
 import VerticalChart from "../charts/VerticalChart";
 import HorizontalChart from "../charts/HorizontalChart";
 import DonutChart from "../charts/DonutChart";
-import Spinner from "./Spinner";
 import "../charts/chart.css";
 
-function TrafficCharts({ data, selectedData, errorMessage }) {
+function TrafficCharts({ data }) {
+  const { selectDate } = useSelector(state => state.server);
+  const chartData = TrafficHandler.totalTraffics(data);
+  const selectedData = TrafficHandler.dailyTraffics(data, selectDate);
+
   return (
     <S.Main>
       <S.MainChart>
         <S.MainChartBox>
-          {data ? (
+          {chartData && (
             <VerticalChart
-              data={data.dailyTraffic}
+              data={chartData.dailyTraffic}
               name="Daily Traffics"
               height={500}
               width={1000}
             />
-          ) : (
-            <S.LoadingBox>
-              <Spinner size={50} />
-              <S.LoadingText>{errorMessage || "로딩중입니다."}</S.LoadingText>
-            </S.LoadingBox>
           )}
         </S.MainChartBox>
       </S.MainChart>
       <S.SubChart>
         <S.SubChartBox>
-          {data && (
+          {chartData && (
             <DonutChart
               data={
-                selectedData ? selectedData.routesTraffic : data.routesTraffic
+                selectDate
+                  ? selectedData.routesTraffic
+                  : chartData.routesTraffic
               }
               name="Routes Traffics"
               width={600}
@@ -41,9 +43,11 @@ function TrafficCharts({ data, selectedData, errorMessage }) {
           )}
         </S.SubChartBox>
         <S.SubChartBox>
-          {data && (
+          {chartData && (
             <HorizontalChart
-              data={selectedData ? selectedData.timeTraffic : data.timeTraffic}
+              data={
+                selectDate ? selectedData.timeTraffic : chartData.timeTraffic
+              }
               name="Time Traffics"
               height={350}
               width={500}

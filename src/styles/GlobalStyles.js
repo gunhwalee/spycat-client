@@ -34,7 +34,7 @@ export const Button = styled.button`
   background-color: ${COLORS.LOGIN};
   border: none;
   border-radius: ${SIZE.BORDER_RADIUS * 2}px;
-  margin-bottom: ${SIZE.MARGIN * 4}px;
+  margin: ${SIZE.MARGIN * 4}px 0px;
   font-weight: 500;
   font-size: ${SIZE.FONT_REGULAR}px;
   cursor: pointer;

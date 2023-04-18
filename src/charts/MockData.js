@@ -658,16 +658,69 @@ const MockData = {
       createdAt: "2023-04-08T08:15:35.417+00:00",
     },
   ],
-  errorLists: [],
+  errorLists: [
+    {
+      _id: "1",
+      path: "/entry",
+      host: "mytestserver1.com",
+      errorName: "Error",
+      errorMessage: "Not Found",
+      errorStack:
+        "Error: Not Found\n    at /Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/app.js:56:15\n    at Layer.handle [as handle_request] (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/express/lib/router/index.js:328:13)\n    at /Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/express/lib/router/index.js:286:9\n    at Function.process_params (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/express/lib/router/index.js:346:12)\n    at next (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/express/lib/router/index.js:280:10)\n    at SendStream.error (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/serve-static/index.js:121:7)\n    at SendStream.emit (node:events:513:28)\n    at SendStream.error (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/send/index.js:270:17)\n    at SendStream.onStatError (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/send/index.js:417:12)",
+      createdAt: "2023-04-14T13:19:56.862Z",
+    },
+    {
+      _id: "2",
+      path: "/votings/votings/new",
+      host: "mytestserver1.com",
+      errorName: "Error",
+      errorMessage: "Not Found",
+      errorStack:
+        "Error: Not Found\n    at /Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/app.js:56:15\n    at Layer.handle [as handle_request] (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/express/lib/router/index.js:328:13)\n    at /Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/express/lib/router/index.js:286:9\n    at Function.process_params (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/express/lib/router/index.js:346:12)\n    at next (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/express/lib/router/index.js:280:10)\n    at SendStream.error (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/serve-static/index.js:121:7)\n    at SendStream.emit (node:events:513:28)\n    at SendStream.error (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/send/index.js:270:17)\n    at SendStream.onStatError (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/send/index.js:417:12)",
+      createdAt: "2023-04-14T13:24:00.427Z",
+    },
+    {
+      _id: "3",
+      path: "/votings/new",
+      host: "mytestserver1.com",
+      errorName: "TypeError",
+      errorMessage: "optionList is not iterable",
+      errorStack:
+        "TypeError: optionList is not iterable\n    at saveOptionInform (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/routes/middlewares/updateData.js:27:24)\n    at Layer.handle [as handle_request] (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/express/lib/router/layer.js:95:5)\n    at next (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/express/lib/router/route.js:144:13)\n    at Route.dispatch (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/express/lib/router/route.js:114:3)\n    at Layer.handle [as handle_request] (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/express/lib/router/layer.js:95:5)\n    at /Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/express/lib/router/index.js:284:15\n    at Function.process_params (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/express/lib/router/index.js:346:12)\n    at next (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/express/lib/router/index.js:280:10)\n    at Function.handle (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/express/lib/router/index.js:175:3)\n    at router (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/express/lib/router/index.js:47:12)",
+      createdAt: "2023-04-14T13:24:28.777Z",
+    },
+    {
+      _id: "4",
+      path: "/votings/new",
+      host: "mytestserver1.com",
+      errorName: "TypeError",
+      errorMessage: "optionList is not iterable",
+      errorStack:
+        "TypeError: optionList is not iterable\n    at saveOptionInform (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/routes/middlewares/updateData.js:27:24)\n    at Layer.handle [as handle_request] (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/express/lib/router/layer.js:95:5)\n    at next (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/express/lib/router/route.js:144:13)\n    at Route.dispatch (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/express/lib/router/route.js:114:3)\n    at Layer.handle [as handle_request] (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/express/lib/router/layer.js:95:5)\n    at /Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/express/lib/router/index.js:284:15\n    at Function.process_params (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/express/lib/router/index.js:346:12)\n    at next (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/express/lib/router/index.js:280:10)\n    at Function.handle (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/express/lib/router/index.js:175:3)\n    at router (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/express/lib/router/index.js:47:12)",
+      createdAt: "2023-04-14T13:25:22.118Z",
+    },
+    {
+      _id: "5",
+      path: "/docsw",
+      host: "mytestserver1.com",
+      errorName: "Error",
+      errorMessage: "Not Found",
+      errorStack:
+        "Error: Not Found\n    at /Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w06/app.js:48:15\n    at Layer.handle [as handle_request] (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w06/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w06/node_modules/express/lib/router/index.js:323:13)\n    at /Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w06/node_modules/express/lib/router/index.js:284:7\n    at Function.process_params (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w06/node_modules/express/lib/router/index.js:341:12)\n    at next (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w06/node_modules/express/lib/router/index.js:275:10)\n    at serveStatic (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w06/node_modules/serve-static/index.js:75:16)\n    at Layer.handle [as handle_request] (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w06/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w06/node_modules/express/lib/router/index.js:323:13)\n    at /Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w06/node_modules/express/lib/router/index.js:284:7",
+      createdAt: "2023-04-15T03:36:43.441Z",
+    },
+    {
+      _id: "6",
+      path: "/my-votings",
+      host: "mytestserver1.com",
+      errorName: "Error",
+      errorMessage: "Not Found",
+      errorStack:
+        "Error: Not Found\n    at /Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w06/app.js:48:15\n    at Layer.handle [as handle_request] (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w06/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w06/node_modules/express/lib/router/index.js:323:13)\n    at /Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w06/node_modules/express/lib/router/index.js:284:7\n    at Function.process_params (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w06/node_modules/express/lib/router/index.js:341:12)\n    at next (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w06/node_modules/express/lib/router/index.js:275:10)\n    at serveStatic (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w06/node_modules/serve-static/index.js:75:16)\n    at Layer.handle [as handle_request] (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w06/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w06/node_modules/express/lib/router/index.js:323:13)\n    at /Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w06/node_modules/express/lib/router/index.js:284:7",
+      createdAt: "2023-04-16T16:36:29.294Z",
+    },
+  ],
   selectDate: null,
 };
 
 export default MockData;
-
-function getRandomColor() {
-  const R = Math.floor(Math.random() * 126 + 128).toString(16);
-  const G = Math.floor(Math.random() * 126 + 128).toString(16);
-  const B = Math.floor(Math.random() * 126 + 128).toString(16);
-  return `#${R + G + B}`;
-}
-getRandomColor();

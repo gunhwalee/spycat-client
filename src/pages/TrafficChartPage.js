@@ -3,19 +3,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
+import Spinner from "../components/Spinner";
 import PageHeader from "../components/PageHeader";
 import TrafficCharts from "../components/TrafficCharts";
-import Handler from "../handlers/trafficInfoHandlers";
 import { saveData, deleteData } from "../features/trafficSlice";
-import EntryWrapper from "../styles/ChartPageStyles";
+import * as S from "../styles/ChartPageStyles";
 
 function TrafficChartPage() {
-  const [data, setData] = useState(null);
-  const [selectedData, setSelectedData] = useState(null);
   const { apikey } = useSelector(state => state.user);
-  const { serverName, url, traffics, selectDate } = useSelector(
-    state => state.server,
-  );
+  const { url, traffics } = useSelector(state => state.server);
   const { id } = useParams();
   const [errorMessage, setErrorMessage] = useState("");
   const dispatch = useDispatch();
@@ -50,27 +46,22 @@ function TrafficChartPage() {
     if (id) getTrafficData();
 
     return () => {
-      setData(null);
       dispatch(deleteData());
     };
   }, [id]);
 
-  useEffect(() => {
-    if (traffics) {
-      setData(Handler.totalTraffics(traffics));
-      setSelectedData(Handler.dailyTraffics(traffics, selectDate));
-    }
-  }, [traffics, selectDate]);
-
   return (
-    <EntryWrapper>
-      <PageHeader title={data ? `Traffic: ${serverName}` : null} text={url} />
-      <TrafficCharts
-        data={data}
-        selectedData={selectedData}
-        errorMessage={errorMessage}
-      />
-    </EntryWrapper>
+    <S.EntryWrapper>
+      <PageHeader title={traffics ? "트래픽 정보" : null} text={url} />
+      {traffics ? (
+        <TrafficCharts data={traffics} errorMessage={errorMessage} />
+      ) : (
+        <S.LoadingBox>
+          <Spinner size={50} />
+          <S.LoadingText>{errorMessage || "로딩중입니다."}</S.LoadingText>
+        </S.LoadingBox>
+      )}
+    </S.EntryWrapper>
   );
 }
 

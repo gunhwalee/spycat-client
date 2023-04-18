@@ -9,11 +9,12 @@ export const EntryWrapper = styled.div`
 `;
 
 export const SpinnerBox = styled.div`
+  background-color: ${COLORS.BACKGROUND};
   height: calc(100vh - 60px);
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
 `;
 
 export const LoadingText = styled.div`

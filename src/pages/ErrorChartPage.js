@@ -3,25 +3,21 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
+import Spinner from "../components/Spinner";
 import PageHeader from "../components/PageHeader";
 import ErrorCharts from "../components/ErrorCharts";
-import Handler from "../handlers/errorInfoHandlers";
 import { saveData, deleteData } from "../features/trafficSlice";
-import EntryWrapper from "../styles/ChartPageStyles";
+import * as S from "../styles/ChartPageStyles";
 
 function ErrorChartPage() {
-  const [data, setData] = useState(null);
-  const [selectedData, setSelectedData] = useState(null);
   const { apikey } = useSelector(state => state.user);
-  const { serverName, url, errorLists, selectDate } = useSelector(
-    state => state.server,
-  );
+  const { url, errorLists } = useSelector(state => state.server);
   const { id } = useParams();
   const [errorMessage, setErrorMessage] = useState("");
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const getTrafficData = async () => {
+    const getErrorData = async () => {
       try {
         const response = await axios.get(
           `${process.env.REACT_APP_SPYCAT_SERVER}/users/${apikey}/servers/${id}/errors`,
@@ -47,30 +43,25 @@ function ErrorChartPage() {
       }
     };
 
-    if (id) getTrafficData();
+    if (id) getErrorData();
 
     return () => {
-      setData(null);
       dispatch(deleteData());
     };
   }, [id]);
 
-  useEffect(() => {
-    if (errorLists) {
-      setData(Handler.totalErrors(errorLists));
-      setSelectedData(Handler.dailyErrors(errorLists, selectDate));
-    }
-  }, [errorLists, selectDate]);
-
   return (
-    <EntryWrapper>
-      <PageHeader title={data ? `Error: ${serverName}` : null} text={url} />
-      <ErrorCharts
-        data={data}
-        selectedData={selectedData}
-        errorMessage={errorMessage}
-      />
-    </EntryWrapper>
+    <S.EntryWrapper>
+      <PageHeader title={errorLists ? "에러 정보" : null} text={url} />
+      {errorLists ? (
+        <ErrorCharts data={errorLists} errorMessage={errorMessage} />
+      ) : (
+        <S.LoadingBox>
+          <Spinner size={50} />
+          <S.LoadingText>{errorMessage || "로딩중입니다."}</S.LoadingText>
+        </S.LoadingBox>
+      )}
+    </S.EntryWrapper>
   );
 }
 

@@ -6,7 +6,8 @@ import HomePage from "../pages/HomePage";
 import LoginPage from "../pages/LoginPage";
 import SignupPage from "../pages/SignupPage";
 import CreateServerPage from "../pages/CreateServerPage";
-import EntryPage from "../pages/EntryPage";
+import ExampleChartPage from "../pages/ExampleChartPage";
+import ExampleListPage from "../pages/ExampleListPage";
 import TrafficChartPage from "../pages/TrafficChartPage";
 import ErrorChartPage from "../pages/ErrorChartPage";
 import UserPage from "../pages/UserPage";
@@ -19,6 +20,10 @@ function App() {
     <>
       <Sidebar />
       <Routes>
+        <Route path="/example/errorlists" element={<ExampleListPage />} exact />
+        <Route path="/example" element={<ExampleChartPage />} exact>
+          <Route path=":type" element={<ExampleChartPage />} exact />
+        </Route>
         <Route
           path="/login"
           element={<GuestRoute component={<LoginPage />} />}
@@ -53,7 +58,6 @@ function App() {
           element={<PrivateRoute component={<ErrorListPage />} />}
           exact
         />
-        <Route path="/entry" element={<EntryPage />} exact />
         <Route path="/" element={<HomePage />} />
       </Routes>
     </>

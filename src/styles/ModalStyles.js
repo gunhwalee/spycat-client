@@ -16,11 +16,11 @@ export const ModalContainer = styled.div`
   display: flex;
   align-items: center;
   background-color: ${COLORS.MODAL_BACK};
-  transition: ${TIME.DETAIL_TRANSITION};
+  transition: ${TIME.DETAIL_TRANSITION}s;
 
   &.active {
     right: 0;
-    transition: ${TIME.DETAIL_TRANSITION};
+    transition: ${TIME.DETAIL_TRANSITION}s;
   }
 `;
 
@@ -42,7 +42,7 @@ export const ArrowBtn = styled.button`
   border-bottom-left-radius: 5px;
   border: black;
   cursor: pointer;
-  transition: ${TIME.DETAIL_TRANSITION};
+  transition: ${TIME.DETAIL_TRANSITION}s;
 
   &.none {
     right: -5%;
@@ -55,7 +55,7 @@ export const ArrowBtn = styled.button`
 
   &.active {
     right: 50%;
-    transition: ${TIME.DETAIL_TRANSITION};
+    transition: ${TIME.DETAIL_TRANSITION}s;
   }
 `;
 
