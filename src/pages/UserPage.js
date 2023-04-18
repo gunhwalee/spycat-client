@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
@@ -7,17 +7,23 @@ import { ReactComponent as Id } from "../assets/img/id.svg";
 import { ReactComponent as Key } from "../assets/img/key.svg";
 import { ReactComponent as Copy } from "../assets/img/copy.svg";
 import { ReactComponent as Delete } from "../assets/img/trash.svg";
+import { ReactComponent as Regenerate } from "../assets/img/regenerate.svg";
 import PageHeader from "../components/PageHeader";
 import TextInform from "../components/TextInform";
 import Spinner from "../components/Spinner";
 import * as S from "../styles/UserPageStyles";
+import Toast from "../components/Toast";
+import { updateKey } from "../features/userSlice";
 
 function UserPage() {
   const { name, id, apikey, servers } = useSelector(state => state.user);
   const [serverArray, setServerArray] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
+  const [displayKey, setDisplayKey] = useState(apikey);
+  const [toast, setToast] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const keyInput = useRef();
+  const dispatch = useDispatch();
 
   const deleteServer = async event => {
     const text = event.currentTarget.textContent;
@@ -67,7 +73,7 @@ function UserPage() {
             <p>호스트 주소 : {element.url}</p>
           </div>
           <S.copyBtn>
-            {disabled ? <Spinner /> : <Delete width="20px" height="20px" />}
+            <Delete width="20px" height="20px" />
           </S.copyBtn>
         </S.SubContent>
       );
@@ -76,10 +82,32 @@ function UserPage() {
     setServerArray(contents);
   }, [servers]);
 
+  const generateKey = async () => {
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_SPYCAT_SERVER}/users/${apikey}/apikeys`,
+        {},
+        { withCredentials: true },
+      );
+
+      if (response.data.result === "error") {
+        return setErrorMessage(response.data.message);
+      }
+
+      const newApikey = response.data.apikey;
+      dispatch(updateKey({ apikey: newApikey }));
+      setDisplayKey(newApikey);
+      setToast("APIKEY가 재생성되었습니다.");
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   const copyKey = () => {
-    const keyValue = keyInput.current;
-    keyValue.select();
+    keyInput.current.focus();
+    keyInput.current.select();
     document.execCommand("copy");
+    setToast("클립보드에 복사되었습니다.");
   };
 
   return (
@@ -98,10 +126,15 @@ function UserPage() {
           <section>
             <S.SubTitle>API KEY</S.SubTitle> <hr />
             <S.SubContent className="button">
-              <TextInform Component={Key} value={apikey} ref={keyInput} />
-              <S.copyBtn type="button" onClick={copyKey}>
-                <Copy width="20px" height="20px" />
-              </S.copyBtn>
+              <TextInform Component={Key} value={displayKey} ref={keyInput} />
+              <S.Btns>
+                <S.copyBtn type="button" onClick={generateKey}>
+                  <Regenerate width="20px" height="20px" />
+                </S.copyBtn>
+                <S.copyBtn type="button" onClick={copyKey}>
+                  <Copy width="20px" height="20px" />
+                </S.copyBtn>
+              </S.Btns>
             </S.SubContent>
           </section>
         </S.LeftWrapper>
@@ -109,9 +142,12 @@ function UserPage() {
           <S.SubTitle>서버목록</S.SubTitle> <hr />
           {serverArray}
           <Link to="/createserver">
-            <S.addBtn type="button">+ 서버 추가</S.addBtn>
+            <S.addBtn type="button">
+              {disabled ? <Spinner /> : "+ 서버 추가"}
+            </S.addBtn>
           </Link>
         </S.RightWrapper>
+        {toast && <Toast setToast={setToast} text={toast} />}
       </S.Main>
     </S.EntryWrapper>
   );

@@ -14,6 +14,7 @@ const COLORS = {
   RED: "#EB0000",
   RED_HOVER: "#ff4646",
   SPINNER: "#ccc",
+  TOAST: "#dcebff",
 };
 
 const TIME = {

@@ -7,7 +7,7 @@ import PageHeader from "../components/PageHeader";
 import * as S from "../styles/ErrorListPageStyles";
 import { saveData, deleteData } from "../features/trafficSlice";
 import ModalBox from "../components/Modal";
-import ErrorDetailPage from "./ExampleDetailPage";
+import ErrorDetailPage from "./ErrorDetailPage";
 import Handler from "../handlers/errorInfoHandlers";
 import Spinner from "../components/Spinner";
 

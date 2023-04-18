@@ -24,10 +24,6 @@ export const Input = styled.input`
   :hover {
     outline: none;
   }
-
-  &.read {
-    background-color: aliceblue;
-  }
 `;
 
 export const PwBtn = styled.button`

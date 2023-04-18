@@ -8,7 +8,7 @@ const TextInform = forwardRef(function TextInform({ Component, value }, ref) {
         {Component && <Component width="20px" height="20px" />}
         <S.Input
           type="text"
-          defaultValue={value}
+          value={value}
           readOnly
           ref={ref}
           className="read"

@@ -60,12 +60,26 @@ export const copyBtn = styled.button`
   }
 `;
 
+export const Btns = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const addBtn = styled.button`
   width: 100%;
+  height: 60px;
   border: 1px solid ${COLORS.VIEW_BACKGROUND};
   border-radius: ${SIZE.BORDER_RADIUS * 2}px;
   padding: ${SIZE.PADDING * 2}px;
   font-size: ${SIZE.FONT_SMALL}px;
   background-color: transparent;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  :hover {
+    font-size: ${SIZE.FONT_NORMAL}px;
+  }
 `;
