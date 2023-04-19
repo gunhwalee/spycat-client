@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 import Handler from "../handlers/trafficInfoHandlers";
 import { selectDay } from "../features/trafficSlice";
+import { SIZE } from "../assets/constants";
 
 const ErrorBox = styled.div`
   height: 500px;
@@ -12,23 +13,23 @@ const ErrorBox = styled.div`
   align-items: center;
 
   h1 {
-    font-weight: 700;
-    font-size: 24px;
+    font-weight: 500;
+    font-size: ${SIZE.FONT_TITLE}px;
   }
 `;
 
 const NameText = styled.text`
-  font-size: 14px;
+  font-size: ${SIZE.FONT_SMALL}px;
 `;
 
 const Values = styled.text`
   text-anchor: middle;
-  font-size: 12px;
-  font-weight: 300;
+  font-size: ${SIZE.FONT_SMALL}px;
+  font-weight: normal;
 `;
 
 export default function DetailChart({ name, data, width, height }) {
-  const [ratio, setRatio] = useState(8);
+  const [ratio, setRatio] = useState(5);
   const [barWidth, setBarWidth] = useState(30);
   const array = Handler.XAxisArray();
   const maxObjArr = data.reduce((prev, next) => {
@@ -42,7 +43,7 @@ export default function DetailChart({ name, data, width, height }) {
       </ErrorBox>
     );
 
-  const maxValue = maxObjArr.value || 50;
+  const maxValue = maxObjArr.value || 30;
   const totalWidth = barWidth * 28;
 
   if (maxValue * ratio > height * 0.8) {
@@ -69,7 +70,7 @@ export default function DetailChart({ name, data, width, height }) {
   });
 
   return (
-    <svg viewBox={`0 0 ${width} ${height}`}>
+    <svg viewBox={`0 0 ${width} ${height}`} key={Math.random()}>
       <g className="container">
         <NameText x="10" y="20">
           {name}
@@ -108,7 +109,24 @@ function Group({ ratio, data, barWidth, height }) {
         width={barWidth - barPadding}
         height={barHeight}
         fill={barColor}
-      />
+      >
+        <animate
+          attributeName="y"
+          from={startY + barHeight}
+          to={startY}
+          dur="1s"
+          begin="0s"
+          fill="freeze"
+        />
+        <animate
+          attributeName="height"
+          from="0"
+          to={barHeight}
+          dur="1s"
+          begin="0s"
+          fill="freeze"
+        />
+      </rect>
       <Values x={xMid} y="-20" alignmentBaseline="middle">
         {data.value}
       </Values>

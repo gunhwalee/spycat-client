@@ -1,14 +1,10 @@
 import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 
 function PrivateRoute({ component: Component }) {
   const { id } = useSelector(state => state.user);
 
-  const handleRoute = () => {
-    alert("로그인 후 이용해주세요.");
-    window.location.href = "/login";
-  };
-
-  return id ? Component : handleRoute();
+  return id ? Component : <Navigate to="/" />;
 }
 
 export default PrivateRoute;

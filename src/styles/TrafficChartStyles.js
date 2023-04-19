@@ -42,6 +42,8 @@ export const SubChartBox = styled.article`
   background-color: ${COLORS.WHITE};
   border-top-right-radius: ${SIZE.BORDER_RADIUS * 2}px;
   border-top-left-radius: ${SIZE.BORDER_RADIUS * 2}px;
+  display: flex;
+  justify-content: center;
 `;
 
 export const LoadingBox = styled.section`

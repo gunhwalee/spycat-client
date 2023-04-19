@@ -104,7 +104,7 @@ function Sidebar() {
           <>
             <Logout width={SIZE.FONT_SMALL} height={SIZE.FONT_SMALL} />
             <S.Button type="button" onClick={handleLogout}>
-              로그 아웃
+              로그아웃
             </S.Button>
           </>
         ) : (

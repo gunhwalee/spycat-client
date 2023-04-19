@@ -2,9 +2,9 @@ import { v4 as uuid } from "uuid";
 import { CHART_COLORS } from "../assets/constants";
 
 export default function DonutChart({ name, data, width, height }) {
-  const cx = 150;
+  const cx = width * 0.3;
   const cy = 185;
-  const radius = cx * 0.75;
+  const radius = 100;
   const circumference = 2 * Math.PI * radius;
   let filled = 0;
   const total = data.reduce((accumulator, currentValue) => {
@@ -18,15 +18,6 @@ export default function DonutChart({ name, data, width, height }) {
           {name}
         </text>
         <g className="chart">
-          <circle
-            className="background"
-            r={radius}
-            cx={cx}
-            cy={cy}
-            fill="transparent"
-            stroke="transparent"
-            strokeWidth={radius / 2}
-          />
           {data.map((element, index) => {
             const ratio = element.value / total;
             const strokeLength = circumference * ratio;
@@ -41,7 +32,7 @@ export default function DonutChart({ name, data, width, height }) {
                   cy={cy}
                   fill="transparent"
                   stroke={CHART_COLORS[index]}
-                  strokeWidth={radius / 2}
+                  strokeWidth={radius / 1.5}
                   strokeDasharray={`${strokeLength} ${spaceLength}`}
                   strokeDashoffset={-offset}
                   transform={`rotate(-90, ${cx}, ${cy})`}
@@ -65,7 +56,7 @@ export default function DonutChart({ name, data, width, height }) {
                 </circle>
                 <text
                   className="value-label donut"
-                  x="50%"
+                  x="60%"
                   y="20%"
                   alignmentBaseline="middle"
                 >
@@ -73,7 +64,7 @@ export default function DonutChart({ name, data, width, height }) {
                 </text>
                 <text
                   className="name-label donut"
-                  x="50%"
+                  x="60%"
                   y="30%"
                   alignmentBaseline="middle"
                 >

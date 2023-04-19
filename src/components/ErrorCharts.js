@@ -19,7 +19,7 @@ function ErrorCharts({ data }) {
           {chartData && (
             <VerticalChart
               data={chartData.dailyError}
-              name="Daily Error"
+              name="날짜별 에러"
               height={500}
               width={1000}
             />
@@ -33,8 +33,8 @@ function ErrorCharts({ data }) {
               data={
                 selectedData ? selectedData.routesError : chartData.routesError
               }
-              name="Routes Error"
-              width={600}
+              name="라우팅별 에러"
+              width={500}
               height={350}
               key={Math.random()}
             />
@@ -46,7 +46,7 @@ function ErrorCharts({ data }) {
               data={
                 selectedData ? selectedData.errorNames : chartData.errorNames
               }
-              name="Time Error"
+              name="타입별 에러"
               width={500}
               height={350}
               type="error"

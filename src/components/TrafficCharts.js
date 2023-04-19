@@ -19,7 +19,7 @@ function TrafficCharts({ data }) {
           {chartData && (
             <VerticalChart
               data={chartData.dailyTraffic}
-              name="Daily Traffics"
+              name="날짜별 트래픽"
               height={500}
               width={1000}
             />
@@ -35,8 +35,8 @@ function TrafficCharts({ data }) {
                   ? selectedData.routesTraffic
                   : chartData.routesTraffic
               }
-              name="Routes Traffics"
-              width={600}
+              name="라우팅별 트래픽"
+              width={500}
               height={350}
               key={Math.random()}
             />
@@ -48,7 +48,7 @@ function TrafficCharts({ data }) {
               data={
                 selectDate ? selectedData.timeTraffic : chartData.timeTraffic
               }
-              name="Time Traffics"
+              name="시간별 트래픽"
               height={350}
               width={500}
               key={Math.random()}

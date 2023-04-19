@@ -719,6 +719,36 @@ const MockData = {
         "Error: Not Found\n    at /Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w06/app.js:48:15\n    at Layer.handle [as handle_request] (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w06/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w06/node_modules/express/lib/router/index.js:323:13)\n    at /Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w06/node_modules/express/lib/router/index.js:284:7\n    at Function.process_params (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w06/node_modules/express/lib/router/index.js:341:12)\n    at next (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w06/node_modules/express/lib/router/index.js:275:10)\n    at serveStatic (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w06/node_modules/serve-static/index.js:75:16)\n    at Layer.handle [as handle_request] (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w06/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w06/node_modules/express/lib/router/index.js:323:13)\n    at /Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w06/node_modules/express/lib/router/index.js:284:7",
       createdAt: "2023-04-16T16:36:29.294Z",
     },
+    {
+      _id: "7",
+      path: "/my-votings",
+      host: "mytestserver1.com",
+      errorName: "Error",
+      errorMessage: "Not Found",
+      errorStack:
+        "Error: Not Found\n    at /Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w06/app.js:48:15\n    at Layer.handle [as handle_request] (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w06/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w06/node_modules/express/lib/router/index.js:323:13)\n    at /Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w06/node_modules/express/lib/router/index.js:284:7\n    at Function.process_params (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w06/node_modules/express/lib/router/index.js:341:12)\n    at next (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w06/node_modules/express/lib/router/index.js:275:10)\n    at serveStatic (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w06/node_modules/serve-static/index.js:75:16)\n    at Layer.handle [as handle_request] (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w06/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w06/node_modules/express/lib/router/index.js:323:13)\n    at /Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w06/node_modules/express/lib/router/index.js:284:7",
+      createdAt: "2023-04-18T13:42:29.294Z",
+    },
+    {
+      _id: "8",
+      path: "/votings/new",
+      host: "mytestserver1.com",
+      errorName: "Error",
+      errorMessage: "optionList is not iterable",
+      errorStack:
+        "TypeError: optionList is not iterable\n    at saveOptionInform (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/routes/middlewares/updateData.js:27:24)\n    at Layer.handle [as handle_request] (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/express/lib/router/layer.js:95:5)\n    at next (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/express/lib/router/route.js:144:13)\n    at Route.dispatch (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/express/lib/router/route.js:114:3)\n    at Layer.handle [as handle_request] (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/express/lib/router/layer.js:95:5)\n    at /Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/express/lib/router/index.js:284:15\n    at Function.process_params (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/express/lib/router/index.js:346:12)\n    at next (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/express/lib/router/index.js:280:10)\n    at Function.handle (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/express/lib/router/index.js:175:3)\n    at router (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/express/lib/router/index.js:47:12)",
+      createdAt: "2023-04-17T22:24:28.777Z",
+    },
+    {
+      _id: "9",
+      path: "/votings/new",
+      host: "mytestserver1.com",
+      errorName: "TypeError",
+      errorMessage: "optionList is not iterable",
+      errorStack:
+        "TypeError: optionList is not iterable\n    at saveOptionInform (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/routes/middlewares/updateData.js:27:24)\n    at Layer.handle [as handle_request] (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/express/lib/router/layer.js:95:5)\n    at next (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/express/lib/router/route.js:144:13)\n    at Route.dispatch (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/express/lib/router/route.js:114:3)\n    at Layer.handle [as handle_request] (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/express/lib/router/layer.js:95:5)\n    at /Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/express/lib/router/index.js:284:15\n    at Function.process_params (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/express/lib/router/index.js:346:12)\n    at next (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/express/lib/router/index.js:280:10)\n    at Function.handle (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/express/lib/router/index.js:175:3)\n    at router (/Users/igeonhwa/Desktop/bootcamp14/bootcamp14-w07/node_modules/express/lib/router/index.js:47:12)",
+      createdAt: "2023-04-17T13:24:28.777Z",
+    },
   ],
   selectDate: null,
 };
