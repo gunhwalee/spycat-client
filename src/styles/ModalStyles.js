@@ -22,6 +22,11 @@ export const ModalContainer = styled.div`
     right: 0;
     transition: ${TIME.DETAIL_TRANSITION}s;
   }
+
+  &.none {
+    right: -50%;
+    transition: ${TIME.DETAIL_TRANSITION}s;
+  }
 `;
 
 export const Wrapper = styled.main`
@@ -44,7 +49,7 @@ export const ArrowBtn = styled.button`
   cursor: pointer;
   transition: ${TIME.DETAIL_TRANSITION}s;
 
-  &.none {
+  &.hide {
     right: -5%;
   }
 
@@ -55,6 +60,11 @@ export const ArrowBtn = styled.button`
 
   &.active {
     right: 50%;
+    transition: ${TIME.DETAIL_TRANSITION}s;
+  }
+
+  &.none {
+    right: 0%;
     transition: ${TIME.DETAIL_TRANSITION}s;
   }
 `;

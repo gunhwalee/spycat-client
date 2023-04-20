@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 
+import { TIME } from "../assets/constants";
 import mockData from "../charts/MockData";
 import PageHeader from "../components/PageHeader";
 import * as S from "../styles/ErrorListPageStyles";
@@ -13,6 +14,7 @@ function ExampleListPage() {
   const [selectedError, setSelectedError] = useState(null);
   const [buttonLists, setButtonLists] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [animation, setAnimation] = useState(false);
   const [type, setType] = useState("All");
 
   useEffect(() => {
@@ -28,6 +30,9 @@ function ExampleListPage() {
             onClick={() => {
               setSelectedError(element._id);
               setShowModal(true);
+              setTimeout(() => {
+                setAnimation(true);
+              }, 10);
             }}
           >
             <S.ErrorTitle>{element.errorName}</S.ErrorTitle>
@@ -52,7 +57,15 @@ function ExampleListPage() {
   };
 
   const handleModal = () => {
-    setShowModal(!showModal);
+    if (showModal) {
+      setAnimation(false);
+      setTimeout(() => {
+        setShowModal(false);
+      }, TIME.DETAIL_TRANSITION * 1000);
+    } else {
+      setAnimation(true);
+      setShowModal(true);
+    }
   };
 
   return (
@@ -78,13 +91,16 @@ function ExampleListPage() {
           {errorArray}
         </section>
       </S.Main>
-      <ModalBox
-        closeModal={handleModal}
-        showModal={showModal}
-        error={selectedError}
-      >
-        <ExampleDetailPage error={selectedError} />
-      </ModalBox>
+      {showModal && (
+        <ModalBox
+          closeModal={handleModal}
+          showModal={showModal}
+          error={selectedError}
+          animation={animation}
+        >
+          <ExampleDetailPage error={selectedError} />
+        </ModalBox>
+      )}
     </S.EntryWrapper>
   );
 }

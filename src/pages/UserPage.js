@@ -23,12 +23,13 @@ function UserPage() {
   const [toast, setToast] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const keyInput = useRef();
+  const hostRef = useRef();
   const dispatch = useDispatch();
 
-  const deleteServer = async event => {
-    const text = event.currentTarget.textContent;
-    const index = text.lastIndexOf(":");
-    const url = text.slice(index + 2);
+  const deleteServer = async () => {
+    const text = hostRef.current.textContent;
+    const index = text.lastIndexOf("호스트 주소 :");
+    const url = text.slice(index + 9);
 
     if (
       window.confirm(
@@ -63,16 +64,12 @@ function UserPage() {
   useEffect(() => {
     const contents = servers.map(element => {
       return (
-        <S.SubContent
-          key={element.url}
-          className="button"
-          onClick={deleteServer}
-        >
+        <S.SubContent key={element.url} className="button" ref={hostRef}>
           <div>
             <S.ServerName>서버 이름 : {element.serverName}</S.ServerName>
             <p>호스트 주소 : {element.url}</p>
           </div>
-          <S.copyBtn>
+          <S.copyBtn onClick={deleteServer}>
             <Delete width="20px" height="20px" />
           </S.copyBtn>
         </S.SubContent>

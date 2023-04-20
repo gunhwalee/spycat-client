@@ -29,7 +29,6 @@ export const List = styled.li`
   font-weight: 500;
   display: flex;
   align-items: center;
-  padding: ${SIZE.PADDING}px 0px;
   margin: ${SIZE.MARGIN}px 0px;
 
   span {
@@ -40,6 +39,7 @@ export const List = styled.li`
 export const NameMenu = styled.div`
   font-size: ${SIZE.FONT_NORMAL}px;
   font-weight: 500;
+  padding: ${SIZE.PADDING * 2}px 0px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
