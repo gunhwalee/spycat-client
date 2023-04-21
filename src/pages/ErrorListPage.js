@@ -10,6 +10,7 @@ import ModalBox from "../components/Modal";
 import ErrorDetailPage from "./ErrorDetailPage";
 import Handler from "../handlers/errorInfoHandlers";
 import Spinner from "../components/Spinner";
+import { TIME } from "../assets/constants";
 
 function ErrorListPage() {
   const { errorLists } = useSelector(state => state.server);
@@ -20,6 +21,7 @@ function ErrorListPage() {
   const [selectedError, setSelectedError] = useState(null);
   const [buttonLists, setButtonLists] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [animation, setAnimation] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const [type, setType] = useState("All");
   const dispatch = useDispatch();
@@ -58,7 +60,7 @@ function ErrorListPage() {
     return () => {
       dispatch(deleteData());
     };
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     if (errorLists) {
@@ -73,6 +75,9 @@ function ErrorListPage() {
             onClick={() => {
               setSelectedError(element._id);
               setShowModal(true);
+              setTimeout(() => {
+                setAnimation(true);
+              }, 10);
             }}
           >
             <S.ErrorTitle>{element.errorName}</S.ErrorTitle>
@@ -97,7 +102,15 @@ function ErrorListPage() {
   };
 
   const handleModal = () => {
-    setShowModal(!showModal);
+    if (showModal) {
+      setAnimation(false);
+      setTimeout(() => {
+        setShowModal(false);
+      }, TIME.DETAIL_TRANSITION * 1000);
+    } else {
+      setAnimation(true);
+      setShowModal(true);
+    }
   };
 
   return (
@@ -130,13 +143,16 @@ function ErrorListPage() {
           </section>
         </S.Main>
       )}
-      <ModalBox
-        closeModal={handleModal}
-        showModal={showModal}
-        error={selectedError}
-      >
-        <ErrorDetailPage error={selectedError} />
-      </ModalBox>
+      {showModal && (
+        <ModalBox
+          closeModal={handleModal}
+          showModal={showModal}
+          error={selectedError}
+          animation={animation}
+        >
+          <ErrorDetailPage error={selectedError} />
+        </ModalBox>
+      )}
     </S.EntryWrapper>
   );
 }
