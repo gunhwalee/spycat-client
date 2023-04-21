@@ -21,7 +21,8 @@ export const Header = styled.header`
   font-weight: 500;
   display: flex;
   align-items: center;
-  padding: ${SIZE.PADDING * 2}px 0px;
+  padding: ${SIZE.PADDING}px 0px;
+  margin: ${SIZE.MARGIN}px 0px;
   cursor: pointer;
 `;
 export const List = styled.li`
@@ -29,6 +30,7 @@ export const List = styled.li`
   font-weight: 500;
   display: flex;
   align-items: center;
+  padding: ${SIZE.PADDING}px 0px;
   margin: ${SIZE.MARGIN}px 0px;
 
   span {
@@ -37,39 +39,46 @@ export const List = styled.li`
 `;
 
 export const NameMenu = styled.div`
+  width: 100%;
   font-size: ${SIZE.FONT_NORMAL}px;
   font-weight: 500;
-  padding: ${SIZE.PADDING * 2}px 0px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  cursor: pointer;
 `;
 
 export const NameBox = styled.div`
   display: flex;
   justify-content: space-between;
-  cursor: pointer;
 
   button {
     border: none;
     background-color: transparent;
+    cursor: pointer;
   }
 `;
 
 export const Footer = styled.footer`
   display: flex;
   align-items: center;
-  margin-bottom: ${SIZE.MARGIN / 2}px;
+  padding: ${SIZE.PADDING}px 0px;
   cursor: pointer;
 
   a {
     width: 100%;
+    display: flex;
+    align-items: center;
     font-size: ${SIZE.FONT_SMALL}px;
-    margin-left: ${SIZE.MARGIN / 2}px;
+
+    p {
+      margin-left: ${SIZE.MARGIN / 2}px;
+    }
   }
 `;
 
 export const Button = styled.button`
+  display: flex;
   height: ${SIZE.FONT_SMALL}px;
   font-size: ${SIZE.FONT_SMALL}px;
   color: ${COLORS.WHITE};
@@ -77,9 +86,11 @@ export const Button = styled.button`
   border: none;
   background-color: transparent;
   width: 100%;
-  text-align: left;
-  margin-left: ${SIZE.MARGIN / 2}px;
   cursor: pointer;
+
+  p {
+    margin-left: ${SIZE.MARGIN / 2}px;
+  }
 `;
 
 export const DropDownPosition = styled.div`

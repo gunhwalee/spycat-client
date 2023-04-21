@@ -101,17 +101,15 @@ function Sidebar() {
       </nav>
       <S.Footer>
         {name ? (
-          <>
+          <S.Button type="button" onClick={handleLogout}>
             <Logout width={SIZE.FONT_SMALL} height={SIZE.FONT_SMALL} />
-            <S.Button type="button" onClick={handleLogout}>
-              로그아웃
-            </S.Button>
-          </>
+            <p>로그아웃</p>
+          </S.Button>
         ) : (
-          <>
+          <Link to="/login">
             <Login width={SIZE.FONT_SMALL} height={SIZE.FONT_SMALL} />
-            <Link to="/login">로그인</Link>
-          </>
+            <p>로그인</p>
+          </Link>
         )}
       </S.Footer>
     </S.Aside>
