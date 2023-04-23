@@ -2,7 +2,22 @@
   "env": {
     "es2021": true,
     "node": true,
-    "browser": true
+    "browser": true,
+    "jest": true
   },
-  "extends": ["airbnb", "plugin:prettier/recommended"]
+  "extends": ["airbnb", "plugin:prettier/recommended"],
+  "rules": {
+    "react/jsx-filename-extension": [
+      "error",
+      { "extensions": [".js", ".jsx"] }
+    ],
+    "react/prop-types": "off",
+    "consistent-return": "off",
+    "no-console": "off",
+    "no-param-reassign": "off",
+    "no-underscore-dangle":"off",
+    "no-continue":"off",
+    "react/react-in-jsx-scope": "off",
+    "no-alert":"off"
+  }
 }

@@ -1,0 +1,144 @@
+body {
+  font-family: "Lato", sans-serif;
+  font-size: 16px;
+}
+
+.title {
+  font-size: 1.4em;
+  font-weight: 300;
+}
+
+.value-label {
+  fill: #36393e;
+  font-weight: 300;
+  font-size: 1em;
+}
+
+.group .name-label {
+  fill: #36393e;
+  font-weight: 300;
+  font-size: 0.9em;
+}
+
+.group .value-label {
+  fill: #36393e;
+  font-weight: 300;
+  font-size: 1em;
+}
+
+.group .per-label {
+  fill: #36393e;
+  font-weight: 300;
+  font-size: 1em;
+}
+
+.container .group {
+  transition: opacity 0.3s;
+}
+
+.container:hover .group {
+  opacity: 0.3;
+}
+
+.container:hover .path {
+  opacity: 0.3;
+}
+
+.container .group:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.container .group:hover .name-label {
+  font-weight: 400;
+  font-size: 1em;
+}
+
+.container .group:hover .value-label {
+  font-weight: 400;
+  font-size: 1.2em;
+}
+
+.container .group:hover .per-label {
+  font-weight: 400;
+  font-size: 1.2em;
+}
+
+.name-label.vertical {
+  text-anchor: middle;
+}
+
+.value-label.vertical {
+  text-anchor: middle;
+}
+
+.name-label.horizontal {
+  text-anchor: end;
+}
+
+.value-label.horizontal {
+  text-anchor: start;
+}
+
+.name-label.line {
+  text-anchor: middle;
+}
+
+.value-label.line {
+  text-anchor: middle;
+}
+
+.name-label.donut {
+  text-anchor: start;
+  display: none;
+}
+
+.value-label.donut {
+  text-anchor: start;
+  display: none;
+}
+
+.per-label.donut {
+  text-anchor: middle;
+  display: none;
+}
+
+.group:hover .name-label.donut {
+  display: block;
+}
+
+.group:hover .value-label.donut {
+  display: block;
+}
+
+.group:hover .per-label.donut {
+  display: block;
+}
+
+.group:hover ~ .chart-text {
+  display: none;
+}
+
+.group:hover .value-label.line {
+  fill: #EB3232;
+}
+
+.total-number {
+  font-size: 1.2em;
+  line-height: 1;
+  text-anchor: middle;
+  -moz-transform: translateY(-0.25em);
+  -ms-transform: translateY(-0.25em);
+  -webkit-transform: translateY(-0.25em);
+  transform: translateY(-0.25em);
+}
+
+.total-label {
+  font-size: 1em;
+  text-transform: uppercase;
+  text-anchor: middle;
+  -moz-transform: translateY(0.7em);
+  -ms-transform: translateY(0.7em);
+  -webkit-transform: translateY(0.7em);
+  transform: translateY(0.7em);
+}
