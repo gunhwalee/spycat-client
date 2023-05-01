@@ -97,7 +97,7 @@ function Sidebar() {
             </Link>
           </ol>
         ) : (
-          <ServerName name="예시용 차트" id="example" />
+          <ServerName name="예시용 차트" apikey="example" />
         )}
       </nav>
       <S.Footer>
