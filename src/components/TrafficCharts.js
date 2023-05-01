@@ -48,7 +48,7 @@ function TrafficCharts({ data }) {
               data={
                 selectDate ? selectedData.timeTraffic : chartData.timeTraffic
               }
-              name="시간별 트래픽"
+              name="시간대별 트래픽"
               height={350}
               width={500}
               key={Math.random()}

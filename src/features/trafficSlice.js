@@ -6,6 +6,7 @@ const initialState = {
   traffics: null,
   errorLists: null,
   selectDate: null,
+  apikey: null,
 };
 
 const serverSlice = createSlice({

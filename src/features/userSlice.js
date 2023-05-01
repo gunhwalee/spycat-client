@@ -2,8 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   name: null,
-  apikey: null,
   id: null,
+  _id: null,
   servers: [],
   toApi: false,
 };
@@ -14,18 +14,15 @@ const userSlice = createSlice({
   reducers: {
     setUser(state, action) {
       state.name = action.payload.name;
-      state.apikey = action.payload.apikey;
+      state._id = action.payload._id;
       state.id = action.payload.id;
     },
     setServers(state, action) {
       state.servers = action.payload.servers;
     },
-    updateKey(state, action) {
-      state.apikey = action.payload.apikey;
-    },
     deleteUser(state) {
       state.name = null;
-      state.apikey = null;
+      state._id = null;
       state.id = null;
       state.servers = [];
     },
@@ -35,6 +32,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { setUser, deleteUser, setServers, updateKey, setAxios } =
-  userSlice.actions;
+export const { setUser, deleteUser, setServers, setAxios } = userSlice.actions;
 export default userSlice.reducer;

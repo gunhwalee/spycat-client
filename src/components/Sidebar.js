@@ -12,7 +12,7 @@ import { ReactComponent as Login } from "../assets/img/login.svg";
 import logo from "../assets/img/logo-white.png";
 
 function Sidebar() {
-  const { name, apikey, servers, toApi } = useSelector(state => state.user);
+  const { name, _id, servers, toApi } = useSelector(state => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [serverList, setServerList] = useState(null);
@@ -21,7 +21,7 @@ function Sidebar() {
     const loadServerList = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_SPYCAT_SERVER}/users/${apikey}/serverlists`,
+          `${process.env.REACT_APP_SPYCAT_SERVER}/users/${_id}/serverlists`,
           { withCredentials: true },
         );
 
@@ -43,7 +43,8 @@ function Sidebar() {
           <ServerName
             name={element.serverName}
             id={element.url}
-            key={element._id}
+            apikey={element.apikey}
+            key={element.apikey}
           />
         );
       });
@@ -55,7 +56,7 @@ function Sidebar() {
   const handleLogout = async () => {
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_SPYCAT_SERVER}/users/${apikey}/logout`,
+        `${process.env.REACT_APP_SPYCAT_SERVER}/users/${_id}/logout`,
         null,
         { withCredentials: true },
       );

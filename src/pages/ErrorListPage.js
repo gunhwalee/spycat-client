@@ -14,8 +14,7 @@ import { TIME } from "../assets/constants";
 
 function ErrorListPage() {
   const { errorLists } = useSelector(state => state.server);
-  const { apikey } = useSelector(state => state.user);
-  const { id } = useParams();
+  const { apikey } = useParams();
   const [errorMessage, setErrorMessage] = useState("");
   const [errorArray, setErrorArray] = useState(null);
   const [selectedError, setSelectedError] = useState(null);
@@ -31,7 +30,7 @@ function ErrorListPage() {
       try {
         setDisabled(true);
         const response = await axios.get(
-          `${process.env.REACT_APP_SPYCAT_SERVER}/users/${apikey}/servers/${id}/errors`,
+          `${process.env.REACT_APP_SPYCAT_SERVER}/servers/${apikey}/errors`,
           { withCredentials: true },
         );
 
@@ -60,7 +59,7 @@ function ErrorListPage() {
     return () => {
       dispatch(deleteData());
     };
-  }, [id]);
+  }, [apikey]);
 
   useEffect(() => {
     if (errorLists) {
@@ -84,7 +83,7 @@ function ErrorListPage() {
             <S.ErrorMessage>{element.errorMessage}</S.ErrorMessage>
             <S.ErrorDetail>
               <div>{errorTime}</div>
-              <div>||</div>
+              <div className="divider">||</div>
               <div>{element.host}</div>
             </S.ErrorDetail>
           </S.ErrorBox>

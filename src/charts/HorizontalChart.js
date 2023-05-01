@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { v4 as uuid } from "uuid";
 
-export default function HorizontalChart({ name, data, width, height, type }) {
+export default function HorizontalChart({ name, data, width, height }) {
   const [ratio, setRatio] = useState(8);
   const [barHeight, setBarHeight] = useState(30);
   if (!data.length) return null;
@@ -25,12 +25,7 @@ export default function HorizontalChart({ name, data, width, height, type }) {
   const barGroups = data.map((d, i) => {
     return (
       <g transform={`translate(0, ${i * barHeight})`} key={uuid()}>
-        <HorizontalGroup
-          data={d}
-          barHeight={barHeight}
-          ratio={ratio}
-          type={type}
-        />
+        <HorizontalGroup data={d} barHeight={barHeight} ratio={ratio} />
       </g>
     );
   });
@@ -49,7 +44,7 @@ export default function HorizontalChart({ name, data, width, height, type }) {
   );
 }
 
-function HorizontalGroup({ ratio, data, barHeight, type }) {
+function HorizontalGroup({ ratio, data, barHeight }) {
   const barPadding = 5;
   const barColor = "#7289da";
   const widthScale = d => d * ratio;
@@ -64,7 +59,7 @@ function HorizontalGroup({ ratio, data, barHeight, type }) {
         y={yMid}
         alignmentBaseline="middle"
       >
-        {type ? data.name : `${data.name * 2} - ${(data.name + 1) * 2}시`}
+        {`${data.name * 2} - ${(data.name + 1) * 2}시`}
       </text>
       <rect
         y={barPadding * 0.5}

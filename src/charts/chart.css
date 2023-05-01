@@ -8,12 +8,6 @@ body {
   font-weight: 300;
 }
 
-.value-label {
-  fill: #36393e;
-  font-weight: 300;
-  font-size: 1em;
-}
-
 .group .name-label {
   fill: #36393e;
   font-weight: 300;
@@ -21,6 +15,7 @@ body {
 }
 
 .group .value-label {
+  display: none;
   fill: #36393e;
   font-weight: 300;
   font-size: 1em;
@@ -57,6 +52,7 @@ body {
 .container .group:hover .value-label {
   font-weight: 400;
   font-size: 1.2em;
+  display: block;
 }
 
 .container .group:hover .per-label {
