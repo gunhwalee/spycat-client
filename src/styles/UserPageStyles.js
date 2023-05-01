@@ -38,9 +38,19 @@ export const SubContent = styled.article`
   margin: ${SIZE.MARGIN}px 0;
   overflow: auto;
 
-  &.button {
+  &.server {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+  }
+`;
+
+export const contentBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &.last {
+    margin-top: ${SIZE.MARGIN}px;
   }
 `;
 

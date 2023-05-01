@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import TextInform from "./TextInform";
+import TextInform from "../components/TextInform";
 import { ReactComponent as Id } from "../assets/img/id.svg";
 
 describe("TextInform Component", () => {

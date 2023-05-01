@@ -43,8 +43,8 @@ function LoginPage() {
         return setErrorMessage(response.data.message);
       }
 
-      const { name, apikey, id } = response.data;
-      dispatch(setUser({ name, apikey, id }));
+      const { name, _id, id } = response.data;
+      dispatch(setUser({ name, _id, id }));
 
       navigate("/");
     } catch (err) {

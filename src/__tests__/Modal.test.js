@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import ModalBox from "./Modal";
+import ModalBox from "../components/Modal";
 
 describe("ModalBox Component", () => {
   function MockComponent() {

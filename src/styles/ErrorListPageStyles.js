@@ -73,6 +73,10 @@ export const ErrorMessage = styled.div`
 export const ErrorDetail = styled.div`
   display: flex;
   font-size: ${SIZE.FONT_INPUT}px;
+
+  .divider {
+    margin: 0px ${SIZE.MARGIN / 2}px;
+  }
 `;
 
 export const ErrorBox = styled.article`

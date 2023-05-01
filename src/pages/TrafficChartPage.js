@@ -10,9 +10,9 @@ import { saveData, deleteData } from "../features/trafficSlice";
 import * as S from "../styles/ChartPageStyles";
 
 function TrafficChartPage() {
-  const { apikey } = useSelector(state => state.user);
+  const { id } = useSelector(state => state.user);
   const { url, traffics } = useSelector(state => state.server);
-  const { id } = useParams();
+  const { apikey } = useParams();
   const [errorMessage, setErrorMessage] = useState("");
   const dispatch = useDispatch();
 
@@ -20,7 +20,7 @@ function TrafficChartPage() {
     const getTrafficData = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_SPYCAT_SERVER}/users/${apikey}/servers/${id}/traffics`,
+          `${process.env.REACT_APP_SPYCAT_SERVER}/servers/${apikey}/traffics`,
           { withCredentials: true },
         );
 
@@ -48,7 +48,7 @@ function TrafficChartPage() {
     return () => {
       dispatch(deleteData());
     };
-  }, [id]);
+  }, [apikey]);
 
   return (
     <S.EntryWrapper>

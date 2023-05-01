@@ -1,22 +1,21 @@
 import { fireEvent, render } from "@testing-library/react";
-import UserSecretInput from "./UserScretInput";
+import UserTextInput from "../components/UserTextInput";
 import { ReactComponent as Id } from "../assets/img/id.svg";
 
-describe("UserSceretInput Component", () => {
+describe("UserTextInput Component", () => {
   it("정상적으로 렌더링 되는지 확인합니다.", () => {
     const { getByPlaceholderText, getByText } = render(
-      <UserSecretInput Component={Id} placeholder="ABCD" showPw />,
+      <UserTextInput Component={Id} placeholder="ABCD" />,
     );
 
     expect(getByPlaceholderText("ABCD")).toBeInTheDocument();
     expect(getByText(/id/i)).toBeInTheDocument();
-    expect(getByText(/eye/i)).toBeInTheDocument();
   });
 
   it("focus 이벤트가 감지되는지 확인합니다.", () => {
     const mockFn = jest.fn();
     const { getByPlaceholderText } = render(
-      <UserSecretInput setFocus={mockFn} placeholder="ABCD" />,
+      <UserTextInput setFocus={mockFn} placeholder="ABCD" />,
     );
 
     fireEvent.focus(getByPlaceholderText("ABCD"));
@@ -27,7 +26,7 @@ describe("UserSceretInput Component", () => {
   });
 
   it("RuleBox가 정상적으로 렌더링 되는지 확인합니다.", () => {
-    const { getByText } = render(<UserSecretInput focus rule="rule" />);
+    const { getByText } = render(<UserTextInput focus rule="rule" />);
 
     expect(getByText("rule")).toBeInTheDocument();
   });

@@ -32,7 +32,8 @@ function totalTraffics(data) {
       }
     });
 
-    const time = Math.floor(data[i].createdAt.slice(11, 13) / 2);
+    const date = new Date(data[i].createdAt.toString());
+    const time = Math.floor(String(date).slice(16, 18) / 2);
     result.timeTraffic.forEach(element => {
       if (element.name === time) {
         element.value += 1;
@@ -89,7 +90,8 @@ function dailyTraffics(data, date) {
       }
     });
 
-    const time = Math.floor(data[i].createdAt.slice(11, 13) / 2);
+    const trafficDate = new Date(data[i].createdAt.toString());
+    const time = Math.floor(String(trafficDate).slice(16, 18) / 2);
     result.timeTraffic.forEach(element => {
       if (element.name === time) {
         element.value += 1;

@@ -39,7 +39,7 @@ function ExampleListPage() {
             <S.ErrorMessage>{element.errorMessage}</S.ErrorMessage>
             <S.ErrorDetail>
               <div>{errorTime}</div>
-              <div>||</div>
+              <div className="divider">||</div>
               <div>{element.host}</div>
             </S.ErrorDetail>
           </S.ErrorBox>

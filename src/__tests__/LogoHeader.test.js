@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import LogoHeader from "./LogoHeader";
+import LogoHeader from "../components/LogoHeader";
 
 describe("LogoHeader Component", () => {
   it("정상적으로 렌더링 되는지 확인합니다.", () => {

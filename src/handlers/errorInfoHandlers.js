@@ -19,7 +19,13 @@ function ErrorNameHandler(data) {
 }
 
 function totalErrors(data) {
-  const result = { dailyError: [], routesError: [], errorNames: [] };
+  const result = { dailyError: [], routesError: [], errorTime: [] };
+  result.errorTime = Array(12)
+    .fill()
+    .map((v, i) => {
+      const obj = { name: i, value: 0 };
+      return obj;
+    });
 
   for (let i = 0; i < 32; i += 1) {
     result.dailyError[i] = { name: i + 1, value: 0 };
@@ -46,14 +52,10 @@ function totalErrors(data) {
       }
     });
 
-    const { errorName } = data[i];
-    const hasName = element => element.name === errorName;
-
-    if (!result.errorNames.some(hasName))
-      result.errorNames.push({ name: errorName, value: 0 });
-
-    result.errorNames.forEach(element => {
-      if (element.name === errorName) {
+    const date = new Date(data[i].createdAt.toString());
+    const time = Math.floor(String(date).slice(16, 18) / 2);
+    result.errorTime.forEach(element => {
+      if (element.name === time) {
         element.value += 1;
       }
     });
@@ -66,7 +68,14 @@ function totalErrors(data) {
 
 function dailyErrors(data, date) {
   if (date === null) return null;
-  const result = { routesError: [], errorNames: [] };
+  const result = { routesError: [], errorTime: [] };
+  result.errorTime = Array(12)
+    .fill()
+    .map((v, i) => {
+      const obj = { name: i, value: 0 };
+      return obj;
+    });
+
   for (let i = 0; i < data.length; i += 1) {
     let day = data[i].createdAt.slice(8, 10);
     if (day < 10) day = day.at(-1);
@@ -84,14 +93,10 @@ function dailyErrors(data, date) {
       }
     });
 
-    const { errorName } = data[i];
-    const hasName = element => element.name === errorName;
-
-    if (!result.errorNames.some(hasName))
-      result.errorNames.push({ name: errorName, value: 0 });
-
-    result.errorNames.forEach(element => {
-      if (element.name === errorName) {
+    const errorDate = new Date(data[i].createdAt.toString());
+    const time = Math.floor(String(errorDate).slice(16, 18) / 2);
+    result.errorTime.forEach(element => {
+      if (element.name === time) {
         element.value += 1;
       }
     });

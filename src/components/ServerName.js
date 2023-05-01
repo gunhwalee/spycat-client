@@ -5,7 +5,7 @@ import * as S from "../styles/SideBarStyles";
 import { ReactComponent as DownArrow } from "../assets/img/angle-down.svg";
 import { COLORS, TIME } from "../assets/constants";
 
-function ServerName({ name, id }) {
+function ServerName({ name, apikey }) {
   const [showDrop, setShowDrop] = useState(false);
   const [animation, setAnimation] = useState(false);
 
@@ -33,13 +33,13 @@ function ServerName({ name, id }) {
         {showDrop && (
           <S.DropDownPosition>
             <S.DropDown className={animation ? "active" : "none"}>
-              <Link to={`/${id}/traffics`}>
+              <Link to={`/${apikey}/traffics`}>
                 <S.DropDownList>트래픽 차트</S.DropDownList>
               </Link>
-              <Link to={`/${id}/errors`}>
+              <Link to={`/${apikey}/errors`}>
                 <S.DropDownList>에러 차트</S.DropDownList>
               </Link>
-              <Link to={`/${id}/errorlists`}>
+              <Link to={`/${apikey}/errorlists`}>
                 <S.DropDownList>에러 목록</S.DropDownList>
               </Link>
             </S.DropDown>

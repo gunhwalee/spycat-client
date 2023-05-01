@@ -2,7 +2,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import axiosMock from "axios";
 import { useSelector } from "react-redux";
-import Sidebar from "./Sidebar";
+import Sidebar from "../components/Sidebar";
 
 jest.mock("react-redux");
 jest.mock("axios");

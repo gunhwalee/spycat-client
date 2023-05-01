@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
-import PageHeader from "./PageHeader";
+import PageHeader from "../components/PageHeader";
 
 describe("PageHeader Component", () => {
   it("정상적으로 렌더링 되는지 확인합니다.", () => {

@@ -1,6 +1,6 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
-import ServerName from "./ServerName";
+import ServerName from "../components/ServerName";
 
 describe("ServerName Component", () => {
   beforeEach(() => {

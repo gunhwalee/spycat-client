@@ -43,13 +43,10 @@ function ErrorCharts({ data }) {
         <S.SubChartBox>
           {chartData && (
             <HorizontalChart
-              data={
-                selectedData ? selectedData.errorNames : chartData.errorNames
-              }
-              name="타입별 에러"
+              data={selectedData ? selectedData.errorTime : chartData.errorTime}
+              name="시간대별 에러"
               width={500}
               height={350}
-              type="error"
               key={Math.random()}
             />
           )}

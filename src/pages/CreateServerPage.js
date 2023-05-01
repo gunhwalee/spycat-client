@@ -21,7 +21,7 @@ function CreateServerPage() {
   const [nameFocus, setNameFocus] = useState(false);
   const [hostFocus, setHostFocus] = useState(false);
   const [disabled, setDisabled] = useState(false);
-  const { apikey } = useSelector(state => state.user);
+  const { _id } = useSelector(state => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -32,7 +32,7 @@ function CreateServerPage() {
     try {
       setDisabled(true);
       const response = await axios.post(
-        `${process.env.REACT_APP_SPYCAT_SERVER}/users/${apikey}/serverlists`,
+        `${process.env.REACT_APP_SPYCAT_SERVER}/users/${_id}/serverlists`,
         info,
         { withCredentials: true },
       );
