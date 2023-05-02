@@ -7,8 +7,6 @@
 
 ## 목차
 
----
-
 - [Motivation](#motivation)
 - [Schedule](#schedule)
 - [Tech Stacks](#tech-stacks)
@@ -18,8 +16,6 @@
 <br>
 
 ## Motivation
-
----
 
 이번 프로젝트의 목표는 '**현재 사용할 수 있는 MERN STACK을 다듬고 잘 활용해 실제와 같은 서비스를 구현해 보자**'였습니다.
 
@@ -31,8 +27,6 @@
 
 ## Schedule
 
----
-
 2023.04.03 ~ 2023.04.21 : 3주
 
 - 아이디어 기획, Mock up 작업 : 1주
@@ -41,8 +35,6 @@
 <br>
 
 ## Tech Stacks
-
----
 
 Frontend
 
@@ -63,8 +55,6 @@ Backend
 ## Challenges
 
 지금 돌이켜 보면 간단히 해결된 문제였지만 개발 당시 크게 고민했던 부분은 3가지였습니다.
-
----
 
 ### 1. 어떻게 서버에서 발생한 트래픽과 에러의 정보를 수집할 수 있을까?
 
@@ -162,8 +152,6 @@ Backend
 <br>
 
 ## Links
-
----
 
 Deploy
 
