@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
@@ -22,7 +21,6 @@ function UserPage() {
   const [errorMessage, setErrorMessage] = useState("");
   const [toast, setToast] = useState(false);
   const [disabled, setDisabled] = useState(false);
-  const keyInput = useRef();
   const hostRef = useRef();
   const dispatch = useDispatch();
 
