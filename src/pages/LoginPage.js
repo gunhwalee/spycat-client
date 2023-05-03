@@ -30,6 +30,7 @@ function LoginPage() {
     event.preventDefault();
     setErrorMessage("");
 
+    console.log("http", process.env.REACT_APP_SPYCAT_SERVER);
     try {
       setDisabled(true);
       const response = await axios.post(
