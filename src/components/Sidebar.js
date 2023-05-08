@@ -20,11 +20,13 @@ function Sidebar() {
   useEffect(() => {
     const loadServerList = async () => {
       try {
+        console.log(process.env.REACT_APP_SPYCAT_SERVER);
         const response = await axios.get(
           `${process.env.REACT_APP_SPYCAT_SERVER}/users/${_id}/serverlists`,
           { withCredentials: true },
         );
 
+        console.log("res", response);
         dispatch(setServers({ servers: response.data.servers }));
       } catch (err) {
         console.error(err);
