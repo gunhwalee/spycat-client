@@ -136,6 +136,30 @@ function UserPage() {
               <TextInform Component={Id} value={id} />
             </S.SubContent>
           </section>
+          <section>
+            <S.SubTitle>사용 방법</S.SubTitle> <hr />
+            <S.TextBox>
+              1. 우측의 서버 추가 버튼을 눌러 서버를 추가하세요.
+            </S.TextBox>
+            <S.TextBox>
+              2.{" "}
+              <a href="https://www.npmjs.com/package/spycat-tracker">
+                Spycat-Tracker
+              </a>
+              에서 패키지를 설치하세요.
+            </S.TextBox>
+            <S.TextBox>
+              3. trafficParser함수는 소스코드의 라우팅 분기점 보다 위쪽에서
+              호출해야합니다.
+            </S.TextBox>
+            <S.TextBox>
+              4. errorParser함수는 소스코드의 에러처리기 바로 위에
+              호출해야합니다.
+            </S.TextBox>
+            <S.TextBox>
+              5. 각 함수의 인수로 서버마다 발급된 APIKEY를 넣어주세요.
+            </S.TextBox>
+          </section>
         </S.LeftWrapper>
         <S.RightWrapper>
           <S.SubTitle>서버목록</S.SubTitle> <hr />

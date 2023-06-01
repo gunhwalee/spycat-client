@@ -93,3 +93,17 @@ export const addBtn = styled.button`
     font-size: ${SIZE.FONT_NORMAL}px;
   }
 `;
+
+export const TextBox = styled.p`
+  width: 100%;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  font-size: ${SIZE.FONT_REGULAR}px;
+  border-bottom: 1px solid ${COLORS.GRAY};
+  margin: ${SIZE.MARGIN * 3}px 0px;
+
+  a {
+    color: ${COLORS.BLUE};
+  }
+`;
