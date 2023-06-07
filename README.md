@@ -109,7 +109,7 @@ app.use(function (err, req, res, next) {
 
 ```js
 // SVG
-<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+<svg width="100" height="100">
   <circle cx="50" cy="50" r="45" fill="#FFA69E" />
 </svg>;
 
@@ -123,21 +123,162 @@ ctx.arc(50, 50, 45, 0, 2 * Math.PI);
 ctx.fill();
 ```
 
-또한 클릭과 같은 이벤트를 사용하는 것에 있어서도 차이점이 있었습니다. `SVG`는 DOM에 존재하는 엘레멘트로 간단한 코드만으로도 이벤트 등록이 가능했습니다. 마지막으로 차트에 애니메이션 효과를 추가할 경우 별도의 스크립트가 필요한 `Canvas API` 보다 `SVG`가 보다 간단하게 구현할 수 있었습니다.
+그리고 차트에 애니메이션 효과를 추가할 경우 별도의 스크립트가 필요한 `Canvas API` 보다 `SVG`가 보다 간단하게 구현할 수 있었습니다. 위에서 그린 원에 대해 크기가 변하는 애니메이션을 적용할 경우 `SVG`는 `animate`요소를 사용해 간단하게 구현이 가능했지만, `Canvas API`는 작성해야 하는 스크립트 양이 월등히 많고 복잡했습니다.
+
+```js
+// SVG
+<svg width="100" height="100">
+  <circle cx="50" cy="50" r="45" fill="#FFA69E">
+    <animate
+      attributeName="r"
+      values="10; 45; 10"
+      dur="1s"
+      repeatCount="indefinite"
+    />
+  </circle>
+</svg>;
+
+// Canvas API - <script>
+const canvas = document.querySelector("canvas");
+const ctx = canvas.getContext("2d");
+ctx.fillStyle = "#FFA69E";
+
+let r = 10;
+let increase = true;
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.beginPath();
+
+  ctx.arc(50, 50, r, 0, 2 * Math.PI);
+  ctx.fill();
+
+  if (r >= 45) increase = false;
+  if (r === 10) increase = true;
+
+  if (increase && r < 45) {
+    r += 1;
+  } else if (!increase && r >= 10) {
+    r -= 1;
+  }
+
+  requestAnimationFrame(draw);
+}
+
+draw();
+```
 
 이번 프로젝트의 경우 정보를 나타내는 차트로 막대형 그래프와 도넛 그래프를 구상하고 있었습니다. 그리고 각 날짜에 해당하는 그래프를 클릭했을 때 상세 그래프를 추가적으로 보여주고 싶었습니다. 이런 점들을 고려해 `SVG`가 더 적합하다고 생각했습니다.
 
 #### 2) 차트를 그릴 데이터를 어떻게 정리할까?
 
-먼저 차트를 그리기 위한 데이터는 배열의 형태가 적합했습니다. 날짜나 시간 등을 기준삼아 데이터의 순서가 명확해야 했습니다. 각 배열은 라벨(이름)과 값 속성을 가진 객체로 이루어져야 했습니다. 따라서 아래와 같은 형식의 데이터를 목표로 삼았습니다.
+`SVG`를 이용한 차트 구현이 처음이라 먼저 차트를 구현할 함수를 먼저 작성해보고, 그 이후에 차트에 필요한 데이터 포맷을 기준으로 DB에 저장된 정보를 가공하기로 결정했습니다.
+
+먼저 `viewbox`를 정의하고 차트의 제목과 내용물 두 그룹으로 나눠 분류했습니다. 그 다음, `viewbox`범위 내에서 막대형 그래프의 길이비율을 조절할 수 있는 `ratio`변수를 만들고 데이터 중 최댓값을 기준으로 그래프가 범위를 벗어나지 않도록 비율을 조절하는 로직을 추가했습니다.
+
+```js
+function VerticalChart({data, width, height }) {
+  const barGroups = ... // 막대차트 요소들의 묶음
+  const [ratio, setRatio] = useState(8);
+  const maxObjArr = data.reduce((prev, next) => {
+    return prev.value >= next.value ? prev : next;
+  });
+  const maxValue = maxObjArr.value || 50;
+
+  if (maxValue * ratio > height * 0.8) {
+    setRatio(Math.floor(ratio * 0.75));
+  } else if (maxValue * ratio < height / 2) {
+    setRatio(Math.floor(ratio * 1.5));
+  }
+
+  return (
+    <svg viewBox={`0 0 ${width} ${height}`} width={width} height={height}>
+      <text className="title" x="10" y="30">
+        차트 제목
+      </text>
+      <g className="chart" transform="translate(80, 60)">
+        {barGroups}
+      </g>
+    </svg>
+  );
+}
+```
+
+그리고 `barGroups`에 들어갈 막대헝차트의 컴포넌트를 추가로 작성했습니다. 우선 날짜를 나타내는 라벨텍스트와 값을 나타내는 막대 모양 그리고 값을 읽을수있도록 텍스트까지 3개의 요소를 하나로 묶어 컴포넌트로 만들고, 해당 컴포넌트를 데이터의 수에 맞게 데이터 배열을 순회하면서 반환하도록 했습니다.
+
+```js
+function BarVerticalGroup(props) {
+  const barPadding = 5; // 막대 그래프의 폭
+  const barColor = "#348AA7"; // 그래프 색상
+  const heightScale = data => data * props.ratio;
+  const xMid = props.barWidth * 0.5; // 텍스트의 위치를 정해줄 변수
+  const height = heightScale(props.d.value); // ratio 변수를 활용해 막대그래프의 최대높이를 설정
+  const startY = 200 - height; // svg의 좌표는 좌측,상단을 기준으로 지정되지만 그래프의 경우 하단에서 시작하기 위해 별도의 변수 선언
+
+  return (
+    <g className="verticalbar-group">
+      <text className="name-label" x={xMid} y="215" alignmentBaseline="middle">
+        {props.data.name}
+      </text>
+      <rect
+        x={barPadding * 0.5}
+        y={startY}
+        width={props.barWidth - barPadding}
+        height={height}
+        fill={barColor}
+      />
+      <text className="value-label" x={xMid} y="-10" alignmentBaseline="middle">
+        {props.data.value}
+      </text>
+    </g>
+  );
+}
+```
+
+위의 컴포넌트를 이용해 차트를 그리기 위한 데이터는 이름(라벨)과 값 속성을 가진 객체로 이루어져야 했습니다. 따라서 아래와 같은 형식의 데이터를 목표로 삼았습니다.
 
 ```js
 const dailyTraffics = [
-  { name: "1", value: 24 },
-  { name: "2", value: 11 },
-  { name: "3", value: 30 },
+  { name: 1, value: 24 },
+  { name: 2, value: 11 },
+  { name: 3, value: 30 },
   ...
 ];
+```
+
+우선 사용자가 선택한 서버에 대해 차트를 추가구성할 때마다 DB에 데이터를 요청하는 것이 비효율적이라 생각해, 최초 1회 정보를 받아와 `global state`로 저장해두고 필요할때마다 사용했습니다. DB에서 아래와 같은 구조의 정보를 받아왔습니다. 여기서 트래픽 발생시간은 서버의 지역정보마다 time zone이 달라 혼동이 올 수 있기 때문에 UTC형태로 DB에 저장하고, 정보를 필요로하는 클라이언트마다 로컬시간으로 변환해서 사용하도록 했습니다.
+
+```js
+const data = [
+  {
+    path: "/login", // 트래픽 발생 경로
+    server: ObjectId(String), // Server Document의 ID값
+    createAt: 2023-06-01T05:29:44.076+00:00, // 트래픽 발생 시간
+    expiredAt: 2023-06-29T05:29:44.328+00:00, // 데이터 자동삭제 시간
+  },
+  ...
+];
+```
+
+먼저 일자별 트래픽 정보를 가공하기 위해 빈 배열을 만들었습니다. 그리고 일자는 1일 ~ 31일 이라는 범위가 정해져있기때문에 각 날짜를 이름으로 갖고 값이 0인 객체를 배열에 채웠습니다. 그리고 `global state`에 저장되어있는 배열형태의 트래픽 정보를 순회하면서 날짜가 일치할 경우 `value`값을 1씩 더해줬습니다. 라우팅과 시간대별 트래픽 정보도 동일한 로직으로 진행했습니다.
+
+```js
+const dailyTraffic = [];
+
+for (let i = 1; i < 31; i += 1) {
+  dailyTraffic[i] = { name: i, value: 0 };
+}
+
+for (let i = 0; i < data.length; i += 1) {
+  const date = new Date(data[i].createdAt.toString()); // UTC시간을 클라이언트 로컬시간으로 변경
+  let day = String(date).slice(8, 10);
+
+  if (day < 10) day = day.at(-1);
+
+  for (let j = 0; j < 31; j += 1) {
+    if (dailyTraffic[j].name === Number(day)) dailyTraffic[j].value += 1;
+  }
+}
 ```
 
 ### 3. 어떻게 실사용 서비스처럼 만들 수 있을까?
@@ -322,7 +463,3 @@ Backend
 
 - 아이디어 기획, Mock up 작업 : 1주
 - 프로젝트 개발 : 2주
-
-```
-
-```
