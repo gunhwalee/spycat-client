@@ -27,12 +27,13 @@ function totalErrors(data) {
       return obj;
     });
 
-  for (let i = 0; i < 32; i += 1) {
+  for (let i = 0; i < 31; i += 1) {
     result.dailyError[i] = { name: i + 1, value: 0 };
   }
 
   for (let i = 0; i < data.length; i += 1) {
-    let day = data[i].createdAt.slice(8, 10);
+    const date = new Date(data[i].createdAt.toString());
+    let day = String(date).slice(8, 10);
     if (day < 10) day = day.at(-1);
 
     for (let j = 0; j < 31; j += 1) {
@@ -52,7 +53,6 @@ function totalErrors(data) {
       }
     });
 
-    const date = new Date(data[i].createdAt.toString());
     const time = Math.floor(String(date).slice(16, 18) / 2);
     result.errorTime.forEach(element => {
       if (element.name === time) {
@@ -77,7 +77,8 @@ function dailyErrors(data, date) {
     });
 
   for (let i = 0; i < data.length; i += 1) {
-    let day = data[i].createdAt.slice(8, 10);
+    const newDate = new Date(data[i].createdAt.toString());
+    let day = String(newDate).slice(8, 10);
     if (day < 10) day = day.at(-1);
     if (day !== date) continue;
 
@@ -93,8 +94,7 @@ function dailyErrors(data, date) {
       }
     });
 
-    const errorDate = new Date(data[i].createdAt.toString());
-    const time = Math.floor(String(errorDate).slice(16, 18) / 2);
+    const time = Math.floor(String(newDate).slice(16, 18) / 2);
     result.errorTime.forEach(element => {
       if (element.name === time) {
         element.value += 1;
