@@ -3,6 +3,8 @@
 **Spy Cat**은 사용자가 보유 중인 서버의 트래픽과 에러를 시각화해주는 웹사이트입니다.   
 **Spy Cat**에서 자신의 서버를 등록하고, 간단한 미들웨어 함수를 서버 소스코드에 추가해 다양한 정보를 쉽게 시각화된 차트로 확인할 수 있습니다.
 
+👉[지금 바로 사용해보기](https://spycat.netlify.app)
+
 # Table of Contents
 
 - [Motivation](#motivation)
@@ -179,6 +181,10 @@ draw();
 
 이번 프로젝트의 경우 정보를 나타내는 차트로 막대형 그래프와 도넛 그래프를 구상하고 있었습니다. 그리고 각 날짜에 해당하는 그래프를 클릭했을 때 상세 그래프를 추가적으로 보여주고 싶었습니다. 이런 점들을 고려해 `SVG`가 더 적합하다고 생각했습니다.
 
+`SVG`를 이용해 웹브라우저에서도 선명하고 간단한 애니메이션 효과를 추가한 차트를 손쉽게 구현할 수 있었습니다.
+
+<img width="250" src="https://github.com/spy-cat-0/spycat-server/assets/110829006/ae47344f-85b9-4136-9cd8-aec6aa7564fa">
+
 <br>
 
 ### 2) 차트를 그릴 데이터를 어떻게 정리할까?
@@ -339,6 +345,8 @@ const SpinnerBox = styled.div`
 </G.Button>;
 ```
 
+<img width="200" src="https://github.com/spy-cat-0/spycat-server/assets/110829006/3627e9ba-1b83-4ea3-ae7b-771bc48dcba0">
+
 <br>
 
 ### 2) 무분별한 서버요청을 차단해 보자
@@ -415,6 +423,8 @@ const mouseHandler = () => {
   }
 }
 ```
+
+<img width="150" src="https://github.com/spy-cat-0/spycat-server/assets/110829006/ad1ead57-c3a5-421f-80b9-59730a3971e3">
 
 <br>
 
