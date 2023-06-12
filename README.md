@@ -20,8 +20,8 @@ Spy Cat에서 자신의 서버를 등록하고, 간단한 미들웨어 함수를
   - [클라이언트와 서버의 통신문제?](#4-클라이언트와-서버의-통신문제)
     - [로그인 쿠키 문제](#1-로그인-쿠키-문제)
 - [Features](#features)
-- [Links](#links)
 - [Tech Stacks](#tech-stacks)
+- [Links](#links)
 - [Schedule](#schedule)
 
 # Motivation
@@ -36,8 +36,6 @@ Spy Cat에서 자신의 서버를 등록하고, 간단한 미들웨어 함수를
 
 ## 1. 어떻게 서버에서 발생한 트래픽과 에러의 정보를 수집할 수 있을까?
 
-<br>
-
 ### 1) 트래픽을 어떻게 수집할 것인가?
 
 - 트래픽의 정의
@@ -51,50 +49,70 @@ Spy Cat에서 자신의 서버를 등록하고, 간단한 미들웨어 함수를
 1. 우선 정보를 받아올 미들웨어 함수를 작성했습니다. 클라이언트로부터 들어온 1개의 요청은 서버에서 1개의 응답이 나가야 요청-응답 주기가 종료된다는 점을 이용했습니다.
 
 2. 미들웨어 함수는 요청-응답 주기를 종료하거나 다음 스택의 미들웨어로 제어권을 넘기는 것을 선택할 수 있습니다. 따라서 작성한 미들웨어 함수에서 요청 객체(`req`)에 들어있는 필요한 정보를 얻은 후 다음 스택의 미들웨어 함수를 호출해 제어권을 넘겼습니다.
+   <details>
+      <summary>코드</summary>
+      <div markdown="1">
 
-```js
-exports.trafficParser = function (apikey) {
-  return async function (req, res, next) {
-    try {
-      const response = await axios.post(
-        `https://eb-spycat.co.kr/api/servers/${apikey}/traffics`,
-        {
-          type: "traffic",
-          path: req.url,
-          host: req.headers.host,
-        },
-      );
-      console.log(response.data);
-    } catch (error) {
-      console.error("Error sending traffic data:", error.message);
-    }
-    next();
-  };
-};
-```
+   ```js
+   exports.trafficParser = function (apikey) {
+     return async function (req, res, next) {
+       try {
+         const response = await axios.post(
+           `https://eb-spycat.co.kr/api/servers/${apikey}/traffics`,
+           {
+             type: "traffic",
+             path: req.url,
+             host: req.headers.host,
+           },
+         );
+         console.log(response.data);
+       } catch (error) {
+         console.error("Error sending traffic data:", error.message);
+       }
+       next();
+     };
+   };
+   ```
+
+      </div>
+    </details>
 
 3. 그리고 각 트래픽이 분기되는 라우팅 분기점보다 위쪽에서 미들웨어 함수를 호출했습니다.  
    `Express`에서 미들웨어는 스택구조로 호출 순서에 따라 영향을 받습니다. 코드의 상단에 위치할수록 먼저 실행됩니다. 따라서 작성한 미들웨어 함수를 라우팅 분기점보다 위쪽에서 호출함으로써 모든 트래픽에 대해 접근이 가능했습니다.
 
-```js
-app.use(trafficParser(APIKEY)); // 라우팅 분기점 위에서 요청객체의 정보를 얻고 라우팅으로 요청 객체를 넘김
+   <details>
+      <summary>코드</summary>
+      <div markdown="1">
 
-app.use("/", indexRouter);
-app.use("/users", usersRouter);
-```
+   ```js
+   app.use(trafficParser(APIKEY)); // 라우팅 분기점 위에서 요청객체의 정보를 얻고 라우팅으로 요청 객체를 넘김
+
+   app.use("/", indexRouter);
+   app.use("/users", usersRouter);
+   ```
+
+      </div>
+    </details>
 
 4. 에러 정보의 경우 미들웨어 함수를 만들어 서버의 에러 핸들러 바로 위에서 호출했습니다.  
    `Express`에서 발생한 에러는 각 미들웨어에서 `next(error)`를 호출함으로써 일반 미들웨어를 지나쳐 에러 처리 미들웨어로 제어권을 넘깁니다.  
    통상적으로 에러 처리 미들웨어는 서버의 코드 가장 하단에서 호출하는 이유입니다.
 
-```js
-app.use(errorParser(APIKEY)); // 서버의 에러핸들러 바로 위에서 에러객체의 정보를 얻고 에러핸들러로 에러 객체를 넘김
+   <details>
+      <summary>코드</summary>
+      <div markdown="1">
 
-// error handler
-app.use(function (err, req, res, next) {
-  ...
-});
-```
+   ```js
+    app.use(errorParser(APIKEY)); // 서버의 에러핸들러 바로 위에서 에러객체의 정보를 얻고 에러핸들러로 에러 객체를 넘김
+
+    // error handler
+    app.use(function (err, req, res, next) {
+      ...
+    });
+   ```
+
+      </div>
+    </details>
 
 - 아쉬운 점
 
@@ -111,8 +129,6 @@ app.use(function (err, req, res, next) {
 
 리서치 결과 많은 개발자들이 차트를 구현할 때 `SVG` 또는 `Canvas API`를 사용한다는 정보를 얻었습니다. 추가적으로 둘의 장단점을 찾아보며 이번 프로젝트에 알맞은 방법이 무엇인지 고민해 봤습니다.
 
-<br>
-
 - 차이점
 
   |                   SVG                   |                  Canvas API                  |
@@ -120,8 +136,6 @@ app.use(function (err, req, res, next) {
   |   확장성이 뛰어나고 고해상도를 지원함   |  확장성이 떨어지고 고해상도에 적합하지 않음  |
   |     스크립트와 CSS 모두 수정 가능함     |           스크립트로만 수정이 가능           |
   | 다중 그래픽 요소로 이벤트 등록이 간편함 | 단일 HTML 요소로 이벤트 등록이 비교적 복잡함 |
-
-<br>
 
 - 테스트 결과
 
@@ -191,7 +205,7 @@ draw();
 
 - 차트 구현 (도넛 차트)
 
-  1. 데이터마다 `circle`요소를 그리고 `stroke-width`속성을 사용해 도넛 형태의 이미지를 구현했습니다.
+  1. 데이터마다 `circle`요소를 만들고 `stroke-width`속성을 사용해 도넛 형태의 이미지를 구현했습니다.
   2. 각 데이터 항목이 전체 데이터에서 차지하는 비중을 구하고, `stroke-dasharray`속성에서 대시와 공백을 표시하는 변수를 활용했습니다.
      - `const strokeLength = circumference * ratio;`  
        (데이터가 차지하는 비중만큼의 길이)
@@ -362,8 +376,6 @@ res
 `sameSite`속성 설정 후 문제가 해결될 것이라 생각했지만 `typeError: option sameSite is invalid`라는 에러가 발생했습니다.  
 리서치 결과 다행히 `express` 버전 문제였고 버전 업데이트 후 쉽게 해결할 수 있었습니다. (`express-generator`로 생성할 경우 4.16버전이 설치되는데 해당버전에서는 `sameSite` 옵션을 지원하지 않습니다.)
 
-<br>
-
 # Features
 
 - 로그인 이전 예시용 차트를 통해 대략적인 서비스 내용을 확인할 수 있습니다.
@@ -374,19 +386,6 @@ res
 - 각 차트는 날짜를 클릭해 해당 날짜에 발생한 라우팅별 정보, 발생 시간을 확인할 수 있습니다.
 - 사용자는 마이페이지에서 등록된 서버를 관리할 수 있고(생성, 삭제), 서버마다 발급된 API KEY를 확인할 수 있습니다.
 - API KEY는 클립보드에 복사가 가능하며, 재발급 버튼으로 재발급 받을 수 있습니다.
-
-<br>
-
-# Links
-
-Live Server
-
-- [Spy Cat](https://spycat.netlify.app)
-
-Github Repositories
-
-- [Frontend](https://github.com/spy-cat-0/spycat-client)
-- [Backend](https://github.com/spy-cat-0/spycat-server)
 
 # Tech Stacks
 
@@ -403,6 +402,23 @@ Backend
 - Express
 - MongoDB
 - Mongoose
+
+## MongoDB를 선택한 이유
+
+MongoDB는 대표적인 비관계형 데이터베이스로 유연한 스키마 수정이 큰 장점입니다.  
+프로젝트 시작 단계에서 데이터 구조를 구성하는 것 역시 매우 중요한 일이지만, 프로젝트 경험이 적은 저로서는 완벽한 데이터 구조를 구성하기 어려웠습니다.  
+따라서 프로젝트를 진행하면서 중간에 데이터 구조를 변경할 경우가 발생할 것이라 예상해 MongoDB를 선정했습니다.
+
+# Links
+
+Live Server
+
+- [Spy Cat](https://spycat.netlify.app)
+
+Github Repositories
+
+- [Frontend](https://github.com/spy-cat-0/spycat-client)
+- [Backend](https://github.com/spy-cat-0/spycat-server)
 
 # Schedule
 
