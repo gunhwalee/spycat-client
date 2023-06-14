@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+import { useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 
 import Sidebar from "../components/Sidebar";
@@ -13,27 +15,31 @@ import UserPage from "../pages/UserPage";
 import ErrorListPage from "../pages/ErrorListPage";
 import PrivateRoute from "../components/PrivateRoute";
 import GuestRoute from "../components/GuestRoute";
+import MobilePage from "../pages/MobilePage";
 
 function App() {
-  const isMobile = () => {
-    const user = navigator.userAgent;
-    let isCheck = false;
+  const [windowSize, setWindowSize] = useState(window.innerWidth);
 
-    if (user.indexOf("iPhone") > -1 || user.indexOf("Android") > -1) {
-      isCheck = true;
-    }
-
-    return isCheck;
+  const handleResize = () => {
+    setWindowSize(window.innerWidth);
   };
-  const result = isMobile();
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.addEventListener("resize", handleResize);
+    };
+  }, []);
+
+  const isMobile = () => {
+    return windowSize < 1080;
+  };
 
   return (
     <>
-      {result ? (
-        <h1>
-          모바일기기는 지원하지 않습니다.
-          <br />웹 브라우저로 접속해주세요.
-        </h1>
+      {isMobile() ? (
+        <MobilePage />
       ) : (
         <>
           <Sidebar />
