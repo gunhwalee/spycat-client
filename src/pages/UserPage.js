@@ -13,7 +13,7 @@ import TextInform from "../components/TextInform";
 import Spinner from "../components/Spinner";
 import * as S from "../styles/UserPageStyles";
 import Toast from "../components/Toast";
-import { setAxios } from "../features/userSlice";
+import { setServers } from "../features/userSlice";
 
 function UserPage() {
   const { name, id, servers } = useSelector(state => state.user);
@@ -71,7 +71,7 @@ function UserPage() {
         return setErrorMessage(response.data.message);
       }
 
-      dispatch(setAxios());
+      dispatch(setServers({ servers: response.data.servers }));
       setToast("APIKEY가 재생성되었습니다.");
     } catch (err) {
       console.error(err);
