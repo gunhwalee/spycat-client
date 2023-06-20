@@ -5,7 +5,6 @@ const initialState = {
   id: null,
   _id: null,
   servers: [],
-  toApi: false,
 };
 
 const userSlice = createSlice({
@@ -26,11 +25,11 @@ const userSlice = createSlice({
       state.id = null;
       state.servers = [];
     },
-    setAxios(state) {
-      state.toApi = !state.toApi;
+    addServer(state, action) {
+      state.servers = [...state.servers, action.payload.server];
     },
   },
 });
 
-export const { setUser, deleteUser, setServers, setAxios } = userSlice.actions;
+export const { setUser, deleteUser, setServers, addServer } = userSlice.actions;
 export default userSlice.reducer;

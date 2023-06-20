@@ -10,7 +10,7 @@ import { ReactComponent as Globe } from "../assets/img/globe.svg";
 import LogoHeader from "../components/LogoHeader";
 import UserTextInput from "../components/UserTextInput";
 import Spinner from "../components/Spinner";
-import { setAxios } from "../features/userSlice";
+import { addServer } from "../features/userSlice";
 
 function CreateServerPage() {
   const [info, setInfo] = useState({
@@ -42,7 +42,7 @@ function CreateServerPage() {
         return setErrorMessage(response.data.message);
       }
 
-      dispatch(setAxios());
+      dispatch(addServer({ server: response.data.server }));
       navigate(-1);
     } catch (err) {
       console.error(err);

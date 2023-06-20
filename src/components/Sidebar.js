@@ -12,7 +12,7 @@ import { ReactComponent as Login } from "../assets/img/login.svg";
 import logo from "../assets/img/logo-white.png";
 
 function Sidebar() {
-  const { name, _id, servers, toApi } = useSelector(state => state.user);
+  const { name, _id, servers } = useSelector(state => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [serverList, setServerList] = useState(null);
@@ -34,7 +34,7 @@ function Sidebar() {
     if (name) {
       loadServerList();
     }
-  }, [name, toApi]);
+  }, [name]);
 
   useEffect(() => {
     if (servers && servers.length) {
