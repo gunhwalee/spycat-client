@@ -11,13 +11,17 @@ Spy Cat에서 자신의 서버를 등록하고, 간단한 미들웨어 함수를
 - [Challenges](#challenges)
   - [어떻게 서버에서 발생한 트래픽과 에러의 정보를 수집할 수 있을까?](#1-어떻게-서버에서-발생한-트래픽과-에러의-정보를-수집할-수-있을까)
     - [트래픽을 어떻게 수집할 것인가?](#1-트래픽을-어떻게-수집할-것인가)
-  - [어떻게 데이터를 시각화할것인가?](#2-어떻게-데이터를-시각화할것인가)
+    - [내가 만든 미들웨어를 사용자의 코드에서 실행시키는 방법?](#2-내가-만든-미들웨어를-사용자의-코드에서-실행시키는-방법)
+  - [수집한 정보를 어떻게 구조화할 것인가?](#2-수집한-정보를-어떻게-구조화할-것인가)
+    - [Populate?](#1-populate)
+    - [참조된 문서를 삭제할 때는?](#2-참조된-문서를-삭제할-때는)
+  - [어떻게 데이터를 시각화할 것인가?](#3-어떻게-데이터를-시각화할-것인가)
     - [SVG vs Canvas API](#1-svg-vs-canvas-api)
     - [차트를 그릴 데이터를 어떻게 정리할까?](#2-차트를-그릴-데이터를-어떻게-정리할까)
-  - [어떻게 실사용 서비스처럼 만들 수 있을까?](#3-어떻게-실사용-서비스처럼-만들-수-있을까)
+  - [어떻게 실사용 서비스처럼 만들 수 있을까?](#4-어떻게-실사용-서비스처럼-만들-수-있을까)
     - [무분별한 서버요청을 차단해 보자](#1-무분별한-서버요청을-차단해-보자)
     - [UI를 사용자 친화적으로 만들어보자](#2-ui를-사용자-친화적으로-만들어보자)
-  - [클라이언트와 서버의 통신문제?](#4-클라이언트와-서버의-통신문제)
+  - [클라이언트와 서버의 통신문제?](#5-클라이언트와-서버의-통신문제)
     - [로그인 쿠키 문제](#1-로그인-쿠키-문제)
 - [Features](#features)
 - [Tech Stacks](#tech-stacks)
@@ -54,23 +58,14 @@ Spy Cat에서 자신의 서버를 등록하고, 간단한 미들웨어 함수를
       <div markdown="1">
 
    ```js
-   exports.trafficParser = function (apikey) {
-     return async function (req, res, next) {
-       try {
-         const response = await axios.post(
-           `https://eb-spycat.co.kr/api/servers/${apikey}/traffics`,
-           {
-             type: "traffic",
-             path: req.url,
-             host: req.headers.host,
-           },
-         );
-         console.log(response.data);
-       } catch (error) {
-         console.error("Error sending traffic data:", error.message);
-       }
-       next();
-     };
+   const trafficParser = async function (req, res, next) {
+     try {
+       const response = await axios.post("server-url", "traffic-info");
+       console.log(response.data);
+     } catch (error) {
+       console.error("Error sending traffic data:", error.message);
+     }
+     next();
    };
    ```
 
@@ -86,7 +81,7 @@ Spy Cat에서 자신의 서버를 등록하고, 간단한 미들웨어 함수를
       <div markdown="1">
 
    ```js
-   app.use(trafficParser(APIKEY)); // 라우팅 분기점 위에서 요청객체의 정보를 얻고 라우팅으로 요청 객체를 넘김
+   app.use(trafficParser()); // 라우팅 분기점 위에서 요청객체의 정보를 얻고 라우팅으로 요청 객체를 넘김
 
    app.use("/", indexRouter);
    app.use("/users", usersRouter);
@@ -105,7 +100,7 @@ Spy Cat에서 자신의 서버를 등록하고, 간단한 미들웨어 함수를
       <div markdown="1">
 
    ```js
-    app.use(errorParser(APIKEY)); // 서버의 에러핸들러 바로 위에서 에러객체의 정보를 얻고 에러핸들러로 에러 객체를 넘김
+    app.use(errorParser()); // 서버의 에러핸들러 바로 위에서 에러객체의 정보를 얻고 에러핸들러로 에러 객체를 넘김
 
     // error handler
     app.use(function (err, req, res, next) {
@@ -116,14 +111,111 @@ Spy Cat에서 자신의 서버를 등록하고, 간단한 미들웨어 함수를
       </div>
     </details>
 
-- 아쉬운 점
+### 2) 내가 만든 미들웨어를 사용자의 코드에서 실행시키는 방법
 
-  기능 구현을 마친 뒤 추가적으로 위의 두 개의 함수를 하나로 합칠 수 있다면 사용자 편의성이 좋아질 것 같아 고민해 보았습니다.  
-  하지만 라우팅별 분기 처리가 되기 전에 정보를 받아야 하는 트래픽과 반대로 각 분기 내에서 발생한 에러를 동시에 받을 수 있는 적절한 위치를 현재 능력으로는 찾기 어려웠습니다. 추가적인 리서치도 시도해 봤지만 큰 소득은 없었고, 해결하지 못한 부분이 아쉬웠습니다.
+- 문제점
+
+  사용자의 서버에서 발생한 트래픽과 에러 정보를 접수하기 위해서는 제가 작성한 미들웨어 함수를 사용자가 직접 자신의 서버 소스코드에서 호출해야만 했습니다.
+
+- 접근 방법
+
+  **npm패키지 모듈 작성하기**
+
+  프로젝트의 특성상 서비스 사용자의 경우 Node.js 기반 서버를 보유하고 있는 개발자일 경우가 100%입니다. 따라서 누구든 접근하고 사용하기 쉬운 방법으로 npm 패키지가 적합하다고 생각했습니다.
+
+  1. 먼저 새로운 디렉터리에서 `npm init` 명령어를 통해 `package.json`파일을 생성하고 모듈에 대한 간단한 정보를 기재했습니다.
+
+  2. 모듈이 사용될 때 로드할 파일을 만들고 작성한 함수를 `exports`객체의 속성으로 추가했습니다.
+
+  ```js
+  exports.trafficParser = async function (req, res, next) {
+    ...
+    next();
+  };
+
+  exports.errorParser = async function (err, req, res, next) {
+    ...
+    next();
+  };
+  ```
+
+  3. 해당 모듈을 npm사용자라면 누구든 사용할 수 있게 `unscoped public package`로 배포했습니다.
+
+  ```js
+  const { trafficParser, errorParser } = require("spycat-tracker");
+  ```
+
+  [npm패키지](https://github.com/gunhwalee/spycat-tracker)
+
+**아쉬운 점**
+
+기능 구현을 마친 뒤 추가적으로 위의 두 개의 함수를 하나로 합칠 수 있다면 사용자 편의성이 좋아질 것 같아 고민해 보았습니다.  
+ 하지만 라우팅별 분기 처리가 되기 전에 정보를 받아야 하는 트래픽과 반대로 각 분기 내에서 발생한 에러를 동시에 받을 수 있는 적절한 위치를 현재 능력으로는 찾기 어려웠습니다. 추가적인 리서치도 시도해 봤지만 큰 소득은 없었고, 해결하지 못한 부분이 아쉬웠습니다.
 
 <br>
 
-## 2. 어떻게 데이터를 시각화할것인가?
+## 2. 수집한 정보를 어떻게 구조화할 것인가?
+
+사용자의 서버에서 수집된 정보와 클라이언트에서 사용자의 입력에 따라 저장된 정보를 어떻게 구조화할 것인지가 두 번째 고민이었습니다.
+
+최종적으로 서버에서 관리해야 할 자원(정보)은 유저정보, 서버목록, 트래픽, 에러 4가지였습니다. 그리고 각 자원은 명확한 계층 관계가 존재했습니다. (유저정보 > 서버 목록 > 트래픽, 에러)
+
+프로젝트 기획 단계에서 이런 계층 관계를 바탕으로 DB Modeling을 먼저 구성했습니다.
+
+<img width="450" alt="DB Modeling" src="https://github.com/gunhwalee/spycat-client/assets/110829006/e4f61db0-49bb-4cf5-b335-53e658409ca5">
+
+### 1) Populate?
+
+- 문제점
+
+  하지만 위의 구성처럼 깊은 객체 형식으로 자원을 관리하는 것은 지양해야 했습니다. 자원에 대한 접근과 수정 관련 코드의 인덴팅이 깊어지고 이는 코드 가독성과 유지 보수 측면에서 좋지 않다고 판단했습니다.
+
+- 접근 방법
+
+  `Mongoose`의 `populate`기능을 적용했습니다.
+
+  우선 깊은 객체 형태의 구조를 피하기 위해 각 자원을 별도의 모델로 구성해 DB에서 각각의 문서를 저장하도록 했습니다.
+
+  이렇게 될 경우 각 자원 사이의 계층 관계를 잃어버릴 수 있는데, `populate`기능을 사용해 다른 문서를 참조할 수 있도록 보완했습니다.
+
+  ```js
+  // Schema
+  const serverSchema = new mongoose.Schema({
+    ...
+    traffics: [{ type: mongoose.Schema.Types.ObjectId, ref: "Traffic" }], // Traffic 문서를 참조
+  });
+
+  // handler function
+  const server = await Server.findOne({ apikey }).populate("traffics"); // populate기능으로 server 문서에 참조되어 있는 traffics데이터를 함께 가져온다.
+  ```
+
+### 2) 참조된 문서를 삭제할 때는?
+
+- 문제점
+
+  전송받은 트래픽과 에러 정보를 무한정 저장하기에는 DB 용량 문제가 있어 `expires`속성을 적용해 일정 기간 이후 자동으로 삭제되도록 구현했습니다. 그리고 설정한 시간을 경과한 이후에 트래픽과 에러 정보가 DB에서 자동적으로 삭제되는 걸 확인했지만 문제는 다른 곳에 있었습니다.
+
+  서버 문서에서 참조돼있는 트래픽과 에러 정보에 대한 ID 값이 삭제되지 않는 문제였습니다.
+
+- 접근 방법
+
+  `Mongoose`의 `Model.watch()` API를 적용했습니다.
+
+  해당 API는 DB에 변경사항이 있는지 컬렉션을 감시하는 기능이 있습니다. `change`, `erro`, `end`, `close` 이벤트를 감지할 수 있으며 해당 이벤트가 발생했을 때 전달받은 콜백 함수를 호출합니다.
+
+  또한 `change` 이벤트에는 `operationType`이라는 속성이 존재해 생성, 삭제 등을 구분할 수 있었습니다.
+
+  ```js
+  Traffic.watch().on("change", async change => {
+    if (change.operationType === "delete") {
+      // 문서가 삭제되는 경우를 감지
+      const { _id } = change.documentKey;
+      await Server.updateMany({ traffics: _id }, { $pull: { traffics: _id } }); // Server 컬렉션에서 해당 _id를 참조하고 있는 모든 문서를 업데이트
+    }
+  });
+  ```
+
+## 3. 어떻게 데이터를 시각화할 것인가?
 
 차트를 그리는 라이브러리는 많았지만 기술 스택을 다듬고 성장하는 과정이기에 라이브러리 없이 차트를 구현해 보고자 했습니다.
 
@@ -144,48 +236,48 @@ Spy Cat에서 자신의 서버를 등록하고, 간단한 미들웨어 함수를
   동일한 원형 요소를 구현했을 경우 `SVG`와 `Canvas API`를 작성하는 코드량은 아래와 같이 차이가 있었습니다.  
   또한 애니메이션 측면에서도 `SVG`는 `animate`요소로 간단하게 구현이 가능했지만, `Canvas API`는 작성해야 하는 스크립트 양이 월등히 많고 복잡했습니다.
 
-```js
-// SVG
-<svg width="100" height="100">
-  <circle cx="50" cy="50" r="45" fill="#FFA69E">
-    <animate
-      attributeName="r"
-      values="10; 45; 10"
-      dur="1s"
-      repeatCount="indefinite"
-    />
-  </circle>
-</svg>;
+  ```js
+  // SVG
+  <svg width="100" height="100">
+    <circle cx="50" cy="50" r="45" fill="#FFA69E">
+      <animate
+        attributeName="r"
+        values="10; 45; 10"
+        dur="1s"
+        repeatCount="indefinite"
+      />
+    </circle>
+  </svg>;
 
-// Canvas API - <script>
-const canvas = document.querySelector("canvas");
-const ctx = canvas.getContext("2d");
-ctx.fillStyle = "#FFA69E";
+  // Canvas API - <script>
+  const canvas = document.querySelector("canvas");
+  const ctx = canvas.getContext("2d");
+  ctx.fillStyle = "#FFA69E";
 
-let r = 10;
-let increase = true;
+  let r = 10;
+  let increase = true;
 
-function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.beginPath();
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.beginPath();
 
-  ctx.arc(50, 50, r, 0, 2 * Math.PI);
-  ctx.fill();
+    ctx.arc(50, 50, r, 0, 2 * Math.PI);
+    ctx.fill();
 
-  if (r >= 45) increase = false;
-  if (r === 10) increase = true;
+    if (r >= 45) increase = false;
+    if (r === 10) increase = true;
 
-  if (increase && r < 45) {
-    r += 1;
-  } else if (!increase && r >= 10) {
-    r -= 1;
+    if (increase && r < 45) {
+      r += 1;
+    } else if (!increase && r >= 10) {
+      r -= 1;
+    }
+
+    requestAnimationFrame(draw);
   }
 
-  requestAnimationFrame(draw);
-}
-
-draw();
-```
+  draw();
+  ```
 
 - 선택한 방법: `SVG`
 
@@ -194,7 +286,7 @@ draw();
 
   해상도, 애니메이션 효과, 이벤트 등록 등을 고려했을 때 `SVG`가 더 적합하다고 생각했습니다. 선정한 `SVG`를 이용해 웹브라우저에서도 선명하고 간단한 애니메이션 효과를 추가한 차트를 손쉽게 구현할 수 있었습니다.
 
-  <img width="450" src="https://github.com/gunhwalee/spycat-client/assets/110829006/9810a40f-4675-4d4b-b1cb-4170c5f1f4f3">
+  <img width="450" src="https://github.com/gunhwalee/spycat-client/assets/110829006/9810a40f-4675-4d4b-b1cb-4170c5f1f4f3" alt="main chart">
 
 <br>
 
@@ -226,7 +318,7 @@ draw();
 
   [작성 코드](https://github.com/gunhwalee/spycat-client/blob/main/src/charts/DonutChart.js)
 
-  <img src="https://github.com/gunhwalee/spycat-client/assets/110829006/5bb7b5b4-9bb7-4f62-9d39-de9aace75266" width="250">
+  <img src="https://github.com/gunhwalee/spycat-client/assets/110829006/5bb7b5b4-9bb7-4f62-9d39-de9aace75266" width="250" alt="donut chart">
 
 <br>
 
@@ -234,27 +326,27 @@ draw();
 
   만들어진 함수를 이용하기 위해서 데이터는 이름(라벨)과 값 속성을 가진 객체로 이루어져야 했습니다. 따라서 DB에서 넘어온 데이터를 아래와 같은 형식으로 가공해야 했습니다.
 
-```js
-// DB 데이터
-const data1 = {
-  path: "/",
-  server: ObjectId,
-  createAt: 2023-05-29T05:30:20.051+00:00,
-};
+  ```js
+  // DB 데이터
+  const data1 = {
+    path: "/",
+    server: ObjectId,
+    createAt: 2023-05-29T05:30:20.051+00:00,
+  };
 
-const traffics = [data1, data2, ...];
+  const traffics = [data1, data2, ...];
 
-// 타깃 형식
-const routesTraffics = [
-  { name: "/", value: 24 },
-  { name: "/login", value: 16 },
-  { name: "/signup", value: 8 },
-];
-```
+  // 타깃 형식
+  const routesTraffics = [
+    { name: "/", value: 24 },
+    { name: "/login", value: 16 },
+    { name: "/signup", value: 8 },
+  ];
+  ```
 
 1. 먼저 차트별 분류 기준을 `name`속성으로 정의해야 했습니다. (차트별로 각각 날짜, 라우팅, 시간)
 2. `traffics` 배열을 순회하면서 `name`속성에 해당할 때마다 `value`값을 업데이트했습니다.
-3. 이때 시간의 경우 DB에 UTC 기준으로 저장을 하고 클라이언트에서 로컬 시간으로 변환해 지역별 시간 혼동을 방지했습니다.
+3. 이때 발생 시간의 경우 DB에 UTC 기준으로 저장을 하고 클라이언트에서 로컬 시간으로 변환해 지역별 시간 혼동을 방지했습니다.
 
 - 결과물
 
@@ -262,11 +354,11 @@ const routesTraffics = [
 
 <br>
 
-## 3. 어떻게 실사용 서비스처럼 만들 수 있을까?
+## 4. 어떻게 실사용 서비스처럼 만들 수 있을까?
 
 프로젝트 이전, 교육기간 동안은 내가 작성한 로직이 정상작동하는지에만 관심이 쏠려있었습니다. 그렇다 보니 사용자가 느끼는 불편함은 크게 고민해 본 적이 없었습니다.
 
-그래서 프로젝트를 진행하면서 '실제 사용되는 서비스처럼 웹사이트를 구현해 보자'라는 작은 목표를 가지고 진행했습니다.
+프로젝트를 진행하면서 '실제 사용되는 서비스와 같이 완벽한 애플리케이션을 구성하기는 어렵겠지만 적어도 사용자가 불편함을 느끼지는 않도록 만들자'라는 작은 목표를 가지고 진행했습니다.
 
 <br>
 
@@ -287,11 +379,33 @@ const routesTraffics = [
   |        앱이나 사이트의 사용자를 식별 (인증/Authentication)        |      API를 호출하는 앱이나 사이트 식별      |
   | 사용자에게 요청을 위한 접근 권한 여부를 확인 (인가/Authorization) | 프로젝트가 API에 대한 접근 권한 여부를 확인 |
 
-  따라서 사이트 사용자에게 등록한 서버마다 API KEY를 발급하고, 해당 키를 `npm`패키지 함수의 인자로 받아 접근 권한을 부여할 수 있었습니다.
+  따라서 사이트 사용자에게 등록한 서버마다 API KEY를 발급하고 DB의 스키마에 추가함으로써 API를 호출하는 프로젝트에 권한을 부여할 수 있었습니다.
 
-  <img width="400" src="https://github.com/gunhwalee/spycat-client/assets/110829006/fc740342-412e-412a-bae2-48caaf2569be">
+    <img width="400" src="https://github.com/gunhwalee/spycat-client/assets/110829006/fc740342-412e-412a-bae2-48caaf2569be" alt="server list">
 
-<br>
+  발급된 키를 사용자가 `npm`패키지 함수의 인수로 넘겨주어 서버로 전송하는 요청에서 식별코자 했습니다. 하지만 일반적인 미들웨어 함수의 경우 인자로 `req`객체, `res`객체, `next`콜백 함수 세 가지를 받기 때문에 API KEY를 매개변수로 추가할 수 없었습니다.
+
+  따라서 작성한 미들웨어 함수를 `Configurable middleware`로 수정했습니다.
+
+  일반 매개변수를 받는 함수를 `exports`객체의 속성으로 추가하고, 매개변수를 기반으로 구현된 함수를 반환함으로써 미들웨어에 매개변수를 추가할 수 있었습니다.
+
+  ```js
+  // npm module
+  exports.trafficParser = function (apikey) {
+    return async function (req, res, next) {
+      // Implement the middleware function based on the parameter
+    };
+  };
+
+  // server.js
+  ...
+
+  app.use(trafficParser("APIKEY"));
+
+  ...
+  ```
+
+  <br>
 
 ### 2) UI를 사용자 친화적으로 만들어보자
 
@@ -302,7 +416,7 @@ const routesTraffics = [
 
   여기서 이벤트가 발생할 때 해당 컴포넌트 요소가 바로 화면에 나타나거나 사라지기 때문에 선택하고자 하는 메뉴가 의도치 않게 빠르게 움직이는 현상이 있었습니다.
 
-  <img width="150" src="https://github.com/gunhwalee/spycat-client/assets/110829006/93193d00-e952-416a-baf7-beede808dd40">
+  <img width="150" src="https://github.com/gunhwalee/spycat-client/assets/110829006/93193d00-e952-416a-baf7-beede808dd40" alt="dropdown before">
 
 - 해결 방법
 
@@ -312,7 +426,14 @@ const routesTraffics = [
 
   이를 해결하기 위해 애니메이션을 트리거 할 수 있는 상태와 컴포넌트를 마운트 하는 상태를 별도로 만들어 문제를 해결했습니다.
 
-  <img width="150" src="https://github.com/gunhwalee/spycat-client/assets/110829006/f8352322-ca87-4b6b-93eb-2dd64064609e">
+  <img width="150" src="https://github.com/gunhwalee/spycat-client/assets/110829006/f8352322-ca87-4b6b-93eb-2dd64064609e" alt="dropdown after">
+
+  동일한 맥락으로 에러 상세 페이지의 슬라이드 메뉴도 간단한 애니메이션 효과를 적용했습니다.
+
+  <img width="450" src="https://github.com/gunhwalee/spycat-client/assets/110829006/07696317-cb9c-423f-8483-67cd94cc5617" alt="slide menu">
+
+  [드롭 다운 메뉴 코드](https://github.com/gunhwalee/spycat-client/blob/main/src/components/ServerName.js)  
+  [슬라이드 메뉴 코드](https://github.com/gunhwalee/spycat-client/blob/main/src/pages/ErrorListPage.js/#L103)
 
 - 추가 고려 사항
 
@@ -333,7 +454,7 @@ const routesTraffics = [
 
 <br>
 
-## 4. 클라이언트와 서버의 통신문제?
+## 5. 클라이언트와 서버의 통신문제?
 
 부트 캠프 교육기간 동안은 모놀리스 구조로 작업을 했었습니다. 그렇다 보니 클라이언트와 서버 간의 요청을 주고받는 상황에서 큰 어려움이 없었습니다.  
 하지만 이번 프로젝트에서 서버와 클라이언트를 별도로 구성하다 보니 문제점이 있었습니다.
@@ -361,19 +482,19 @@ const routesTraffics = [
 
   발생한 문제의 경우 로그인 과정에서 발생한 문제로 크로스 사이트에서 `POST` 메서드를 사용하고 있었기 때문에 속성값을 `None`으로 설정해야 했습니다.
 
-```js
-// 쿠키를 응답하는 로직
-res
-  .status(201)
-  .cookie("accessToken", accessToken, {
-    httpOnly: true,
-    sameSite: "None",
-    secure: true,
-  })
-  .send(
-    ... // 클라이언트로 응답할 내용
-  );
-```
+  ```js
+  // 쿠키를 응답하는 로직
+  res
+    .status(201)
+    .cookie("accessToken", accessToken, {
+      httpOnly: true,
+      sameSite: "None",
+      secure: true,
+    })
+    .send(
+      ... // 클라이언트로 응답할 내용
+    );
+  ```
 
 `sameSite`속성 설정 후 문제가 해결될 것이라 생각했지만 `typeError: option sameSite is invalid`라는 에러가 발생했습니다.  
 리서치 결과 다행히 `express` 버전 문제였고 버전 업데이트 후 쉽게 해결할 수 있었습니다. (`express-generator`로 생성할 경우 4.16버전이 설치되는데 해당버전에서는 `sameSite` 옵션을 지원하지 않습니다.)
