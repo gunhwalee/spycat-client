@@ -146,7 +146,7 @@ function UserPage() {
               <a href="https://www.npmjs.com/package/spycat-tracker">
                 Spycat-Tracker
               </a>
-              패키지를 설치하세요.
+              모듈을 설치하세요.
             </S.TextBox>
             <S.TextBox>
               3. trafficParser함수는 소스코드의 라우팅 분기점 보다 위쪽에서
@@ -160,7 +160,7 @@ function UserPage() {
               5. 각 함수의 인수로 서버마다 발급된 APIKEY를 넣어주세요.
             </S.TextBox>
             <S.TextBox>
-              📋자세한 사용방법은 README파일을 참고해주세요.
+              📋자세한 사용방법은 npm 모듈의 README파일을 참고해주세요.
             </S.TextBox>
           </section>
         </S.LeftWrapper>
