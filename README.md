@@ -202,7 +202,7 @@ Spy Cat에서 자신의 서버를 등록하고, 간단한 미들웨어 함수를
 
   `Mongoose`의 `Model.watch()` API를 적용했습니다.
 
-  해당 API는 DB에 변경사항이 있는지 컬렉션을 감시하는 기능이 있습니다. `change`, `erro`, `end`, `close` 이벤트를 감지할 수 있으며 해당 이벤트가 발생했을 때 전달받은 콜백 함수를 호출합니다.
+  해당 API는 DB에 변경사항이 있는지 컬렉션을 감시하는 기능이 있습니다. `change`, `error`, `end`, `close` 이벤트를 감지할 수 있으며 해당 이벤트가 발생했을 때 전달받은 콜백 함수를 호출합니다.
 
   또한 `change` 이벤트에는 `operationType`이라는 속성이 존재해 생성, 삭제 등을 구분할 수 있었습니다.
 
@@ -302,12 +302,9 @@ Spy Cat에서 자신의 서버를 등록하고, 간단한 미들웨어 함수를
 
   1. 데이터마다 `circle`요소를 만들고 `stroke-width`속성을 사용해 도넛 형태의 이미지를 구현했습니다.
   2. 각 데이터 항목이 전체 데이터에서 차지하는 비중을 구하고, `stroke-dasharray`속성에서 대시와 공백을 표시하는 변수를 활용했습니다.
-     - `const strokeLength = circumference * ratio;`  
-       (데이터가 차지하는 비중만큼의 길이)
-     - `const spaceLength = circumference - strokeLength;`  
-       (데이터를 제외한 공백의 길이)
-     - `strokeDasharray={strokeLength spaceLength}`  
-       (데이터의 비중만큼 `circle`요소의 길이 조절)
+     - `const strokeLength = circumference * ratio;` (데이터가 차지하는 비중만큼의 길이)
+     - `const spaceLength = circumference - strokeLength;` (데이터를 제외한 공백의 길이)
+     - `strokeDasharray={strokeLength spaceLength}` (데이터의 비중만큼 `circle`요소의 길이 조절)
   3. 각 `circle`요소가 동일한 시작점에서 그려지기 때문에, `stroke-dashoffset`속성을 조절했습니다.
      - `filled += ratio;` (각 데이터 직전까지의 누적 비중)
      - `const offset = fiiled * circumference`
@@ -452,7 +449,7 @@ Spy Cat에서 자신의 서버를 등록하고, 간단한 미들웨어 함수를
     이렇게 구현된 드롭 다운 메뉴와 모달 컴포넌트에서 동일한 로직이 반복되는 것을 확인했습니다.  
     `React` 공식 문서에서 이렇게 컴포넌트 간 공통된 로직은 공유할 수 있도록 자신만의 `Custom Hook`을 작성하는 것을 권장하고 있습니다.
 
-    따라서, 두 가지의 상태와 그 상태를 트리거하는 함수를 공통된 `Custom Hook`으로 직접 구현해봤습니다.
+    따라서, 두 가지의 상태와 그 상태를 트리거 하는 함수를 공통된 `Custom Hook`으로 직접 구현해 봤습니다.
 
     ```js
     function useAnimation() {
@@ -635,7 +632,7 @@ app.use(trafficParser("APIKEY"));
 
 # Tech Stacks
 
-## Frontend
+**Frontend**
 
 - React
 - Redux
@@ -648,7 +645,7 @@ Redux는 하나의 저장소로 공유 상태를 관리하는 라이브러리로
 또한 엄격한 단방향 데이터 흐름을 제공하고, 이전 상태와 액션 객체를 받아 상태를 변경하는 리듀서 함수가 순수함수로 구성되기 때문에 예측가능하고 추적하기 쉬운 상태관리를 제공해줍니다.  
 이번 프로젝트의 경우 복잡한 리액트 구조와 공유 상태를 보다 쉽게 관리하기 위해 Redux를 선정했습니다.
 
-## Backend
+**Backend**
 
 - Node.js
 - Express
