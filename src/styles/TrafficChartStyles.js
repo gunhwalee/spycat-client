@@ -2,13 +2,18 @@ import styled from "styled-components";
 import { COLORS, SIZE } from "../assets/constants";
 
 export const Main = styled.main`
+  width: 100%;
+  height: calc(100% - 60px);
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
 `;
 
 export const MainChart = styled.section`
   width: 100%;
+  min-height: 500px;
+  height: calc(60% - 5px);
   margin-top: ${SIZE.MARGIN * 1.3}px;
   display: flex;
   justify-content: center;
@@ -19,7 +24,6 @@ export const MainChart = styled.section`
 
 export const MainChartBox = styled.article`
   width: 1000px;
-  height: 500px;
   min-width: 500px;
   min-height: 250px;
   display: flex;
@@ -28,22 +32,22 @@ export const MainChartBox = styled.article`
 `;
 
 export const SubChart = styled.section`
-  width: calc(100% - 150px);
+  width: 100%;
+  height: calc(38% - 5px);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: absolute;
-  bottom: 0%;
 `;
 
 export const SubChartBox = styled.article`
   width: calc(50% - 8px);
-  height: 350px;
+  height: 100%;
   background-color: ${COLORS.WHITE};
   border-top-right-radius: ${SIZE.BORDER_RADIUS * 2}px;
   border-top-left-radius: ${SIZE.BORDER_RADIUS * 2}px;
   display: flex;
   justify-content: center;
+  align-items: center;
 `;
 
 export const LoadingBox = styled.section`
