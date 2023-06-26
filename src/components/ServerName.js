@@ -1,36 +1,23 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import * as S from "../styles/SideBarStyles";
 import { ReactComponent as DownArrow } from "../assets/img/angle-down.svg";
-import { COLORS, TIME } from "../assets/constants";
+import { COLORS } from "../assets/constants";
+import useAnimation from "../handlers/useAnimation";
 
 function ServerName({ name, apikey }) {
-  const [showDrop, setShowDrop] = useState(false);
-  const [animation, setAnimation] = useState(false);
-
-  const mouseHandler = () => {
-    if (showDrop) {
-      setAnimation(false);
-      setTimeout(() => {
-        setShowDrop(false);
-      }, TIME.SIDE_DROPDOWN * 1000);
-    } else {
-      setAnimation(true);
-      setShowDrop(true);
-    }
-  };
+  const [showUi, animation, handler] = useAnimation();
 
   return (
     <S.List>
-      <S.NameMenu onMouseEnter={mouseHandler} onMouseLeave={mouseHandler}>
+      <S.NameMenu onMouseEnter={handler} onMouseLeave={handler}>
         <S.NameBox>
           {name}
           <button type="button">
             <DownArrow width="10px" fill={COLORS.WHITE} />
           </button>
         </S.NameBox>
-        {showDrop && (
+        {showUi && (
           <S.DropDownPosition>
             <S.DropDown className={animation ? "active" : "none"}>
               <Link to={`/${apikey}/traffics`}>

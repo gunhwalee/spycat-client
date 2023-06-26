@@ -10,7 +10,7 @@ import ModalBox from "../components/Modal";
 import ErrorDetailPage from "./ErrorDetailPage";
 import Handler from "../handlers/errorInfoHandlers";
 import Spinner from "../components/Spinner";
-import { TIME } from "../assets/constants";
+import useAnimation from "../handlers/useAnimation";
 
 function ErrorListPage() {
   const { errorLists } = useSelector(state => state.server);
@@ -19,10 +19,9 @@ function ErrorListPage() {
   const [errorArray, setErrorArray] = useState(null);
   const [selectedError, setSelectedError] = useState(null);
   const [buttonLists, setButtonLists] = useState(null);
-  const [showModal, setShowModal] = useState(false);
-  const [animation, setAnimation] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const [type, setType] = useState("All");
+  const [showUi, animation, handler] = useAnimation();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -73,10 +72,7 @@ function ErrorListPage() {
             key={element._id}
             onClick={() => {
               setSelectedError(element._id);
-              setShowModal(true);
-              setTimeout(() => {
-                setAnimation(true);
-              }, 10);
+              handler();
             }}
           >
             <S.ErrorTitle>{element.errorName}</S.ErrorTitle>
@@ -98,18 +94,6 @@ function ErrorListPage() {
   const showErrorNames = event => {
     const selectType = event.target.textContent.split(" ");
     setType(selectType[0]);
-  };
-
-  const handleModal = () => {
-    if (showModal) {
-      setAnimation(false);
-      setTimeout(() => {
-        setShowModal(false);
-      }, TIME.DETAIL_TRANSITION * 1000);
-    } else {
-      setAnimation(true);
-      setShowModal(true);
-    }
   };
 
   return (
@@ -142,10 +126,10 @@ function ErrorListPage() {
           </section>
         </S.Main>
       )}
-      {showModal && (
+      {showUi && (
         <ModalBox
-          closeModal={handleModal}
-          showModal={showModal}
+          closeModal={handler}
+          showModal={showUi}
           error={selectedError}
           animation={animation}
         >
