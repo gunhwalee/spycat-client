@@ -20,7 +20,8 @@ Spy Cat에서 자신의 서버를 등록하고, 간단한 미들웨어 함수를
     - [차트를 그릴 데이터를 어떻게 정리할까?](#2-차트를-그릴-데이터를-어떻게-정리할까)
   - [어떻게 사용자 경험을 적용할까?](#4-어떻게-사용자경험ux을-적용할까)
     - [슬라이드 메뉴에 UX 적용하기](#1-슬라이드-메뉴에-ux-적용하기)
-    - [사용자가 불편한 부분을 없애보자](#2-사용자가-불편한-부분을-없애보자)
+    - [컴포넌트간의 로직을 공유해 보자](#2-컴포넌트간의-로직을-공유해-보자)
+    - [사용자가 불편한 부분을 없애보자](#3-사용자가-불편한-부분을-없애보자)
   - [클라이언트와 서버의 통신문제?](#5-클라이언트와-서버의-통신문제)
     - [무분별한 서버요청을 차단해 보자](#1-무분별한-서버요청을-차단해-보자)
     - [로그인 쿠키 문제](#2-로그인-쿠키-문제)
@@ -47,7 +48,7 @@ Spy Cat에서 자신의 서버를 등록하고, 간단한 미들웨어 함수를
 
   트래픽이란 **웹사이트에 방문한 사람들이 데이터를 주고받은 양** 을 뜻합니다.
 
-데이터를 주고받는다 함은 클라이언트의 요청에 대한 서버의 응답을 나타냅니다. 따라서 트래픽은 서버에 들어오는 요청으로 확인할 수 있었습니다. 또한 서버가 클라이언트로 부터 요청을 받을 때 항상 개별 요청으로 받기 때문에 각각의 트래픽을 감지하는 것은 어렵지 않았습니다.
+  데이터를 주고받는다 함은 클라이언트의 요청에 대한 서버의 응답을 나타냅니다. 따라서 트래픽은 서버에 들어오는 요청으로 확인할 수 있었습니다. 또한 서버가 클라이언트로 부터 요청을 받을 때 항상 개별 요청으로 받기 때문에 각각의 트래픽을 감지하는 것은 어렵지 않았습니다.
 
 - 접근 방법
 
@@ -146,7 +147,9 @@ Spy Cat에서 자신의 서버를 등록하고, 간단한 미들웨어 함수를
   const { trafficParser, errorParser } = require("spycat-tracker");
   ```
 
-  [npm패키지](https://github.com/gunhwalee/spycat-tracker)
+  [npm패키지 링크](https://github.com/gunhwalee/spycat-tracker)
+
+<br>
 
 **아쉬운 점**
 
@@ -444,34 +447,6 @@ Spy Cat에서 자신의 서버를 등록하고, 간단한 미들웨어 함수를
 
     <img width="150" src="https://github.com/gunhwalee/spycat-client/assets/110829006/f8352322-ca87-4b6b-93eb-2dd64064609e" alt="dropdown after">
 
-    **컴포넌트간의 로직을 공유해 보자**
-
-    이렇게 구현된 드롭 다운 메뉴와 모달 컴포넌트에서 동일한 로직이 반복되는 것을 확인했습니다.  
-    `React` 공식 문서에서 이렇게 컴포넌트 간 공통된 로직은 공유할 수 있도록 자신만의 `Custom Hook`을 작성하는 것을 권장하고 있습니다.
-
-    따라서, 두 가지의 상태와 그 상태를 트리거 하는 함수를 공통된 `Custom Hook`으로 직접 구현해 봤습니다.
-
-    ```js
-    function useAnimation() {
-      const [showUi, setShowUi] = useState(false);
-      const [animation, setAnimation] = useState(false);
-
-      const handler = () => {
-        if (showUi) {
-          setAnimation(false);
-          setTimeout(() => {
-            setShowUi(false);
-          }, TIME.DETAIL_TRANSITION * 1000);
-        } else {
-          setAnimation(true);
-          setShowUi(true);
-        }
-      };
-
-      return [showUi, animation, handler];
-    }
-    ```
-
     - 드롭 다운을 구현하면서 고민한 내용
 
       **마우스 호버 이벤트**
@@ -488,7 +463,55 @@ Spy Cat에서 자신의 서버를 등록하고, 간단한 미들웨어 함수를
 
 <br>
 
-### 2) 사용자가 불편한 부분을 없애보자
+### 2) 컴포넌트간의 로직을 공유해 보자
+
+이렇게 구현된 드롭 다운 메뉴와 모달 컴포넌트에서 동일한 로직이 반복되는 것을 확인했습니다.  
+[`React` 공식 문서](https://react.dev/learn/reusing-logic-with-custom-hooks)에서 이렇게 컴포넌트 간 공통된 로직은 공유할 수 있도록 자신만의 `Custom Hook`을 작성하는 것을 권장하고 있습니다.
+
+따라서, 두 가지의 상태와 그 상태를 트리거 하는 함수를 공통된 `Custom Hook`으로 직접 구현해 봤습니다.
+
+```js
+// useAnimation.js
+function useAnimation() {
+  const [showUi, setShowUi] = useState(false);
+  const [animation, setAnimation] = useState(false);
+
+  const handler = () => {
+    if (showUi) {
+      setAnimation(false);
+      setTimeout(() => {
+        setShowUi(false);
+      }, TIME.DETAIL_TRANSITION * 1000);
+    } else {
+      setAnimation(true);
+      setShowUi(true);
+    }
+  };
+
+  return [showUi, animation, handler];
+}
+
+// ErrorListPage.js
+const [showUi, animation, handler] = useAnimation();
+
+return (
+  ...
+  {showUi && (
+    <ModalBox
+      closeModal={handler}
+      showModal={showUi}
+      error={selectedError}
+      animation={animation}
+    >
+      <ErrorDetailPage error={selectedError} />
+    </ModalBox>
+  )}
+)
+```
+
+<br>
+
+### 3) 사용자가 불편한 부분을 없애보자
 
 UX를 개선하기 위해 실제 사용 경험을 바탕으로 불편한 부분을 줄이는 것이 중요하다고 생각했습니다.
 따라서 부트 캠프 동기분들께 실제로 사용해 보고 불편한 점이 무엇인지 듣고 개선 반영을 해봤습니다.
