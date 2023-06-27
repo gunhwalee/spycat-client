@@ -292,8 +292,6 @@ Spy Cat에서 자신의 서버를 등록하고, 간단한 미들웨어 함수를
 
   <img width="450" src="https://github.com/gunhwalee/spycat-client/assets/110829006/9810a40f-4675-4d4b-b1cb-4170c5f1f4f3" alt="main chart">
 
-<br>
-
 ### 2) 차트를 그릴 데이터를 어떻게 정리할까?
 
 - 접근 방법
@@ -461,12 +459,10 @@ Spy Cat에서 자신의 서버를 등록하고, 간단한 미들웨어 함수를
       그런데 아마존의 메뉴는 마우스가 움직일 때 다른 메뉴에 호버가 되더라도 서브메뉴가 바뀌지 않았습니다. 사용자가 해당 메뉴를 가리키고 싶은지, 단순히 마우스를 이동하는 중인지 브라우저가 알아채기라도 하듯이 각 상황에 맞게 호버 이벤트가 발생했습니다.
       원리를 찾아 드롭다운 메뉴에도 적용하고 싶었지만 유의미한 리서치 결과를 얻지 못했습니다. 향후에 역량이 쌓인다면 꼭 도전해 보고 싶은 기능입니다.
 
-<br>
-
 ### 2) 컴포넌트간의 로직을 공유해 보자
 
 이렇게 구현된 드롭 다운 메뉴와 모달 컴포넌트에서 동일한 로직이 반복되는 것을 확인했습니다.  
-[`React` 공식 문서](https://react.dev/learn/reusing-logic-with-custom-hooks)에서 이렇게 컴포넌트 간 공통된 로직은 공유할 수 있도록 자신만의 `Custom Hook`을 작성하는 것을 권장하고 있습니다.
+[`React` 공식 문서](https://ko.react.dev/learn/reusing-logic-with-custom-hooks)에서 이렇게 컴포넌트 간 공통된 로직은 공유할 수 있도록 자신만의 `Custom Hook`을 작성하는 것을 권장하고 있습니다.
 
 따라서, 두 가지의 상태와 그 상태를 트리거 하는 함수를 공통된 `Custom Hook`으로 직접 구현해 봤습니다.
 
@@ -508,8 +504,6 @@ return (
   )}
 )
 ```
-
-<br>
 
 ### 3) 사용자가 불편한 부분을 없애보자
 
@@ -553,56 +547,53 @@ UX를 개선하기 위해 실제 사용 경험을 바탕으로 불편한 부분�
   따라서 클립보드와 토스트 팝업을 설정해 버튼하나로 KEY값을 복사하고 바로 붙여넣을 수 있도록 구현했습니다.
 
     <img width="500" src="https://github.com/gunhwalee/spycat-server/assets/110829006/b165a2e2-a4de-433e-aaf6-554a5a6ef81a">
-  <br>
-
-## 5. 클라이언트와 서버의 통신문제?
 
 <br>
+
+## 5. 클라이언트와 서버의 통신문제?
 
 ### 1) 무분별한 서버요청을 차단해 보자
 
 - 문제점
 
-클라이언트에서 들어오는 요청은 클라이언트 주소에 접속한 사용자에 한해서 일어나는 일입니다.
-하지만 `npm`패키지에서 들어오는 요청은 `npm`을 사용할 줄 아는 사람이라면 누구나 요청 전송이 가능했습니다.
-또한 클라이언트 사용자는 인증 토큰을 통해 식별이 가능했지만, `npm`패키지를 사용하는 프로젝트(여기서는 함수를 호출한 사용자의 서버)를 식별할 방법이 없다는 문제도 있었습니다.
+  클라이언트에서 들어오는 요청은 클라이언트 주소에 접속한 사용자에 한해서 일어나는 일입니다.
+  하지만 `npm`패키지에서 들어오는 요청은 `npm`을 사용할 줄 아는 사람이라면 누구나 요청 전송이 가능했습니다.
+  또한 클라이언트 사용자는 인증 토큰을 통해 식별이 가능했지만, `npm`패키지를 사용하는 프로젝트(여기서는 함수를 호출한 사용자의 서버)를 식별할 방법이 없다는 문제도 있었습니다.
 
 - 접근 방법
 
-인증과 API KEY에 대해 리서치해 보고 그 차이점을 정리해 봤습니다.
+  인증과 API KEY에 대해 리서치해 보고 그 차이점을 정리해 봤습니다.
 
-|                            사용자 인증                            |                   API KEY                   |
-| :---------------------------------------------------------------: | :-----------------------------------------: |
-|        앱이나 사이트의 사용자를 식별 (인증/Authentication)        |      API를 호출하는 앱이나 사이트 식별      |
-| 사용자에게 요청을 위한 접근 권한 여부를 확인 (인가/Authorization) | 프로젝트가 API에 대한 접근 권한 여부를 확인 |
+  |                            사용자 인증                            |                   API KEY                   |
+  | :---------------------------------------------------------------: | :-----------------------------------------: |
+  |        앱이나 사이트의 사용자를 식별 (인증/Authentication)        |      API를 호출하는 앱이나 사이트 식별      |
+  | 사용자에게 요청을 위한 접근 권한 여부를 확인 (인가/Authorization) | 프로젝트가 API에 대한 접근 권한 여부를 확인 |
 
-따라서 사이트 사용자에게 등록한 서버마다 API KEY를 발급하고 DB의 스키마에 추가함으로써 API를 호출하는 프로젝트에 권한을 부여할 수 있었습니다.
+  따라서 사이트 사용자에게 등록한 서버마다 API KEY를 발급하고 DB의 스키마에 추가함으로써 API를 호출하는 프로젝트에 권한을 부여할 수 있었습니다.
 
- <img width="400" src="https://github.com/gunhwalee/spycat-client/assets/110829006/fc740342-412e-412a-bae2-48caaf2569be" alt="server list">
+  <img width="400" src="https://github.com/gunhwalee/spycat-client/assets/110829006/fc740342-412e-412a-bae2-48caaf2569be" alt="server list">
 
-발급된 키를 사용자가 `npm`패키지 함수의 인수로 넘겨주어 서버로 전송하는 요청에서 식별코자 했습니다. 하지만 일반적인 미들웨어 함수의 경우 인자로 `req`객체, `res`객체, `next`콜백 함수 세 가지를 받기 때문에 API KEY를 매개변수로 추가할 수 없었습니다.
+  발급된 키를 사용자가 `npm`패키지 함수의 인수로 넘겨주어 서버로 전송하는 요청에서 식별코자 했습니다. 하지만 일반적인 미들웨어 함수의 경우 인자로 `req`객체, `res`객체, `next`콜백 함수 세 가지를 받기 때문에 API KEY를 매개변수로 추가할 수 없었습니다.
 
-따라서 작성한 미들웨어 함수를 `Configurable middleware`로 수정했습니다.
+  따라서 작성한 미들웨어 함수를 `Configurable middleware`로 수정했습니다.
 
-일반 매개변수를 받는 함수를 `exports`객체의 속성으로 추가하고, 매개변수를 기반으로 구현된 함수를 반환함으로써 미들웨어에 매개변수를 추가할 수 있었습니다.
+  일반 매개변수를 받는 함수를 `exports`객체의 속성으로 추가하고, 매개변수를 기반으로 구현된 함수를 반환함으로써 미들웨어에 매개변수를 추가할 수 있었습니다.
 
-```js
-// npm module
-exports.trafficParser = function (apikey) {
- return async function (req, res, next) {
-   // Implement the middleware function based on the parameter
- };
-};
+  ```js
+  // npm module
+  exports.trafficParser = function (apikey) {
+   return async function (req, res, next) {
+     // Implement the middleware function based on the parameter
+   };
+  };
 
-// server.js
-...
+  // server.js
+  ...
 
-app.use(trafficParser("APIKEY"));
+  app.use(trafficParser("APIKEY"));
 
-...
-```
-
-  <br>
+  ...
+  ```
 
 ### 2) 로그인 쿠키 문제
 
@@ -639,8 +630,8 @@ app.use(trafficParser("APIKEY"));
     );
   ```
 
-`sameSite`속성 설정 후 문제가 해결될 것이라 생각했지만 `typeError: option sameSite is invalid`라는 에러가 발생했습니다.  
-리서치 결과 다행히 `express` 버전 문제였고 버전 업데이트 후 쉽게 해결할 수 있었습니다. (`express-generator`로 생성할 경우 4.16버전이 설치되는데 해당버전에서는 `sameSite` 옵션을 지원하지 않습니다.)
+  `sameSite`속성 설정 후 문제가 해결될 것이라 생각했지만 `typeError: option sameSite is invalid`라는 에러가 발생했습니다.  
+  리서치 결과 다행히 `express` 버전 문제였고 버전 업데이트 후 쉽게 해결할 수 있었습니다. (`express-generator`로 생성할 경우 4.16버전이 설치되는데 해당버전에서는 `sameSite` 옵션을 지원하지 않습니다.)
 
 # Features
 
