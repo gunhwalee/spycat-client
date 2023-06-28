@@ -43,7 +43,7 @@ function CreateServerPage() {
       }
 
       dispatch(addServer({ server: response.data.server }));
-      navigate(-1);
+      navigate("/");
     } catch (err) {
       console.error(err);
       setDisabled(false);

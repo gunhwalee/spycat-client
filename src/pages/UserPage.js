@@ -47,6 +47,7 @@ function UserPage() {
           return setErrorMessage(response.data.message);
         }
 
+        dispatch(setServers({ servers: response.data.servers }));
         window.location.replace("/users");
       } catch (err) {
         console.error(err);
