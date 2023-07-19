@@ -1,7 +1,7 @@
 import LogoHeader from "../components/LogoHeader";
 import * as S from "../styles/MobilePageStyle";
 
-function MobilePage() {
+function MobilePage(): JSX.Element {
   return (
     <S.Wrapper>
       <LogoHeader />

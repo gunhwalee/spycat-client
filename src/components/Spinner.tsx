@@ -10,19 +10,19 @@ const SpinnerBox = styled.div`
 `;
 
 const SpinDiv = styled.div`
-  width: ${props => (props.size ? props.size : SIZE.FONT_REGULAR)}px;
-  height: ${props => (props.size ? props.size : SIZE.FONT_REGULAR)}px;
+  width: ${SIZE.FONT_REGULAR}px;
+  height: ${SIZE.FONT_REGULAR}px;
   border-radius: 50%;
-  border: ${props => (props.size ? props.size / 8 : SIZE.BORDER_RADIUS)}px solid
+  border: ${SIZE.BORDER_RADIUS}px solid
     ${COLORS.SPINNER};
   border-top-color: #333;
   animation: spin 1s infinite ease-in-out;
 `;
 
-function Spinner({ size }) {
+function Spinner(): JSX.Element {
   return (
     <SpinnerBox>
-      <SpinDiv size={size} />
+      <SpinDiv />
     </SpinnerBox>
   );
 }

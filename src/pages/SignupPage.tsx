@@ -4,30 +4,37 @@ import axios from "axios";
 
 import * as S from "../styles/SumbitStyles";
 import * as G from "../styles/GlobalStyles";
-import { ReactComponent as Id } from "../assets/img/id.svg";
-import { ReactComponent as Password } from "../assets/img/password.svg";
-import { ReactComponent as PasswordCheck } from "../assets/img/password-check.svg";
+import Id from "../assets/img/id.svg";
+import Password from "../assets/img/password.svg";
+import PasswordCheck from "../assets/img/password-check.svg";
 import LogoHeader from "../components/LogoHeader";
 import UserTextInput from "../components/UserTextInput";
 import UserSecretInput from "../components/UserScretInput";
 import Spinner from "../components/Spinner";
 
-function SignupPage() {
-  const [info, setInfo] = useState({
+interface InputInfo {
+  name: string | null,
+  id: string | null,
+  pw: string | null,
+  pwCheck: string | null,
+}
+
+function SignupPage(): JSX.Element {
+  const [info, setInfo] = useState<InputInfo>({
     name: null,
     id: null,
     pw: null,
     pwCheck: null,
   });
-  const [nameFocus, setNameFocus] = useState(false);
-  const [idFocus, setIdFocus] = useState(false);
-  const [pwFocus, setPwFocus] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [showPw, setShowPw] = useState(false);
-  const [disabled, setDisabled] = useState(false);
+  const [nameFocus, setNameFocus] = useState<boolean>(false);
+  const [idFocus, setIdFocus] = useState<boolean>(false);
+  const [pwFocus, setPwFocus] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [showPw, setShowPw] = useState<boolean>(false);
+  const [disabled, setDisabled] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  const handleSubmit = async event => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setErrorMessage("");
 
@@ -56,7 +63,7 @@ function SignupPage() {
     }
   };
 
-  const inputHandler = event => {
+  const inputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newInfo = { ...info };
     switch (event.target.id) {
       case "name":
@@ -90,11 +97,11 @@ function SignupPage() {
 
   return (
     <S.EntryWrapper>
-      <LogoHeader size="60px" />
+      <LogoHeader />
       <S.SubmitForm onSubmit={handleSubmit}>
         <div>
           <UserTextInput
-            Component={Id}
+            path={Id}
             id="name"
             placeholder="이름"
             inputHandler={inputHandler}
@@ -103,7 +110,7 @@ function SignupPage() {
             rule="이름은 최대 10자입니다."
           />
           <UserTextInput
-            Component={Id}
+            path={Id}
             id="id"
             placeholder="아이디 (이메일)"
             inputHandler={inputHandler}
@@ -112,7 +119,7 @@ function SignupPage() {
             rule="아이디는 이메일을 사용하세요."
           />
           <UserSecretInput
-            Component={Password}
+            path={Password}
             id="pw"
             placeholder="비밀번호"
             inputHandler={inputHandler}
@@ -123,7 +130,7 @@ function SignupPage() {
             showPw={showPw}
           />
           <UserSecretInput
-            Component={PasswordCheck}
+            path={PasswordCheck}
             id="pwCheck"
             placeholder="비밀번호 확인"
             inputHandler={inputHandler}

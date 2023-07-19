@@ -1,32 +1,37 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../app/hooks";
 
 import * as S from "../styles/SumbitStyles";
 import * as G from "../styles/GlobalStyles";
-import { ReactComponent as Id } from "../assets/img/id.svg";
-import { ReactComponent as Password } from "../assets/img/password.svg";
+import Id from "../assets/img/id.svg";
+import Password from "../assets/img/password.svg";
 import { setUser } from "../features/userSlice";
 import LogoHeader from "../components/LogoHeader";
 import UserTextInput from "../components/UserTextInput";
 import UserSecretInput from "../components/UserScretInput";
 import Spinner from "../components/Spinner";
 
-function LoginPage() {
-  const [info, setInfo] = useState({
+interface UserInfo {
+  id: string | null,
+  pw: string | null,
+}
+
+function LoginPage(): JSX.Element {
+  const [info, setInfo] = useState<UserInfo>({
     id: null,
     pw: null,
   });
-  const [errorMessage, setErrorMessage] = useState("");
-  const [showPw, setShowPw] = useState(false);
-  const [disabled, setDisabled] = useState(false);
-  const [idFocus, setIdFocus] = useState(false);
-  const [pwFocus, setPwFocus] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [showPw, setShowPw] = useState<boolean>(false);
+  const [disabled, setDisabled] = useState<boolean>(false);
+  const [idFocus, setIdFocus] = useState<boolean>(false);
+  const [pwFocus, setPwFocus] = useState<boolean>(false);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const handleSubmit = async event => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setErrorMessage("");
 
@@ -56,7 +61,7 @@ function LoginPage() {
     }
   };
 
-  const inputHandler = event => {
+  const inputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newInfo = { ...info };
     switch (event.target.id) {
       case "id":
@@ -80,11 +85,11 @@ function LoginPage() {
 
   return (
     <S.EntryWrapper>
-      <LogoHeader size="60px" />
+      <LogoHeader />
       <S.SubmitForm onSubmit={handleSubmit}>
         <div>
           <UserTextInput
-            Component={Id}
+            path={Id}
             id="id"
             placeholder="아이디 (이메일)"
             inputHandler={inputHandler}
@@ -93,7 +98,7 @@ function LoginPage() {
             rule="아이디는 이메일을 사용하세요."
           />
           <UserSecretInput
-            Component={Password}
+            path={Password}
             id="pw"
             placeholder="비밀번호"
             inputHandler={inputHandler}

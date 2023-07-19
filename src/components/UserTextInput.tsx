@@ -1,23 +1,24 @@
 import * as S from "../styles/UserInputStyles";
+import { InputComponentProps } from "../types/props";
 
 function UserTextInput({
-  Component,
+  path,
   id,
   placeholder,
   inputHandler,
   setFocus,
   focus,
   rule,
-}) {
+}: InputComponentProps): JSX.Element {
   return (
     <S.InputWrapper>
       <S.InputBox>
-        {Component && <Component width="20px" height="20px" />}
+        {path && <img width="20px" height="20px" src={path} alt="logo" />}
         <S.Input
           type="text"
           id={id}
           placeholder={placeholder}
-          onChange={inputHandler}
+          onChange={(e) => inputHandler(e)}
           onFocus={() => setFocus(!focus)}
           onBlur={() => setFocus(!focus)}
         />
