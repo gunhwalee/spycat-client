@@ -17,7 +17,7 @@ import GuestRoute from "../components/GuestRoute";
 import MobilePage from "../pages/MobilePage";
 
 function App() {
-  const [windowSize, setWindowSize] = useState(window.innerWidth);
+  const [windowSize, setWindowSize] = useState<number>(window.innerWidth);
 
   const handleResize = () => {
     setWindowSize(window.innerWidth);
