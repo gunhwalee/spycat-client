@@ -11,7 +11,7 @@ import "./assets/fonts/Font.css";
 import GlobalStyles from "./styles/GlobalStyles";
 
 const persistor = persistStore(store);
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>

@@ -46,35 +46,29 @@ function App() {
             <Route
               path="/example/errorlists"
               element={<ExampleListPage />}
-              exact
             />
-            <Route path="/example" element={<ExampleChartPage />} exact>
-              <Route path=":type" element={<ExampleChartPage />} exact />
+            <Route path="/example" element={<ExampleChartPage />} >
+              <Route path=":type" element={<ExampleChartPage />}  />
             </Route>
             <Route
               path="/login"
               element={<GuestRoute component={<LoginPage />} />}
-              exact
             />
             <Route
               path="/signup"
               element={<GuestRoute component={<SignupPage />} />}
-              exact
             />
             <Route
               path="/createserver"
               element={<PrivateRoute component={<CreateServerPage />} />}
-              exact
             />
             <Route
               path="/:apikey/traffics"
               element={<PrivateRoute component={<TrafficChartPage />} />}
-              exact
             />
             <Route
               path="/:apikey/errors"
               element={<PrivateRoute component={<ErrorChartPage />} />}
-              exact
             />
             <Route
               path="/users"
@@ -83,7 +77,6 @@ function App() {
             <Route
               path="/:apikey/errorlists"
               element={<PrivateRoute component={<ErrorListPage />} />}
-              exact
             />
             <Route path="/" element={<HomePage />} />
           </Routes>
