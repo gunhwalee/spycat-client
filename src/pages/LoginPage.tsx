@@ -12,11 +12,7 @@ import LogoHeader from "../components/LogoHeader";
 import UserTextInput from "../components/UserTextInput";
 import UserSecretInput from "../components/UserScretInput";
 import Spinner from "../components/Spinner";
-
-interface UserInfo {
-  id: string | null,
-  pw: string | null,
-}
+import { UserInfo } from "../types/props";
 
 function LoginPage(): JSX.Element {
   const [info, setInfo] = useState<UserInfo>({

@@ -1,4 +1,3 @@
-
 export interface InputComponentProps {
   path?: string,
   id: string,
@@ -7,4 +6,14 @@ export interface InputComponentProps {
   setFocus: Function,
   focus: boolean,
   rule: string,
+}
+
+export interface UserInfo {
+  id: string | null,
+  pw: string | null,
+}
+
+export interface ServerInfo {
+  serverName: string | null,
+  url: string | null,
 }

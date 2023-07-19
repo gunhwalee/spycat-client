@@ -1,19 +1,20 @@
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useAppSelector, useAppDispatch } from "../app/hooks";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import * as S from "../styles/SumbitStyles";
 import * as G from "../styles/GlobalStyles";
-import { ReactComponent as Server } from "../assets/img/server.svg";
-import { ReactComponent as Globe } from "../assets/img/globe.svg";
+import Server from "../assets/img/server.svg";
+import Globe from "../assets/img/globe.svg";
 import LogoHeader from "../components/LogoHeader";
 import UserTextInput from "../components/UserTextInput";
 import Spinner from "../components/Spinner";
 import { addServer } from "../features/userSlice";
+import { ServerInfo } from "../types/props";
 
-function CreateServerPage() {
-  const [info, setInfo] = useState({
+function CreateServerPage(): JSX.Element {
+  const [info, setInfo] = useState<ServerInfo>({
     serverName: null,
     url: null,
   });
@@ -21,11 +22,11 @@ function CreateServerPage() {
   const [nameFocus, setNameFocus] = useState(false);
   const [hostFocus, setHostFocus] = useState(false);
   const [disabled, setDisabled] = useState(false);
-  const { _id } = useSelector(state => state.user);
+  const { _id } = useAppSelector(state => state.user);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const handleSubmit = async event => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setErrorMessage("");
 
@@ -53,7 +54,7 @@ function CreateServerPage() {
     }
   };
 
-  const inputHandler = event => {
+  const inputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newInfo = { ...info };
     switch (event.target.id) {
       case "serverName":
@@ -73,11 +74,11 @@ function CreateServerPage() {
 
   return (
     <S.EntryWrapper>
-      <LogoHeader size="60px" />
+      <LogoHeader />
       <S.SubmitForm onSubmit={handleSubmit}>
         <div>
           <UserTextInput
-            Component={Server}
+            path={Server}
             id="serverName"
             placeholder="서버 이름"
             inputHandler={inputHandler}
@@ -86,7 +87,7 @@ function CreateServerPage() {
             rule="서버를 식별할 이름을 작성해주세요."
           />
           <UserTextInput
-            Component={Globe}
+            path={Globe}
             id="url"
             placeholder="호스트 주소"
             inputHandler={inputHandler}

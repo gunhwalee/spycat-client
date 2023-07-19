@@ -11,11 +11,10 @@ import LogoHeader from "../components/LogoHeader";
 import UserTextInput from "../components/UserTextInput";
 import UserSecretInput from "../components/UserScretInput";
 import Spinner from "../components/Spinner";
+import { UserInfo } from "../types/props";
 
-interface InputInfo {
+interface InputInfo extends UserInfo{
   name: string | null,
-  id: string | null,
-  pw: string | null,
   pwCheck: string | null,
 }
 
