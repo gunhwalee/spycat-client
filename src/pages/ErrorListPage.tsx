@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useAppSelector, useAppDispatch } from "../app/hooks";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
@@ -8,21 +8,22 @@ import * as S from "../styles/ErrorListPageStyles";
 import { saveData, deleteData } from "../features/trafficSlice";
 import ModalBox from "../components/Modal";
 import ErrorDetailPage from "./ErrorDetailPage";
-import Handler from "../handlers/errorInfoHandlers";
+import { ErrorNameHandler } from "../handlers/errorInfoHandlers";
 import Spinner from "../components/Spinner";
 import useAnimation from "../handlers/useAnimation";
+import { ErrorButtonList } from "../types/components";
 
 function ErrorListPage() {
-  const { errorLists } = useSelector(state => state.server);
+  const { errorLists } = useAppSelector(state => state.server);
   const { apikey } = useParams();
-  const [errorMessage, setErrorMessage] = useState("");
-  const [errorArray, setErrorArray] = useState(null);
-  const [selectedError, setSelectedError] = useState(null);
-  const [buttonLists, setButtonLists] = useState(null);
-  const [disabled, setDisabled] = useState(false);
-  const [type, setType] = useState("All");
-  const [showUi, animation, handler] = useAnimation();
-  const dispatch = useDispatch();
+  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [errorArray, setErrorArray] = useState<any>(null);
+  const [selectedError, setSelectedError] = useState<string>("");
+  const [buttonLists, setButtonLists] = useState<ErrorButtonList[]>([]);
+  const [disabled, setDisabled] = useState<boolean>(false);
+  const [type, setType] = useState<string>("All");
+  const { showUi, animation, handler } = useAnimation();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const getErrorData = async () => {
@@ -58,12 +59,12 @@ function ErrorListPage() {
     return () => {
       dispatch(deleteData());
     };
-  }, [apikey]);
+  }, [apikey, dispatch]);
 
   useEffect(() => {
     if (errorLists) {
       const errorBoxes = errorLists.map(element => {
-        if (type !== "All" && element.errorName !== type) return;
+        if (type !== "All" && element.errorName !== type) return undefined;
         const date = new Date(element.createdAt.toString());
         const errorTime = String(date).slice(0, 24);
 
@@ -71,7 +72,7 @@ function ErrorListPage() {
           <S.ErrorBox
             key={element._id}
             onClick={() => {
-              setSelectedError(element._id);
+              setSelectedError(element._id!);
               handler();
             }}
           >
@@ -87,13 +88,14 @@ function ErrorListPage() {
       });
 
       setErrorArray(errorBoxes);
-      setButtonLists(Handler.ErrorNameHandler(errorLists));
+      setButtonLists(ErrorNameHandler(errorLists));
     }
-  }, [errorLists, type]);
+  }, [errorLists, type, handler]);
 
-  const showErrorNames = event => {
-    const selectType = event.target.textContent.split(" ");
-    setType(selectType[0]);
+  const showErrorNames = (event: React.MouseEvent<HTMLElement>) => {
+    const selectType = (event.target as HTMLElement).textContent?.split(" ");
+
+    if (selectType) setType(selectType[0]);
   };
 
   return (
@@ -101,7 +103,7 @@ function ErrorListPage() {
       <PageHeader title="에러 목록" text={errorMessage} />
       {disabled ? (
         <S.SpinnerBox>
-          <Spinner size={50} />
+          <Spinner />
           <S.LoadingText>로딩중입니다.</S.LoadingText>
         </S.SpinnerBox>
       ) : (
@@ -116,7 +118,7 @@ function ErrorListPage() {
                   <S.Button
                     key={element.name}
                     className={type === element.name ? "select" : ""}
-                  >{`${element.name} ${element.value.length}`}</S.Button>
+                  >{`${element.name} ${element.value}`}</S.Button>
                 );
               })}
           </S.Nav>

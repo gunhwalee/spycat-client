@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TrafficState } from "../types/state";
 
-type Payload = Omit<TrafficState, "apikey">;
+type ServerPayload = Omit<TrafficState, "apikey" | "selectDate">;
+type DatePayload = Pick<TrafficState, "selectDate">
 
 const initialState: TrafficState = {
   serverName: null,
@@ -16,14 +17,13 @@ const serverSlice = createSlice({
   name: "server",
   initialState,
   reducers: {
-    saveData(state, action: PayloadAction<Payload>) {
+    saveData(state, action: PayloadAction<ServerPayload>) {
       state.serverName = action.payload.serverName;
       state.url = action.payload.url;
       state.traffics = action.payload.traffics;
       state.errorLists = action.payload.errorLists;
-      state.selectDate = null;
     },
-    selectDay(state, action: PayloadAction<Payload>) {
+    selectDay(state, action: PayloadAction<DatePayload>) {
       state.selectDate = action.payload.selectDate;
     },
     deleteData(state) {

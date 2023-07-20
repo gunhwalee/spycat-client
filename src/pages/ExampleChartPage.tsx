@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+import { useAppDispatch } from "../app/hooks";
 
 import TrafficCharts from "../components/TrafficCharts";
 import mockData from "../charts/MockData";
@@ -12,11 +12,11 @@ import { deleteData } from "../features/trafficSlice";
 function ExampleChartPage() {
   const { traffics, errorLists } = mockData;
   const { type } = useParams();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    return () => dispatch(deleteData());
-  }, [type]);
+    return () => { dispatch(deleteData()) };
+  }, [type, dispatch]);
 
   return (
     <S.EntryWrapper>

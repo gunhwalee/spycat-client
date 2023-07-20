@@ -3,17 +3,17 @@ export interface TrafficState {
   url: string | null,
   traffics?: Traffics[] | null,
   errorLists?: Errors[] | null,
-  selectDate?: string | null,
+  selectDate: string | null,
   apikey?: string | null,
 }
 
 export interface Traffics {
   createdAt: string,
-  expiredAt: string,
+  expiredAt?: string,
   host: string,
   path: string,
-  server: string,
-  _id: string,
+  server?: string,
+  _id?: string,
 }
 
 export interface Errors extends Traffics {

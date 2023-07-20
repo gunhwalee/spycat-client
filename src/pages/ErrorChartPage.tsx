@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useAppSelector, useAppDispatch } from "../app/hooks";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
@@ -9,12 +9,12 @@ import ErrorCharts from "../components/ErrorCharts";
 import { saveData, deleteData } from "../features/trafficSlice";
 import * as S from "../styles/ChartPageStyles";
 
-function ErrorChartPage() {
-  const { id } = useSelector(state => state.user);
-  const { url, errorLists } = useSelector(state => state.server);
+function ErrorChartPage(): JSX.Element {
+  const { id } = useAppSelector(state => state.user);
+  const { url, errorLists } = useAppSelector(state => state.server);
   const { apikey } = useParams();
-  const [errorMessage, setErrorMessage] = useState("");
-  const dispatch = useDispatch();
+  const [errorMessage, setErrorMessage] = useState<string>("");
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const getErrorData = async () => {
@@ -48,16 +48,16 @@ function ErrorChartPage() {
     return () => {
       dispatch(deleteData());
     };
-  }, [apikey]);
+  }, [apikey, id, dispatch]);
 
   return (
     <S.EntryWrapper>
       <PageHeader title={errorLists ? "에러 정보" : null} text={url} />
       {errorLists ? (
-        <ErrorCharts data={errorLists} errorMessage={errorMessage} />
+        <ErrorCharts data={errorLists} />
       ) : (
         <S.LoadingBox>
-          <Spinner size={50} />
+          <Spinner />
           <S.LoadingText>{errorMessage || "로딩중입니다."}</S.LoadingText>
         </S.LoadingBox>
       )}

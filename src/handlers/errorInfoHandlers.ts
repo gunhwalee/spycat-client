@@ -1,27 +1,31 @@
-function ErrorNameHandler(data) {
-  const errorNames = [];
+import { Errors } from "../types/state";
+import { ErrorButtonList } from "../types/components";
+import { ErrorData, ErrorCount, DailyErrorData } from "../types/handlers";
+
+export const ErrorNameHandler = (data: Errors[]) => {
+  const errorNames: ErrorButtonList[] = [];
 
   for (let i = 0; i < data.length; i += 1) {
     const { errorName } = data[i];
-    const hasName = element => element.name === errorName;
+    const hasName = (element: ErrorButtonList) => element.name === errorName;
 
     if (!errorNames.some(hasName))
-      errorNames.push({ name: errorName, value: [] });
+      errorNames.push({ name: errorName, value: 0 });
 
-    errorNames.forEach(element => {
+    errorNames.forEach((element) => {
       if (element.name === errorName) {
-        element.value.push(element);
+        element.value += 1;
       }
     });
   }
 
   return errorNames;
-}
+};
 
-function totalErrors(data) {
-  const result = { dailyError: [], routesError: [], errorTime: [] };
+export const totalErrors = (data: Errors[]) => {
+  const result: ErrorData = { dailyError: [], routesError: [], errorTime: [] };
   result.errorTime = Array(12)
-    .fill()
+    .fill({})
     .map((v, i) => {
       const obj = { name: i, value: 0 };
       return obj;
@@ -33,8 +37,8 @@ function totalErrors(data) {
 
   for (let i = 0; i < data.length; i += 1) {
     const date = new Date(data[i].createdAt.toString());
-    let day = String(date).slice(8, 10);
-    if (day < 10) day = day.at(-1);
+    let day: string = String(date).slice(8, 10)!;
+    if (Number(day) < 10) day = day.slice(1);
 
     for (let j = 0; j < 31; j += 1) {
       if (result.dailyError[j].name === Number(day))
@@ -42,19 +46,19 @@ function totalErrors(data) {
     }
 
     const { path } = data[i];
-    const hasPath = element => element.name === path;
+    const hasPath = (element: ErrorCount) => element.name === path;
 
     if (!result.routesError.some(hasPath))
       result.routesError.push({ name: path, value: 0 });
 
-    result.routesError.forEach(element => {
+    result.routesError.forEach((element) => {
       if (element.name === path) {
         element.value += 1;
       }
     });
 
-    const time = Math.floor(String(date).slice(16, 18) / 2);
-    result.errorTime.forEach(element => {
+    const time: number = Math.floor(Number(String(date).slice(16, 18)) / 2);
+    result.errorTime.forEach((element) => {
       if (element.name === time) {
         element.value += 1;
       }
@@ -64,13 +68,13 @@ function totalErrors(data) {
   result.routesError.sort((a, b) => b.value - a.value);
 
   return result;
-}
+};
 
-function dailyErrors(data, date) {
+export const dailyErrors = (data: Errors[], date: string | null) => {
   if (date === null) return null;
-  const result = { routesError: [], errorTime: [] };
+  const result: DailyErrorData = { routesError: [], errorTime: [] };
   result.errorTime = Array(12)
-    .fill()
+    .fill({})
     .map((v, i) => {
       const obj = { name: i, value: 0 };
       return obj;
@@ -78,24 +82,24 @@ function dailyErrors(data, date) {
 
   for (let i = 0; i < data.length; i += 1) {
     const newDate = new Date(data[i].createdAt.toString());
-    let day = String(newDate).slice(8, 10);
-    if (day < 10) day = day.at(-1);
+    let day: string = String(date).slice(8, 10)!;
+    if (Number(day) < 10) day = day.slice(1);
     if (day !== date) continue;
 
     const { path } = data[i];
-    const hasPath = element => element.name === path;
+    const hasPath = (element: ErrorCount) => element.name === path;
 
     if (!result.routesError.some(hasPath))
       result.routesError.push({ name: path, value: 0 });
 
-    result.routesError.forEach(element => {
+    result.routesError.forEach((element) => {
       if (element.name === path) {
         element.value += 1;
       }
     });
 
-    const time = Math.floor(String(newDate).slice(16, 18) / 2);
-    result.errorTime.forEach(element => {
+    const time = Math.floor(Number(String(newDate).slice(16, 18)) / 2);
+    result.errorTime.forEach((element) => {
       if (element.name === time) {
         element.value += 1;
       }
@@ -105,10 +109,4 @@ function dailyErrors(data, date) {
   result.routesError.sort((a, b) => b.value - a.value);
 
   return result;
-}
-
-export default {
-  totalErrors,
-  dailyErrors,
-  ErrorNameHandler,
 };

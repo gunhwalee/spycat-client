@@ -6,7 +6,7 @@ import { SIZE } from "../assets/constants";
 
 interface HeaderText {
   title : string | null,
-  text: string | null,
+  text?: string | null,
 }
 
 function PageHeader({ title, text }: HeaderText) {

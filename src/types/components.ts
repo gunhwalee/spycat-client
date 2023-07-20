@@ -17,3 +17,15 @@ export interface ServerInfo {
   serverName: string | null,
   url: string | null,
 }
+
+export interface ErrorButtonList {
+  name: string,
+  value: number,
+}
+
+export interface ChartProps {
+  name: string,
+  data: [],
+  width: number,
+  height: number,
+}

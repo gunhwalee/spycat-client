@@ -1,26 +1,26 @@
 import { useState, useEffect } from "react";
 
-import { TIME } from "../assets/constants";
 import mockData from "../charts/MockData";
 import PageHeader from "../components/PageHeader";
 import * as S from "../styles/ErrorListPageStyles";
 import ModalBox from "../components/Modal";
 import ExampleDetailPage from "./ExampleDetailPage";
-import Handler from "../handlers/errorInfoHandlers";
+import { ErrorNameHandler } from "../handlers/errorInfoHandlers";
+import { ErrorButtonList } from "../types/components"
+import useAnimation from "../handlers/useAnimation";
 
-function ExampleListPage() {
+function ExampleListPage(): JSX.Element {
   const { errorLists } = mockData;
-  const [errorArray, setErrorArray] = useState(null);
-  const [selectedError, setSelectedError] = useState(null);
-  const [buttonLists, setButtonLists] = useState(null);
-  const [showModal, setShowModal] = useState(false);
-  const [animation, setAnimation] = useState(false);
-  const [type, setType] = useState("All");
+  const [errorArray, setErrorArray] = useState<any>();
+  const [selectedError, setSelectedError] = useState<string>("");
+  const [buttonLists, setButtonLists] = useState<ErrorButtonList[]>([]);
+  const [type, setType] = useState<string>("All");
+  const { showUi, animation, handler } = useAnimation();
 
   useEffect(() => {
     if (errorLists) {
       const errorBoxes = errorLists.map(element => {
-        if (type !== "All" && element.errorName !== type) return;
+        if (type !== "All" && element.errorName !== type) return undefined;
         const date = new Date(element.createdAt.toString());
         const errorTime = String(date).slice(0, 24);
 
@@ -29,10 +29,7 @@ function ExampleListPage() {
             key={element._id}
             onClick={() => {
               setSelectedError(element._id);
-              setShowModal(true);
-              setTimeout(() => {
-                setAnimation(true);
-              }, 10);
+              handler();
             }}
           >
             <S.ErrorTitle>{element.errorName}</S.ErrorTitle>
@@ -47,32 +44,21 @@ function ExampleListPage() {
       });
 
       setErrorArray(errorBoxes);
-      setButtonLists(Handler.ErrorNameHandler(errorLists));
+      setButtonLists(ErrorNameHandler(errorLists));
     }
-  }, [errorLists, type]);
+  }, [errorLists, type, handler]);
 
-  const showErrorNames = event => {
-    const selectType = event.target.textContent.split(" ");
-    setType(selectType[0]);
-  };
+  const showErrorNames = (event: React.MouseEvent<HTMLElement>) => {
+    const selectType = (event.target as HTMLElement).textContent?.split(" ");
 
-  const handleModal = () => {
-    if (showModal) {
-      setAnimation(false);
-      setTimeout(() => {
-        setShowModal(false);
-      }, TIME.DETAIL_TRANSITION * 1000);
-    } else {
-      setAnimation(true);
-      setShowModal(true);
-    }
+    if (selectType) setType(selectType[0]);
   };
 
   return (
     <S.EntryWrapper>
       <PageHeader title="에러 목록" />
       <S.Main>
-        <S.Nav onClick={showErrorNames}>
+        <S.Nav onClick={(e) => showErrorNames(e)}>
           <S.Button className={type === "All" ? "select" : ""}>
             All {errorLists && errorLists.length}
           </S.Button>
@@ -82,7 +68,7 @@ function ExampleListPage() {
                 <S.Button
                   key={element.name}
                   className={type === element.name ? "select" : ""}
-                >{`${element.name} ${element.value.length}`}</S.Button>
+                >{`${element.name} ${element.value}`}</S.Button>
               );
             })}
         </S.Nav>
@@ -91,10 +77,10 @@ function ExampleListPage() {
           {errorArray}
         </section>
       </S.Main>
-      {showModal && (
+      {showUi && (
         <ModalBox
-          closeModal={handleModal}
-          showModal={showModal}
+          closeModal={handler}
+          showModal={showUi}
           error={selectedError}
           animation={animation}
         >

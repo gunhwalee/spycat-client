@@ -5,6 +5,22 @@ import styled from "styled-components";
 
 import Handler from "../handlers/trafficInfoHandlers";
 import { selectDay } from "../features/trafficSlice";
+import { SIZE } from "../assets/constants";
+import { ErrorCount } from "../types/handlers";
+
+interface DetailProps {
+  name: string,
+  data: ErrorCount[],
+  width: number,
+  height: number,
+}
+
+interface GroupProps {
+  data: ErrorCount,
+  ratio: number,
+  barWidth: number,
+  height: number,
+}
 
 const ErrorBox = styled.div`
   height: 500px;
@@ -12,14 +28,24 @@ const ErrorBox = styled.div`
   align-items: center;
 
   h1 {
-    font-weight: 700;
-    font-size: 24px;
+    font-weight: 500;
+    font-size: ${SIZE.FONT_TITLE}px;
   }
 `;
 
-export default function VerticalChart({ name, data, width, height }) {
-  const [ratio, setRatio] = useState(8);
-  const [barWidth, setBarWidth] = useState(30);
+const NameText = styled.text`
+  font-size: ${SIZE.FONT_SMALL}px;
+`;
+
+const Values = styled.text`
+  text-anchor: middle;
+  font-size: ${SIZE.FONT_SMALL}px;
+  font-weight: normal;
+`;
+
+export default function DetailChart({ name, data, width, height }: DetailProps) {
+  const [ratio, setRatio] = useState<number>(5);
+  const [barWidth, setBarWidth] = useState<number>(30);
   const array = Handler.XAxisArray();
   const maxObjArr = data.reduce((prev, next) => {
     return prev.value >= next.value ? prev : next;
@@ -32,7 +58,7 @@ export default function VerticalChart({ name, data, width, height }) {
       </ErrorBox>
     );
 
-  const maxValue = maxObjArr.value || 50;
+  const maxValue = maxObjArr.value || 30;
   const totalWidth = barWidth * 28;
 
   if (maxValue * ratio > height * 0.8) {
@@ -48,7 +74,7 @@ export default function VerticalChart({ name, data, width, height }) {
   const barGroups = array.map((d, i) => {
     return (
       <g transform={`translate(${i * barWidth}, 0)`} key={uuid()}>
-        <VerticalGroup
+        <Group
           data={data[array[i] - 1]}
           barWidth={barWidth}
           ratio={ratio}
@@ -59,11 +85,11 @@ export default function VerticalChart({ name, data, width, height }) {
   });
 
   return (
-    <svg viewBox={`0 0 ${width} ${height}`} width={width} height={height}>
+    <svg viewBox={`0 0 ${width} ${height}`} key={Math.random()}>
       <g className="container">
-        <text className="title" x="10" y="30">
+        <NameText x="10" y="20">
           {name}
-        </text>
+        </NameText>
         <g className="chart" transform="translate(80, 60)">
           {barGroups}
         </g>
@@ -72,32 +98,28 @@ export default function VerticalChart({ name, data, width, height }) {
   );
 }
 
-function VerticalGroup({ ratio, data, barWidth, height }) {
+function Group({ ratio, data, barWidth, height }: GroupProps) {
   const dispatch = useDispatch();
-  const nameRef = useRef(null);
+  const nameRef = useRef<SVGTextElement>(null);
   const barPadding = 5;
   const barColor = "#348AA7";
-  const heightScale = d => d * ratio;
+  const heightScale = (d: number) => d * ratio;
   const xMid = barWidth * 0.5;
   const barHeight = heightScale(data.value);
-  const startY = height - (barHeight + 100);
+  const startY = height - (barHeight + 90);
 
   const clickHandler = () => {
+    if (!nameRef.current) throw Error("nameRef is not assigned");
+
     const selectDate = nameRef.current.textContent;
     dispatch(selectDay({ selectDate }));
   };
 
   return (
     <g className="group" onClick={clickHandler}>
-      <text
-        className="name-label vertical"
-        x={xMid}
-        y={height - 80}
-        alignmentBaseline="middle"
-        ref={nameRef}
-      >
+      <Values x={xMid} y={height - 80} alignmentBaseline="middle" ref={nameRef}>
         {data.name}
-      </text>
+      </Values>
       <rect
         x={barPadding * 0.5}
         y={startY}
@@ -122,14 +144,9 @@ function VerticalGroup({ ratio, data, barWidth, height }) {
           fill="freeze"
         />
       </rect>
-      <text
-        className="value-label vertical"
-        x={xMid}
-        y="-10"
-        alignmentBaseline="middle"
-      >
+      <Values x={xMid} y="-20" alignmentBaseline="middle">
         {data.value}
-      </text>
+      </Values>
     </g>
   );
 }

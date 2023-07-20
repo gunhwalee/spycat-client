@@ -16,7 +16,12 @@ const ToastBox = styled.div`
   opacity: 0.6;
 `;
 
-function Toast({ setToast, text }) {
+interface ToastProps {
+  setToast: Function,
+  text: string,
+}
+
+function Toast({ setToast, text }: ToastProps): JSX.Element {
   useEffect(() => {
     const timer = setTimeout(() => {
       setToast(false);

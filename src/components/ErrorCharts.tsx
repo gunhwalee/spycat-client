@@ -1,16 +1,21 @@
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../app/hooks";
 
 import * as S from "../styles/TrafficChartStyles";
-import ErrorHandler from "../handlers/errorInfoHandlers";
+import { totalErrors, dailyErrors} from "../handlers/errorInfoHandlers";
 import VerticalChart from "../charts/VerticalChart";
 import HorizontalChart from "../charts/HorizontalChart";
 import DonutChart from "../charts/DonutChart";
 import "../charts/chart.css";
+import { Errors } from "../types/state";
 
-function ErrorCharts({ data }) {
-  const { selectDate } = useSelector(state => state.server);
-  const chartData = ErrorHandler.totalErrors(data);
-  const selectedData = ErrorHandler.dailyErrors(data, selectDate);
+interface ChartData {
+  data: Errors[]
+}
+
+function ErrorCharts({ data }: ChartData): JSX.Element {
+  const { selectDate } = useAppSelector(state => state.server);
+  const chartData = totalErrors(data);
+  const selectedData = dailyErrors(data, selectDate);
 
   return (
     <S.Main>

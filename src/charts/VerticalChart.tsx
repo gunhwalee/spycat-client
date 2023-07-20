@@ -5,7 +5,8 @@ import styled from "styled-components";
 
 import Handler from "../handlers/trafficInfoHandlers";
 import { selectDay } from "../features/trafficSlice";
-import { SIZE } from "../assets/constants";
+
+
 
 const ErrorBox = styled.div`
   height: 500px;
@@ -13,23 +14,13 @@ const ErrorBox = styled.div`
   align-items: center;
 
   h1 {
-    font-weight: 500;
-    font-size: ${SIZE.FONT_TITLE}px;
+    font-weight: 700;
+    font-size: 24px;
   }
 `;
 
-const NameText = styled.text`
-  font-size: ${SIZE.FONT_SMALL}px;
-`;
-
-const Values = styled.text`
-  text-anchor: middle;
-  font-size: ${SIZE.FONT_SMALL}px;
-  font-weight: normal;
-`;
-
-export default function DetailChart({ name, data, width, height }) {
-  const [ratio, setRatio] = useState(5);
+export default function VerticalChart({ name, data, width, height }) {
+  const [ratio, setRatio] = useState(8);
   const [barWidth, setBarWidth] = useState(30);
   const array = Handler.XAxisArray();
   const maxObjArr = data.reduce((prev, next) => {
@@ -43,7 +34,7 @@ export default function DetailChart({ name, data, width, height }) {
       </ErrorBox>
     );
 
-  const maxValue = maxObjArr.value || 30;
+  const maxValue = maxObjArr.value || 50;
   const totalWidth = barWidth * 28;
 
   if (maxValue * ratio > height * 0.8) {
@@ -59,7 +50,7 @@ export default function DetailChart({ name, data, width, height }) {
   const barGroups = array.map((d, i) => {
     return (
       <g transform={`translate(${i * barWidth}, 0)`} key={uuid()}>
-        <Group
+        <VerticalGroup
           data={data[array[i] - 1]}
           barWidth={barWidth}
           ratio={ratio}
@@ -70,11 +61,11 @@ export default function DetailChart({ name, data, width, height }) {
   });
 
   return (
-    <svg viewBox={`0 0 ${width} ${height}`} key={Math.random()}>
+    <svg viewBox={`0 0 ${width} ${height}`} width={width} height={height}>
       <g className="container">
-        <NameText x="10" y="20">
+        <text className="title" x="10" y="30">
           {name}
-        </NameText>
+        </text>
         <g className="chart" transform="translate(80, 60)">
           {barGroups}
         </g>
@@ -83,7 +74,7 @@ export default function DetailChart({ name, data, width, height }) {
   );
 }
 
-function Group({ ratio, data, barWidth, height }) {
+function VerticalGroup({ ratio, data, barWidth, height }) {
   const dispatch = useDispatch();
   const nameRef = useRef(null);
   const barPadding = 5;
@@ -91,7 +82,7 @@ function Group({ ratio, data, barWidth, height }) {
   const heightScale = d => d * ratio;
   const xMid = barWidth * 0.5;
   const barHeight = heightScale(data.value);
-  const startY = height - (barHeight + 90);
+  const startY = height - (barHeight + 100);
 
   const clickHandler = () => {
     const selectDate = nameRef.current.textContent;
@@ -100,9 +91,15 @@ function Group({ ratio, data, barWidth, height }) {
 
   return (
     <g className="group" onClick={clickHandler}>
-      <Values x={xMid} y={height - 80} alignmentBaseline="middle" ref={nameRef}>
+      <text
+        className="name-label vertical"
+        x={xMid}
+        y={height - 80}
+        alignmentBaseline="middle"
+        ref={nameRef}
+      >
         {data.name}
-      </Values>
+      </text>
       <rect
         x={barPadding * 0.5}
         y={startY}
@@ -127,9 +124,14 @@ function Group({ ratio, data, barWidth, height }) {
           fill="freeze"
         />
       </rect>
-      <Values x={xMid} y="-20" alignmentBaseline="middle">
+      <text
+        className="value-label vertical"
+        x={xMid}
+        y="-10"
+        alignmentBaseline="middle"
+      >
         {data.value}
-      </Values>
+      </text>
     </g>
   );
 }

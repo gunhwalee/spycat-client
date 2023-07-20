@@ -1,22 +1,22 @@
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../app/hooks";
 
 import PageHeader from "../components/PageHeader";
 import DetailChart from "../charts/DetailChart";
-import Handler from "../handlers/errorInfoHandlers";
+import { totalErrors } from "../handlers/errorInfoHandlers";
 import * as S from "../styles/ErrorDetailPageStyles";
 
-function ErrorDetailPage({ error }) {
-  const { errorLists } = useSelector(state => state.server);
-  if (error === null) return;
-  const data = errorLists.find(element => element._id === error);
+function ErrorDetailPage({ error }: { error: string }): JSX.Element {
+  const { errorLists } = useAppSelector(state => state.server);
+  if (error === null) return <></>;
+  const data = errorLists?.find(element => element._id === error)!;
   const time = String(new Date(data.createdAt.toString())).slice(0, 24);
-  const filterData = errorLists.filter(
+  const filterData = errorLists?.filter(
     element => element.errorName === data.errorName,
-  );
-  const chartData = Handler.totalErrors(filterData);
+  )!;
+  const chartData = totalErrors(filterData);
 
   return (
-    <div>
+    <>
       <PageHeader title={data.errorName} />
       <S.Main>
         <S.Section>
@@ -48,7 +48,7 @@ function ErrorDetailPage({ error }) {
           </S.Content>
         </S.Section>
       </S.Main>
-    </div>
+    </>
   );
 }
 
