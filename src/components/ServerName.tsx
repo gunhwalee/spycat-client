@@ -5,12 +5,17 @@ import { ReactComponent as DownArrow } from "../assets/img/angle-down.svg";
 import { COLORS } from "../assets/constants";
 import useAnimation from "../handlers/useAnimation";
 
-function ServerName({ name, apikey }) {
-  const [showUi, animation, handler] = useAnimation();
+interface ServerNameProps {
+  name: string,
+  apikey: string,
+}
+
+function ServerName({ name, apikey }: ServerNameProps) {
+  const { showUi, animation, handler } = useAnimation();
 
   return (
     <S.List>
-      <S.NameMenu onMouseEnter={handler} onMouseLeave={handler}>
+      <S.NameMenu onMouseEnter={() => handler()} onMouseLeave={() => handler()}>
         <S.NameBox>
           {name}
           <button type="button">

@@ -2,7 +2,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import axiosMock from "axios";
 import { useSelector } from "react-redux";
-import Sidebar from "../components/Sidebar";
+import Sidebar from "../components/Sidebar.tsx";
 
 jest.mock("react-redux");
 jest.mock("axios");
@@ -20,14 +20,14 @@ describe("Sidebar Component", () => {
       servers: [],
       toApi: false,
     };
-    useSelector.mockImplementation(selector =>
-      selector({ user: initialState }),
+    useSelector.mockImplementation((selector) =>
+      selector({ user: initialState })
     );
 
     render(
       <BrowserRouter>
         <Sidebar />
-      </BrowserRouter>,
+      </BrowserRouter>
     );
 
     const header = screen.getByText("Spy Cat");
@@ -50,7 +50,7 @@ describe("Sidebar Component", () => {
       ],
       toApi: false,
     };
-    useSelector.mockImplementation(selector => selector({ user: USER }));
+    useSelector.mockImplementation((selector) => selector({ user: USER }));
     axiosMock.get.mockImplementation(() =>
       Promise.resolve({
         data: {
@@ -60,13 +60,13 @@ describe("Sidebar Component", () => {
             _id: 5502,
           },
         },
-      }),
+      })
     );
 
     render(
       <BrowserRouter>
         <Sidebar />
-      </BrowserRouter>,
+      </BrowserRouter>
     );
 
     const name = screen.getByText(/bob/i);
@@ -89,7 +89,7 @@ describe("Sidebar Component", () => {
       ],
       toApi: false,
     };
-    useSelector.mockImplementation(selector => selector({ user: USER }));
+    useSelector.mockImplementation((selector) => selector({ user: USER }));
     axiosMock.get.mockImplementation(() =>
       Promise.resolve({
         data: {
@@ -99,20 +99,20 @@ describe("Sidebar Component", () => {
             _id: 5502,
           },
         },
-      }),
+      })
     );
     axiosMock.post.mockImplementation(() =>
       Promise.resolve({
         data: {
           result: "ok",
         },
-      }),
+      })
     );
 
     render(
       <BrowserRouter>
         <Sidebar />
-      </BrowserRouter>,
+      </BrowserRouter>
     );
 
     fireEvent.click(screen.getByText("로그아웃"));
@@ -120,11 +120,11 @@ describe("Sidebar Component", () => {
     const LOGOUT = {
       name: null,
     };
-    useSelector.mockImplementation(selector => selector({ user: LOGOUT }));
+    useSelector.mockImplementation((selector) => selector({ user: LOGOUT }));
     render(
       <BrowserRouter>
         <Sidebar />
-      </BrowserRouter>,
+      </BrowserRouter>
     );
     const login = screen.getByText("로그인");
 

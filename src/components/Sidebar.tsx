@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useAppSelector, useAppDispatch } from "../app/hooks";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
@@ -12,10 +12,10 @@ import { ReactComponent as Login } from "../assets/img/login.svg";
 import logo from "../assets/img/logo-white.png";
 
 function Sidebar() {
-  const { name, _id, servers } = useSelector(state => state.user);
+  const { name, _id, servers } = useAppSelector(state => state.user);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const [serverList, setServerList] = useState(null);
+  const dispatch = useAppDispatch();
+  const [serverList, setServerList] = useState<JSX.Element[] | null>(null);
 
   useEffect(() => {
     const loadServerList = async () => {
@@ -34,7 +34,7 @@ function Sidebar() {
     if (name) {
       loadServerList();
     }
-  }, [name]);
+  }, [name, _id, dispatch]);
 
   useEffect(() => {
     if (servers && servers.length) {
@@ -42,7 +42,6 @@ function Sidebar() {
         return (
           <ServerName
             name={element.serverName}
-            id={element.url}
             apikey={element.apikey}
             key={element.apikey}
           />
