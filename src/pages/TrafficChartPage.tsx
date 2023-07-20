@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useAppSelector, useAppDispatch } from "../app/hooks";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
@@ -9,12 +9,12 @@ import TrafficCharts from "../components/TrafficCharts";
 import { saveData, deleteData } from "../features/trafficSlice";
 import * as S from "../styles/ChartPageStyles";
 
-function TrafficChartPage() {
-  const { id } = useSelector(state => state.user);
-  const { url, traffics } = useSelector(state => state.server);
+function TrafficChartPage(): JSX.Element {
+  const { id } = useAppSelector(state => state.user);
+  const { url, traffics } = useAppSelector(state => state.server);
   const { apikey } = useParams();
   const [errorMessage, setErrorMessage] = useState("");
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const getTrafficData = async () => {
@@ -48,16 +48,16 @@ function TrafficChartPage() {
     return () => {
       dispatch(deleteData());
     };
-  }, [apikey]);
+  }, [apikey, dispatch, id]);
 
   return (
     <S.EntryWrapper>
       <PageHeader title={traffics ? "트래픽 정보" : null} text={url} />
       {traffics ? (
-        <TrafficCharts data={traffics} errorMessage={errorMessage} />
+        <TrafficCharts data={traffics} />
       ) : (
         <S.LoadingBox>
-          <Spinner size={50} />
+          <Spinner />
           <S.LoadingText>{errorMessage || "로딩중입니다."}</S.LoadingText>
         </S.LoadingBox>
       )}

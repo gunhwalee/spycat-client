@@ -1,10 +1,10 @@
 export interface TrafficState {
   serverName: string | null,
   url: string | null,
-  traffics: Traffics[] | null,
-  errorLists: Errors[] | null,
-  selectDate: string | null,
-  apikey: string | null,
+  traffics?: Traffics[] | null,
+  errorLists?: Errors[] | null,
+  selectDate?: string | null,
+  apikey?: string | null,
 }
 
 export interface Traffics {
