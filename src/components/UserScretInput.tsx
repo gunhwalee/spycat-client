@@ -2,7 +2,7 @@ import * as S from "../styles/UserInputStyles";
 
 import { ReactComponent as Eye } from "../assets/img/eye.svg";
 import { ReactComponent as EyeSlash } from "../assets/img/eye-slash.svg";
-import { InputComponentProps } from "../types/props";
+import { InputComponentProps } from "../types/components";
 
 interface SecretInputComponentProps extends InputComponentProps {
   pwHandler: Function,

@@ -1,9 +1,9 @@
 import { useEffect, useState, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useAppSelector, useAppDispatch } from "../app/hooks";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-import { ReactComponent as Id } from "../assets/img/id.svg";
+import Id from "../assets/img/id.svg";
 import { ReactComponent as Key } from "../assets/img/key.svg";
 import { ReactComponent as Copy } from "../assets/img/copy.svg";
 import { ReactComponent as Delete } from "../assets/img/trash.svg";
@@ -15,71 +15,16 @@ import * as S from "../styles/UserPageStyles";
 import Toast from "../components/Toast";
 import { setServers } from "../features/userSlice";
 
-function UserPage() {
-  const { name, id, servers } = useSelector(state => state.user);
-  const [serverArray, setServerArray] = useState(null);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [toast, setToast] = useState(false);
-  const [disabled, setDisabled] = useState(false);
-  const hostRef = useRef();
-  const dispatch = useDispatch();
+function UserPage(): JSX.Element {
+  const { name, id, servers } = useAppSelector(state => state.user);
+  const [serverArray, setServerArray] = useState<any>(null);
+  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [toast, setToast] = useState<string>("");
+  const [disabled, setDisabled] = useState<boolean>(false);
+  const hostRef = useRef<HTMLElement>(null);
+  const dispatch = useAppDispatch();
 
-  const deleteServer = async () => {
-    const text = hostRef.current.textContent;
-    const index = text.lastIndexOf("호스트 주소 :");
-    const url = text.slice(index + 9, text.lastIndexOf(" "));
-
-    if (
-      window.confirm(
-        "서버를 삭제할 경우 해당 트래픽 정보도 같이 삭제됩니다. 삭제하시겠습니까?",
-      )
-    ) {
-      try {
-        setDisabled(true);
-        const response = await axios.patch(
-          `${process.env.REACT_APP_SPYCAT_SERVER}/servers/${url}`,
-          {},
-          { withCredentials: true },
-        );
-
-        setDisabled(false);
-        if (response.data.result === "error") {
-          return setErrorMessage(response.data.message);
-        }
-
-        dispatch(setServers({ servers: response.data.servers }));
-        window.location.replace("/users");
-      } catch (err) {
-        console.error(err);
-        setDisabled(false);
-        return;
-      }
-      alert("삭제되었습니다.");
-    } else {
-      alert("취소되었습니다.");
-    }
-  };
-
-  const generateKey = async apikey => {
-    try {
-      const response = await axios.patch(
-        `${process.env.REACT_APP_SPYCAT_SERVER}/servers/apikey/${apikey}`,
-        {},
-        { withCredentials: true },
-      );
-
-      if (response.data.result === "error") {
-        return setErrorMessage(response.data.message);
-      }
-
-      dispatch(setServers({ servers: response.data.servers }));
-      setToast("APIKEY가 재생성되었습니다.");
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  const copyKey = async apikey => {
+  const copyKey = async (apikey: string) => {
     try {
       await navigator.clipboard.writeText(apikey);
       setToast("클립보드에 복사되었습니다.");
@@ -90,6 +35,62 @@ function UserPage() {
   };
 
   useEffect(() => {
+    const deleteServer = async () => {
+      if (!hostRef.current) throw Error("hostRef is not assigned");
+
+      const text = hostRef.current.textContent;
+      const url = text?.slice(text.lastIndexOf("호스트 주소 :") + 9, text.lastIndexOf(" "));
+
+      if (
+        window.confirm(
+          "서버를 삭제할 경우 해당 트래픽 정보도 같이 삭제됩니다. 삭제하시겠습니까?",
+        )
+      ) {
+        try {
+          setDisabled(true);
+          const response = await axios.patch(
+            `${process.env.REACT_APP_SPYCAT_SERVER}/servers/${url}`,
+            {},
+            { withCredentials: true },
+          );
+
+          setDisabled(false);
+          if (response.data.result === "error") {
+            return setErrorMessage(response.data.message);
+          }
+
+          dispatch(setServers({ servers: response.data.servers }));
+          window.location.replace("/users");
+        } catch (err) {
+          console.error(err);
+          setDisabled(false);
+          return;
+        }
+        alert("삭제되었습니다.");
+      } else {
+        alert("취소되었습니다.");
+      }
+    };
+
+    const generateKey = async (apikey: string) => {
+      try {
+        const response = await axios.patch(
+          `${process.env.REACT_APP_SPYCAT_SERVER}/servers/apikey/${apikey}`,
+          {},
+          { withCredentials: true },
+        );
+
+        if (response.data.result === "error") {
+          return setErrorMessage(response.data.message);
+        }
+
+        dispatch(setServers({ servers: response.data.servers }));
+        setToast("APIKEY가 재생성되었습니다.");
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
     const contents = servers.map(element => {
       return (
         <S.SubContent key={element.url} className="server" ref={hostRef}>
@@ -123,7 +124,7 @@ function UserPage() {
     });
 
     setServerArray(contents);
-  }, [servers]);
+  }, [servers, dispatch]);
 
   return (
     <S.EntryWrapper>
@@ -133,8 +134,8 @@ function UserPage() {
           <section>
             <S.SubTitle>유저정보</S.SubTitle> <hr />
             <S.SubContent>
-              <TextInform Component={Id} value={name} />
-              <TextInform Component={Id} value={id} />
+              <TextInform path={Id} value={name} />
+              <TextInform path={Id} value={id} />
             </S.SubContent>
           </section>
           <section>

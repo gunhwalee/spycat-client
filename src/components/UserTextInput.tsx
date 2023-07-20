@@ -1,5 +1,5 @@
 import * as S from "../styles/UserInputStyles";
-import { InputComponentProps } from "../types/props";
+import { InputComponentProps } from "../types/components";
 
 function UserTextInput({
   path,

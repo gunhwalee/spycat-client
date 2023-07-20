@@ -1,4 +1,4 @@
-const COLORS = {
+export const COLORS = {
   SIDEBAR: "#1e2124",
   WHITE: "#ffffff",
   MODAL_BACK: "#dcdcdc",
@@ -17,12 +17,12 @@ const COLORS = {
   TOAST: "#dcebff",
 };
 
-const TIME = {
+export const TIME = {
   DETAIL_TRANSITION: 0.7,
   SIDE_DROPDOWN: 0.5,
 };
 
-const SIZE = {
+export const SIZE = {
   BIG_LOGO: 60,
   PAGEHEADER_LOGO: 30,
   FONT_PAGEHEADER: 40,
@@ -36,7 +36,7 @@ const SIZE = {
   BORDER_RADIUS: 5,
 };
 
-const CHART_COLORS = [
+export const CHART_COLORS = [
   "#C8FFFF",
   "#98FB98",
   "#f491e6",
@@ -70,8 +70,3 @@ const CHART_COLORS = [
   "#a1f7af",
   "#8bb8d0",
 ];
-
-exports.COLORS = COLORS;
-exports.CHART_COLORS = CHART_COLORS;
-exports.SIZE = SIZE;
-exports.TIME = TIME;

@@ -11,17 +11,17 @@ import LogoHeader from "../components/LogoHeader";
 import UserTextInput from "../components/UserTextInput";
 import Spinner from "../components/Spinner";
 import { addServer } from "../features/userSlice";
-import { ServerInfo } from "../types/props";
+import { ServerInfo } from "../types/components";
 
 function CreateServerPage(): JSX.Element {
   const [info, setInfo] = useState<ServerInfo>({
     serverName: null,
     url: null,
   });
-  const [errorMessage, setErrorMessage] = useState("");
-  const [nameFocus, setNameFocus] = useState(false);
-  const [hostFocus, setHostFocus] = useState(false);
-  const [disabled, setDisabled] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [nameFocus, setNameFocus] = useState<boolean>(false);
+  const [hostFocus, setHostFocus] = useState<boolean>(false);
+  const [disabled, setDisabled] = useState<boolean>(false);
   const { _id } = useAppSelector(state => state.user);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();

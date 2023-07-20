@@ -1,21 +1,24 @@
-import { forwardRef } from "react";
 import * as S from "../styles/UserInputStyles";
 
-const TextInform = forwardRef(function TextInform({ Component, value }, ref) {
+interface InformProps {
+  path: string,
+  value: string | null,
+}
+
+function TextInform({ path, value }: InformProps): JSX.Element {
   return (
     <S.InputWrapper>
       <S.InputBox>
-        {Component && <Component width="20px" height="20px" />}
+        {path && <img width="20px" height="20px" src={path} alt="logo" />}
         <S.Input
           type="text"
-          value={value}
+          value={value ? value : ""}
           readOnly
-          ref={ref}
           className="read"
         />
       </S.InputBox>
     </S.InputWrapper>
   );
-});
+}
 
 export default TextInform;
