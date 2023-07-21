@@ -1,7 +1,7 @@
 import { useAppSelector } from "../app/hooks";
 
 import * as S from "../styles/TrafficChartStyles";
-import TrafficHandler from "../handlers/trafficInfoHandlers";
+import { totalTraffics, dailyTraffics} from "../handlers/trafficInfoHandlers";
 import VerticalChart from "../charts/VerticalChart";
 import HorizontalChart from "../charts/HorizontalChart";
 import DonutChart from "../charts/DonutChart";
@@ -14,8 +14,8 @@ interface ChartData {
 
 function TrafficCharts({ data }: ChartData): JSX.Element {
   const { selectDate } = useAppSelector(state => state.server);
-  const chartData = TrafficHandler.totalTraffics(data);
-  const selectedData = TrafficHandler.dailyTraffics(data, selectDate);
+  const chartData = totalTraffics(data);
+  const selectedData = dailyTraffics(data, selectDate);
 
   return (
     <S.Main>
@@ -37,8 +37,8 @@ function TrafficCharts({ data }: ChartData): JSX.Element {
             <DonutChart
               data={
                 selectDate
-                ? selectedData?.routesTraffic
-                : chartData.routesTraffic
+                ? selectedData?.routesTraffic!
+                : chartData.routesTraffic!
               }
               name="라우팅별 트래픽"
               width={500}
@@ -52,7 +52,7 @@ function TrafficCharts({ data }: ChartData): JSX.Element {
             <HorizontalChart
               data={
                 selectDate
-                ? selectedData?.timeTraffic
+                ? selectedData?.timeTraffic!
                 : chartData.timeTraffic
               }
               name="시간대별 트래픽"

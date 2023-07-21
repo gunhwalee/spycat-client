@@ -36,12 +36,12 @@ export const Nav = styled.nav`
 `;
 
 export const Button = styled.button`
-  border: 1px solid ${SIZE.GRAY};
+  border: 1px solid ${COLORS.GRAY};
   border-radius: ${SIZE.BORDER_RADIUS}px;
   background-color: transparent;
   width: 120px;
   height: 40px;
-  font-size: ${SIZE.FONT_BUTTON}px;
+  font-size: ${SIZE.FONT_REGULAR}px;
   margin: 0px ${SIZE.MARGIN / 2}px;
   cursor: pointer;
 

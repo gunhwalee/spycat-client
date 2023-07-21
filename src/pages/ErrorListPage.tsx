@@ -90,7 +90,7 @@ function ErrorListPage() {
       setErrorArray(errorBoxes);
       setButtonLists(ErrorNameHandler(errorLists));
     }
-  }, [errorLists, type, handler]);
+  }, [errorLists, type]);
 
   const showErrorNames = (event: React.MouseEvent<HTMLElement>) => {
     const selectType = (event.target as HTMLElement).textContent?.split(" ");

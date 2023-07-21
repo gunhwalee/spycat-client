@@ -1,3 +1,5 @@
+import { ErrorCount } from "./handlers"
+
 export interface InputComponentProps {
   path?: string,
   id: string,
@@ -25,7 +27,15 @@ export interface ErrorButtonList {
 
 export interface ChartProps {
   name: string,
-  data: [],
+  data: ErrorCount[],
   width: number,
   height: number,
+}
+
+export interface GroupProps {
+  data: ErrorCount,
+  ratio: number,
+  barWidth?: number,
+  height?: number,
+  barHeight?: number,
 }

@@ -1,7 +1,8 @@
 import { v4 as uuid } from "uuid";
 import { CHART_COLORS } from "../assets/constants";
+import { ChartProps } from "../types/components";
 
-export default function DonutChart({ name, data, width, height }) {
+export default function DonutChart({ name, data, width, height }: ChartProps) {
   const cx = width * 0.3;
   const cy = 185;
   const radius = 100;

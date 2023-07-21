@@ -3,24 +3,10 @@ import { useDispatch } from "react-redux";
 import { v4 as uuid } from "uuid";
 import styled from "styled-components";
 
-import Handler from "../handlers/trafficInfoHandlers";
+import { XAxisArray } from "../handlers/trafficInfoHandlers";
 import { selectDay } from "../features/trafficSlice";
 import { SIZE } from "../assets/constants";
-import { ErrorCount } from "../types/handlers";
-
-interface DetailProps {
-  name: string,
-  data: ErrorCount[],
-  width: number,
-  height: number,
-}
-
-interface GroupProps {
-  data: ErrorCount,
-  ratio: number,
-  barWidth: number,
-  height: number,
-}
+import { ChartProps, GroupProps } from "../types/components";
 
 const ErrorBox = styled.div`
   height: 500px;
@@ -43,10 +29,10 @@ const Values = styled.text`
   font-weight: normal;
 `;
 
-export default function DetailChart({ name, data, width, height }: DetailProps) {
+export default function DetailChart({ name, data, width, height }: ChartProps): JSX.Element {
   const [ratio, setRatio] = useState<number>(5);
   const [barWidth, setBarWidth] = useState<number>(30);
-  const array = Handler.XAxisArray();
+  const array = XAxisArray();
   const maxObjArr = data.reduce((prev, next) => {
     return prev.value >= next.value ? prev : next;
   });
@@ -98,15 +84,15 @@ export default function DetailChart({ name, data, width, height }: DetailProps) 
   );
 }
 
-function Group({ ratio, data, barWidth, height }: GroupProps) {
+function Group({ ratio, data, barWidth, height }: GroupProps): JSX.Element {
   const dispatch = useDispatch();
   const nameRef = useRef<SVGTextElement>(null);
-  const barPadding = 5;
-  const barColor = "#348AA7";
+  const barPadding: number = 5;
+  const barColor: string = "#348AA7";
   const heightScale = (d: number) => d * ratio;
-  const xMid = barWidth * 0.5;
-  const barHeight = heightScale(data.value);
-  const startY = height - (barHeight + 90);
+  const xMid: number = barWidth! * 0.5;
+  const barHeight: number = heightScale(data.value);
+  const startY: number = height! - (barHeight + 90);
 
   const clickHandler = () => {
     if (!nameRef.current) throw Error("nameRef is not assigned");
@@ -117,13 +103,13 @@ function Group({ ratio, data, barWidth, height }: GroupProps) {
 
   return (
     <g className="group" onClick={clickHandler}>
-      <Values x={xMid} y={height - 80} alignmentBaseline="middle" ref={nameRef}>
+      <Values x={xMid} y={height! - 80} alignmentBaseline="middle" ref={nameRef}>
         {data.name}
       </Values>
       <rect
         x={barPadding * 0.5}
         y={startY}
-        width={barWidth - barPadding}
+        width={barWidth! - barPadding}
         height={barHeight}
         fill={barColor}
       >

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useAppSelector } from "../app/hooks";
 
 import LogoHeader from "../components/LogoHeader";
-import Handler from "../handlers/trafficInfoHandlers";
+import { totalTraffics } from "../handlers/trafficInfoHandlers";
 import VerticalChart from "../charts/VerticalChart";
 import MockData from "../charts/MockData";
 import * as S from "../styles/HomePageStyles";
@@ -10,7 +10,7 @@ import * as G from "../styles/GlobalStyles";
 
 function HomePage():JSX.Element {
   const { name } = useAppSelector(state => state.user);
-  const data = Handler.totalTraffics(MockData.traffics);
+  const data = totalTraffics(MockData.traffics);
 
   return (
     <S.EntryWrapper>

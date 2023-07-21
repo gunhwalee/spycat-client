@@ -3,10 +3,9 @@ import { useDispatch } from "react-redux";
 import { v4 as uuid } from "uuid";
 import styled from "styled-components";
 
-import Handler from "../handlers/trafficInfoHandlers";
+import { XAxisArray } from "../handlers/trafficInfoHandlers";
 import { selectDay } from "../features/trafficSlice";
-
-
+import { ChartProps, GroupProps } from "../types/components";
 
 const ErrorBox = styled.div`
   height: 500px;
@@ -19,10 +18,10 @@ const ErrorBox = styled.div`
   }
 `;
 
-export default function VerticalChart({ name, data, width, height }) {
+export default function VerticalChart({ name, data, width, height }: ChartProps) {
   const [ratio, setRatio] = useState(8);
   const [barWidth, setBarWidth] = useState(30);
-  const array = Handler.XAxisArray();
+  const array = XAxisArray();
   const maxObjArr = data.reduce((prev, next) => {
     return prev.value >= next.value ? prev : next;
   });
@@ -74,17 +73,19 @@ export default function VerticalChart({ name, data, width, height }) {
   );
 }
 
-function VerticalGroup({ ratio, data, barWidth, height }) {
+function VerticalGroup({ ratio, data, barWidth, height }: GroupProps) {
   const dispatch = useDispatch();
-  const nameRef = useRef(null);
-  const barPadding = 5;
-  const barColor = "#348AA7";
-  const heightScale = d => d * ratio;
-  const xMid = barWidth * 0.5;
+  const nameRef = useRef<SVGTextElement>(null);
+  const barPadding: number = 5;
+  const barColor: string = "#348AA7";
+  const heightScale = (d: number) => d * ratio;
+  const xMid = barWidth! * 0.5;
   const barHeight = heightScale(data.value);
-  const startY = height - (barHeight + 100);
+  const startY = height! - (barHeight + 100);
 
   const clickHandler = () => {
+    if (!nameRef.current) throw Error("nameRef is not assigned");
+
     const selectDate = nameRef.current.textContent;
     dispatch(selectDay({ selectDate }));
   };
@@ -94,7 +95,7 @@ function VerticalGroup({ ratio, data, barWidth, height }) {
       <text
         className="name-label vertical"
         x={xMid}
-        y={height - 80}
+        y={height! - 80}
         alignmentBaseline="middle"
         ref={nameRef}
       >
@@ -103,7 +104,7 @@ function VerticalGroup({ ratio, data, barWidth, height }) {
       <rect
         x={barPadding * 0.5}
         y={startY}
-        width={barWidth - barPadding}
+        width={barWidth! - barPadding}
         height={barHeight}
         fill={barColor}
       >

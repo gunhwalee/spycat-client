@@ -1,10 +1,24 @@
 import { useState } from "react";
 import { v4 as uuid } from "uuid";
+import { ErrorCount } from "../types/handlers";
 
-export default function HorizontalChart({ name, data, width, height }) {
-  const [ratio, setRatio] = useState(8);
-  const [barHeight, setBarHeight] = useState(30);
-  if (!data.length) return null;
+interface ChartProps {
+  name: string,
+  data: ErrorCount[],
+  width: number,
+  height: number,
+}
+
+interface GroupProps {
+  ratio: number,
+  data: ErrorCount,
+  barHeight: number,
+}
+
+export default function HorizontalChart({ name, data, width, height }: ChartProps): JSX.Element {
+  const [ratio, setRatio] = useState<number>(8);
+  const [barHeight, setBarHeight] = useState<number>(30);
+  if (!data.length) return <></>;
   const maxObjArr = data.reduce((prev, next) => {
     return prev.value >= next.value ? prev : next;
   });
@@ -44,12 +58,12 @@ export default function HorizontalChart({ name, data, width, height }) {
   );
 }
 
-function HorizontalGroup({ ratio, data, barHeight }) {
-  const barPadding = 5;
-  const barColor = "#7289da";
-  const widthScale = d => d * ratio;
-  const yMid = barHeight * 0.5;
-  const barWidth = widthScale(data.value);
+function HorizontalGroup({ ratio, data, barHeight }: GroupProps) {
+  const barPadding: number = 5;
+  const barColor: string = "#7289da";
+  const widthScale = (d: number) => d * ratio;
+  const yMid: number = barHeight! * 0.5;
+  const barWidth: number = widthScale(data.value);
 
   return (
     <g className="group">
@@ -59,12 +73,12 @@ function HorizontalGroup({ ratio, data, barHeight }) {
         y={yMid}
         alignmentBaseline="middle"
       >
-        {`${data.name * 2} - ${(data.name + 1) * 2}시`}
+        {`${Number(data.name) * 2} - ${(Number(data.name) + 1) * 2}시`}
       </text>
       <rect
         y={barPadding * 0.5}
         width={barWidth}
-        height={barHeight - barPadding}
+        height={barHeight! - barPadding}
         fill={barColor}
       >
         <animate
