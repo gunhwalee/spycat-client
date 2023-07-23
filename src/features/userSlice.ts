@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { UserState } from "../types/state";
+import { UserState, ServerInfo } from "../types/state";
 
 const initialState: UserState = {
   name: null,
@@ -9,7 +9,10 @@ const initialState: UserState = {
 };
 
 type InputPayload = Omit<UserState, "servers">;
-type ServerPayload = Pick<UserState, "servers">;
+type ServersPayload = Pick<UserState, "servers">;
+type ServerPayload = {
+  server: ServerInfo
+}
 
 const userSlice = createSlice({
   name: "user",
@@ -20,7 +23,7 @@ const userSlice = createSlice({
       state._id = action.payload._id;
       state.id = action.payload.id;
     },
-    setServers(state, action: PayloadAction<ServerPayload>) {
+    setServers(state, action: PayloadAction<ServersPayload>) {
       state.servers = action.payload.servers;
     },
     deleteUser(state) {
@@ -29,7 +32,7 @@ const userSlice = createSlice({
       state.id = null;
       state.servers = [];
     },
-    addServer(state, action) {
+    addServer(state, action: PayloadAction<ServerPayload>) {
       state.servers = [...state.servers, action.payload.server];
     },
   },

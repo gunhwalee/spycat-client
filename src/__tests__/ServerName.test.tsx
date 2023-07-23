@@ -3,21 +3,37 @@ import { BrowserRouter } from "react-router-dom";
 import ServerName from "../components/ServerName";
 
 describe("ServerName Component", () => {
+  let container: HTMLDivElement;
+
   beforeEach(() => {
-    render(
-      <BrowserRouter>
-        <ServerName name="Test server" />
-      </BrowserRouter>,
-    );
+    container = document.createElement("div");
+    document.body.appendChild(container);
+  });
+
+  afterEach(() => {
+    document.body.removeChild(container);
+    container.remove();
   });
 
   it("정상적으로 렌더링 되는지 확인합니다.", () => {
+    render(
+      <BrowserRouter>
+        <ServerName name="Test server" apikey="1234" />
+      </BrowserRouter>,
+    );
+
     const header = screen.getByText("Test server");
 
     expect(header).toBeInTheDocument();
   });
 
   it("드랍다운 메뉴가 정상적으로 렌더링 되는지 확인합니다.", () => {
+    render(
+      <BrowserRouter>
+        <ServerName name="Test server" apikey="1234" />
+      </BrowserRouter>,
+    );
+
     fireEvent.mouseEnter(screen.getByText("Test server"));
 
     const dropdown = screen.getByText("트래픽 차트");
@@ -26,6 +42,12 @@ describe("ServerName Component", () => {
   });
 
   it("드랍다운 메뉴가 정상적으로 사라지는지 확인합니다.", async () => {
+    render(
+      <BrowserRouter>
+        <ServerName name="Test server" apikey="1234" />
+      </BrowserRouter>,
+    );
+
     fireEvent.mouseEnter(screen.getByText("Test server"));
     fireEvent.mouseLeave(screen.getByText("Test server"));
 

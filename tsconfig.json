@@ -17,5 +17,6 @@
     "jsx": "react-jsx"
   },
   "include": ["src"],
-  "typeRoots": ["src/types"]
+  "typeRoots": ["src/types"],
+  "exclude": ["setupTest.ts"]
 }

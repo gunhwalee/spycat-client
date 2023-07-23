@@ -17,6 +17,7 @@ function ModalBox({ closeModal, showModal, error, children, animation }: ModalPr
         type="button"
         onClick={() => closeModal()}
         className={`${animation ? "active" : "none"} ${error ? "" : "hide"}`}
+        data-testid="arrow-btn"
       >
         {showModal ? <CloseArrow width="15px" /> : <OpenArrow width="15px" />}
       </S.ArrowBtn>

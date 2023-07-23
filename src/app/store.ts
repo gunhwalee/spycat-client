@@ -2,12 +2,13 @@ import {
   configureStore,
   combineReducers,
   getDefaultMiddleware,
+  PreloadedState
 } from "@reduxjs/toolkit";
 import storageSession from "redux-persist/lib/storage/session";
 import { persistReducer } from "redux-persist";
 
 import userReducer from "../features/userSlice";
-import serverSlice from "../features/trafficSlice";
+import serverReducer from "../features/trafficSlice";
 
 const persistConfig = {
   key: "root",
@@ -18,10 +19,10 @@ const persistConfig = {
 
 const reducer = combineReducers({
   user: userReducer,
-  server: serverSlice,
+  server: serverReducer,
 });
 
-const persistedReducer = persistReducer(persistConfig, reducer);
+export const persistedReducer = persistReducer(persistConfig, reducer);
 
 const store = configureStore({
   reducer: persistedReducer,
@@ -30,6 +31,17 @@ const store = configureStore({
   }),
 });
 
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
+export function setupStore(preloadedState?: PreloadedState<RootState>) {
+  return configureStore({
+    reducer: persistedReducer,
+    middleware: getDefaultMiddleware({
+      serializableCheck: false,
+    }),
+    preloadedState
+  });
+}
+
+export type RootState = ReturnType<typeof persistedReducer>;
+export type AppStore = ReturnType<typeof setupStore>;
+export type AppDispatch = AppStore["dispatch"];
 export default store;
