@@ -6,6 +6,7 @@ export const EntryWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 `;
 
 export const SubmitForm = styled.form`

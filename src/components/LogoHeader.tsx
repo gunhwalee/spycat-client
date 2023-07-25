@@ -4,7 +4,7 @@ import logo from "../assets/img/logo.png";
 
 const LogoBox = styled.div`
   display: flex;
-  margin: ${SIZE.MARGIN * 10}px 0px ${SIZE.MARGIN * 5}px;
+  margin-bottom: ${SIZE.MARGIN * 5}px;
 
   h1 {
     font-size: ${SIZE.BIG_LOGO}px;
