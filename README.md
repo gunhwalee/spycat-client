@@ -701,7 +701,7 @@ MongoDB는 대표적인 비관계형 데이터베이스로 유연한 스키마 �
 
 # Links
 
-Live Server
+Live Site
 
 - [Spy Cat](https://spycat.netlify.app)
 
