@@ -14,7 +14,7 @@ import useAnimation from "../handlers/useAnimation";
 import { ErrorButtonList } from "../types/components";
 
 function ErrorListPage() {
-  const { errorLists } = useAppSelector(state => state.server);
+  const { errorLists } = useAppSelector((state) => state.server);
   const { apikey } = useParams();
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [errorArray, setErrorArray] = useState<any>(null);
@@ -31,7 +31,7 @@ function ErrorListPage() {
         setDisabled(true);
         const response = await axios.get(
           `${process.env.REACT_APP_SPYCAT_SERVER}/servers/${apikey}/errors`,
-          { withCredentials: true },
+          { withCredentials: true }
         );
 
         setDisabled(false);
@@ -44,12 +44,12 @@ function ErrorListPage() {
             serverName: response.data.serverName,
             url: response.data.url,
             errorLists: response.data.errorLists,
-          }),
+          })
         );
       } catch (err) {
         console.error(err);
         return setErrorMessage(
-          "서버 접속이 원활하지 않습니다. 잠시 후 시도해주세요.",
+          "서버 접속이 원활하지 않습니다. 잠시 후 시도해주세요."
         );
       }
     };
@@ -63,7 +63,7 @@ function ErrorListPage() {
 
   useEffect(() => {
     if (errorLists) {
-      const errorBoxes = errorLists.map(element => {
+      const errorBoxes = errorLists.map((element) => {
         if (type !== "All" && element.errorName !== type) return undefined;
         const date = new Date(element.createdAt.toString());
         const errorTime = String(date).slice(0, 24);
@@ -113,7 +113,7 @@ function ErrorListPage() {
               All {errorLists && errorLists.length}
             </S.Button>
             {buttonLists &&
-              buttonLists.map(element => {
+              buttonLists.map((element) => {
                 return (
                   <S.Button
                     key={element.name}

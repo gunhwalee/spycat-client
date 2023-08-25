@@ -39,7 +39,7 @@ export const Button = styled.button`
   border: 1px solid ${COLORS.GRAY};
   border-radius: ${SIZE.BORDER_RADIUS}px;
   background-color: transparent;
-  width: 120px;
+  min-width: 120px;
   height: 40px;
   font-size: ${SIZE.FONT_REGULAR}px;
   margin: 0px ${SIZE.MARGIN / 2}px;
