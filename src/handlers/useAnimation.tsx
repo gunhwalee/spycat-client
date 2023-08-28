@@ -2,9 +2,9 @@ import { useState } from "react";
 import { TIME } from "../assets/constants";
 
 interface FunctionResult {
-  showUi: boolean,
-  animation: boolean,
-  handler: Function
+  showUi: boolean;
+  animation: boolean;
+  handler: Function;
 }
 
 function useAnimation(): FunctionResult {
@@ -18,8 +18,10 @@ function useAnimation(): FunctionResult {
         setShowUi(false);
       }, TIME.DETAIL_TRANSITION * 1000);
     } else {
-      setAnimation(true);
       setShowUi(true);
+      setTimeout(() => {
+        setAnimation(true);
+      }, 0);
     }
   };
 
